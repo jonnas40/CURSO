@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <title> Connect Four </title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Connect 4">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="João Pedro Silva Nogueira e João Pedro Rocha e Silva">
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="buton.js"></script>
+  <script src="board.js"></script>
+  <script src="serv.js"></script>
+</head>
+
+<body onload="show_Login();">
+  <div id="login" class="desktop">
+    <span id="logintr">
+      <a id="logname"> </a>
+    </span>
+  </div>
+  <img src="media/logo.png" height="100" width="556" id="logo" alt="Connect4">
+  <!-- Login -->
+  <div id="poplogin" class="modal">
+    <div class="login-content">
+      <span class="close"></span>
+      <h2>Login</h2>
+      <p>Nome de Utilizador</p>
+      <p><input id="loguser" type=text></p>
+      <p>Password</p>
+      <p><input id="logpasswd" type=password></p>
+      <div id="logerror">
+        <a>Password errada!!</a><br>
+      </div>
+      <input id="rem" type=checkbox>
+      <a> Lembrar-me  |  </a>
+      <a href="#"> Esqueceu da palavra-passe?</a><br><br>
+      <button class="bt1" id="loginbtn">LOGIN</button>
+    </div>
+  </div>
+    <div class="gamescreen">
+      <div id="game">
+        <a >&nbsp;</a>
+      </div>
+    </div>
+  <br>
+  <div id="tabbut">
+    <button id="bconfig" class="bt2" onclick="config()">Configurações</button>
+    <button id="bclassi" class="bt2" onclick="classi()">Classificações</button>
+    <button id="binstru" class="bt2" onclick="instru()">Instruções</button>
+    <button id="bdesist" class="bt2" >Desistir</button>
+  </div>
+
+  <!-- Configurações-->
+  <div id="config" class="modal">
+    <div class="button-content">
+      <span class="bclose">&times;</span>
+        <h3> Configurações</h3>
+        <p class="tamanho">Tamanho do Tabuleiro:</p><br>
+        <a class="altura">Altura:&nbsp;  </a><select id="alt" size=1 name="Altura">
+          <option>10</option>
+          <option>9</option>
+          <option>8</option>
+          <option>7</option>
+          <option>6</option>
+          <option>5</option>
+          <option>4</option>
+        </select>
+        <a class="largura">Largura:&nbsp;</a> <select id="lar" size=1 name="Largura">
+          <option>10</option>
+          <option>9</option>
+          <option>8</option>
+          <option>7</option>
+          <option>6</option>
+          <option>5</option>
+          <option>4</option>
+        </select> <br><br>
+        <p class="tamanho">Oponente:</p><br>
+        <a class="altura"> Computador:&nbsp;</a><input type="radio" name="opp" id="cpu">
+        <a class="largura"> Outro Jogador:&nbsp;</a><input type="radio" name="opp" id="jog"><br><br>
+        <p class="tamanho">1o a Jogar:</p>
+        <a class="altura"> Jogador:&nbsp;</a><input type="radio" name="pri" id="prijog">
+        <a class="largura"> Computador:&nbsp;</a><input type="radio" name="pri" id="pricpu"><br><br><br><br>
+        <a class="largura">Nível de Dificuldade:&nbsp;</a><select id="dif" size=1 name="Dificuldade">
+          <option>N/A</option>
+        </select><br><br><br><br>
+        <button id="Save" onclick="initialize()" class="bt1">Guardar</button><br><br><br>
+    </div>
+  </div>
+
+  <!-- Classificações-->
+  <div id="classi" class="modal">
+    <div class="button-content">
+      <span class="bclose">&times;</span>
+      <h3> Rankings </h3>
+      <button id="nclass" class="bt1" onclick="toranking()">Muliplayer</button><br><br>
+      <table class="tclass">
+        <thead>
+          <tr>
+            <th><a>Utilizador</a></th>
+            <th><a>Resultados</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> <a id="claname"></a> </td>
+            <td><a id="win">0</a> - <a id="loss">0</a> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="instru" class="modal">
+    <div class="button-content">
+      <span class="bclose">&times;</span>
+      <h3>Instruções</h3>
+      <img id="rules" src="media/rules.png" height="268" width="394" alt="Regras">
+      <h4>O quatro em linha joga-se numa grelha colocada na vertical.
+        As peças colocadas numa das aberturas no topo da grelha caiem ao longo de calhas e ocupam a primeira posição livre, seja no fundo da grelha ou sobre outra peça.</h4>
+      <h4>Cada jogador joga com peças de cor diferente e alternadamente coloca uma peça numa das calhas ainda não completamente preenchidas.
+        Ganha o primeiro jogador que conseguir colocar 4 peças da sua cor alinhadas, na vertical, horizontal ou diagonal.</h4>
+      <h4>Clique na coluna em que pretende por a peça para começar a jogar.</h4>
+    </div>
+  </div>
+  <br>
+  <div class="logmsg">
+    <div class="logs">
+      <a id="log"> &nbsp;Mensagens...<br><br><br><br><br><br><br><br>lmao</a>
+    </div>
+  </div>
+  <a id="gameid">gameid:</a>
+
+  <!--  RANKINGS DO SERVIDOR  -->
+  <div id="netclass" class="modal">
+    <div class="button-content">
+      <span class="bclose">&times;</span>
+      <h3>Rankings Multijogador</h3>
+      <a class="altura">Altura:&nbsp;  </a><select id="nalt" size=1 name="Altura">
+        <option>10</option>
+        <option>9</option>
+        <option>8</option>
+        <option>7</option>
+        <option>6</option>
+        <option>5</option>
+        <option>4</option>
+      </select>
+      <a class="largura">Largura:&nbsp;</a> <select id="nlar" size=1 name="Largura">
+        <option>10</option>
+        <option>9</option>
+        <option>8</option>
+        <option>7</option>
+        <option>6</option>
+        <option>5</option>
+        <option>4</option>
+      </select> <br> <br>
+      <button class="bt1" id="netShowTable" onclick="ranking()">Pesquisa</button><br><br>
+      <table class="tclass">
+        <thead>
+          <tr>
+            <th><a>Pos.</a></th>
+            <th><a>Utilizador</a></th>
+            <th><a>Vitorias</a></th>
+            <th><a>Jogos</a></th>
+          </tr>
+        </thead>
+        <tbody id="rankbody">
+        </tbody>
+    </div>
+  </div>
+
+</body>
+
+</html>
