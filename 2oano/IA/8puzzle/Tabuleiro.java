@@ -3,7 +3,7 @@ class Tabuleiro{
     return int[] board = new int[size];
   }
   public static int[] Right(int[] tab, int side) {
-    if
+    
   }
   public static int[] Left(int[] tab, int side) {
 
