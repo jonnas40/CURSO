@@ -4,6 +4,7 @@ class Tabuleiro{
   int side;
   Tabuleiro pai;
   char action;
+  int zeroIndex;
   
   public Tabuleiro (int side){
     this.side = side;
@@ -14,21 +15,20 @@ class Tabuleiro{
     this.pai = pai;
   }
 
-  public int findSpace(){
+  /*public int findSpace(){
     for (int i=1; i<=this.side*this.side; i++){
       if(this.board[i]==0){
         return i;
       }
     }
     return 0;
-  }
+  }*/
 
   public Tabuleiro Right(){
     Tabuleiro res = this;
-    int space = this.findSpace();
-    if((space % this.side) != 0){
-      res.board[space] = res.board[space + 1];
-      res.board[space + 1] = 0;
+    if((this.zeroIndex % this.side) != 0){
+      res.board[this.zeroIndex] = res.board[this.zeroIndex + 1];
+      res.board[this.zeroIndex + 1] = 0;
       res.action = 'R';
       return res;
     }
@@ -37,10 +37,9 @@ class Tabuleiro{
 
   public Tabuleiro Left() {
     Tabuleiro res = this;
-    int space = res.findSpace();
-    if((space % res.side) != 1){
-      res.board[space] = res.board[space - 1];
-      res.board[space - 1] = 0;
+    if((this.zeroIndex % res.side) != 1){
+      res.board[this.zeroIndex] = res.board[this.zeroIndex - 1];
+      res.board[this.zeroIndex - 1] = 0;
       res.action = 'L';
       return res;
     }
@@ -49,10 +48,9 @@ class Tabuleiro{
 
   public Tabuleiro Up() {
     Tabuleiro res = this;
-    int space = res.findSpace();
-    if(space - res.side > 0){
-      res.board[space] = res.board[space - res.side];
-      res.board[space - res.side] = 0;
+    if(this.zeroIndex - res.side > 0){
+      res.board[this.zeroIndex] = res.board[this.zeroIndex - res.side];
+      res.board[this.zeroIndex - res.side] = 0;
       res.action = 'U';
       return res;
     }
@@ -61,10 +59,9 @@ class Tabuleiro{
 
   public Tabuleiro Down() {
     Tabuleiro res = this;
-    int space = res.findSpace();
-    if(space + res.side <= res.side*res.side){
-      res.board[space] = res.board[space - res.side];
-      res.board[space - res.side] = 0;
+    if(this.zeroIndex + res.side <= res.side*res.side){
+      res.board[this.zeroIndex] = res.board[this.zeroIndex - res.side];
+      res.board[this.zeroIndex - res.side] = 0;
       res.action = 'D';
       return res;
     }
@@ -88,7 +85,7 @@ class Tabuleiro{
         inv+=this.board[i]-i;
       }
     }
-    if ( ( (this.side%2==1) && (inv%2==0) ) || ( (this.side%2==0) && (( (this.findSpace()/this.side)%2==1 ) == (inv%2==0) )) ){
+    if ( ( (this.side%2==1) && (inv%2==0) ) || ( (this.side%2==0) && (( (this.zeroIndex/this.side)%2==1 ) == (inv%2==0) )) ){
       return true;
     }
     return false;

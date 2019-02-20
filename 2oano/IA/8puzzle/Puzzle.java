@@ -10,11 +10,13 @@ class Puzzle{
     System.out.println("Tabuleiro inicial:");
     for (int i=1; i<=(tabSide*tabSide); i++){
       tabI.board[i] = stdin.nextInt();
+      if (tabI.board[i]==0) tabI.zeroIndex=i;
     }
     System.out.println("Tabuleiro final:");
     Tabuleiro tabF = new Tabuleiro(tabSide);
     for (int i=1; i<=tabSide*tabSide; i++){
       tabF.board[i] = stdin.nextInt();
+      if (tabF.board[i]==0) tabF.zeroIndex=i;
     }
     /*System.out.println();
     System.out.println(tabI.printTab());
