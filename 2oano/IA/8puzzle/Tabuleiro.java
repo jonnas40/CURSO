@@ -1,10 +1,11 @@
+
 class Tabuleiro{
   int[] board;
   int side;
   Tabuleiro pai;
   char action;
   int zeroIndex;
-  
+
   public Tabuleiro (int side){
     this.side = side;
     board = new int[(side*side)+1];
@@ -29,6 +30,7 @@ class Tabuleiro{
       res.board[this.zeroIndex] = res.board[this.zeroIndex + 1];
       res.board[this.zeroIndex + 1] = 0;
       res.action = 'R';
+      res.zeroIndex = this.zeroIndex + 1;
       return res;
     }
     return null;
@@ -40,6 +42,7 @@ class Tabuleiro{
       res.board[this.zeroIndex] = res.board[this.zeroIndex - 1];
       res.board[this.zeroIndex - 1] = 0;
       res.action = 'L';
+      res.zeroIndex = this.zeroIndex - 1;
       return res;
     }
     return null;
@@ -51,6 +54,7 @@ class Tabuleiro{
       res.board[this.zeroIndex] = res.board[this.zeroIndex - res.side];
       res.board[this.zeroIndex - res.side] = 0;
       res.action = 'U';
+      res.zeroIndex = this.zeroIndex - res.side;
       return res;
     }
     return null;
@@ -59,9 +63,10 @@ class Tabuleiro{
   public Tabuleiro Down() {
     Tabuleiro res = this;
     if(this.zeroIndex + res.side <= res.side*res.side){
-      res.board[this.zeroIndex] = res.board[this.zeroIndex - res.side];
-      res.board[this.zeroIndex - res.side] = 0;
+      res.board[this.zeroIndex] = res.board[this.zeroIndex + res.side];
+      res.board[this.zeroIndex + res.side] = 0;
       res.action = 'D';
+      res.zeroIndex = this.zeroIndex + res.side;
       return res;
     }
     return null;
@@ -89,14 +94,5 @@ class Tabuleiro{
     }
     return false;
     }
-    
-    public Tabuleiro copy(){
-      Tabuleiro novo = new Tabuleiro(this.side);
-      novo.zeroIndex=this.zeroIndex;
-      novo.pai=this;
-      for (int i = 1; i < (this.side*this.side); i++) novo.board[i]=this.board[i];
-      return novo;
-    }
 
   }
-  
