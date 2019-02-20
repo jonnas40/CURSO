@@ -91,7 +91,7 @@ class Tabuleiro{
     if (this.side%2!=0 && inv%2==0) return true;
     else {
       if (this.side-((this.findSpace()%this.side)+1)%2==0){
-            asdas
+            asdassad
       }
     }
   }
