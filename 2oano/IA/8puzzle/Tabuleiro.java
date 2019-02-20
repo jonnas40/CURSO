@@ -1,4 +1,3 @@
-
 class Tabuleiro{
   int[] board;
   int side;
@@ -90,5 +89,14 @@ class Tabuleiro{
     }
     return false;
     }
+    
+    public Tabuleiro copy(){
+      Tabuleiro novo = new Tabuleiro(this.side);
+      novo.zeroIndex=this.zeroIndex;
+      novo.pai=this;
+      for (int i = 1; i < (this.side*this.side); i++) novo.board[i]=this.board[i];
+      return novo;
+    }
 
   }
+  
