@@ -90,7 +90,7 @@ class Tabuleiro{
     }
     if (this.side%2!=0 && inv%2==0) return true;
     else {
-      if (condition)   {
+      if (this.side)   {
         
       }
     }
