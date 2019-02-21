@@ -1,10 +1,12 @@
+import java.util.LinkedList;
 
-class Tabuleiro{
+class Tabuleiro {
   int[] board;
   int side;
   Tabuleiro pai;
   char action;
   int zeroIndex;
+  LinkedList<Tabuleiro> adjs;
 
   public Tabuleiro (int side){
     this.side = side;
@@ -16,9 +18,10 @@ class Tabuleiro{
   }
 
   public Tabuleiro Right(){
-    Tabuleiro res = this;
+    Tabuleiro res = new Tabuleiro(this.side*this.side);
+    res.copyTab(this);
     if((this.zeroIndex % this.side) != 0){
-      res.board[this.zeroIndex] = res.board[this.zeroIndex + 1];
+      res.board[this.zeroIndex] = this.board[this.zeroIndex + 1];
       res.board[this.zeroIndex + 1] = 0;
       res.action = 'R';
       res.zeroIndex = this.zeroIndex + 1;
@@ -28,9 +31,10 @@ class Tabuleiro{
   }
 
   public Tabuleiro Left() {
-    Tabuleiro res = this;
-    if((this.zeroIndex % res.side) != 1){
-      res.board[this.zeroIndex] = res.board[this.zeroIndex - 1];
+    Tabuleiro res = new Tabuleiro(this.side*this.side);
+    res.copyTab(this);
+    if((this.zeroIndex % this.side) != 1){
+      res.board[this.zeroIndex] = this.board[this.zeroIndex - 1];
       res.board[this.zeroIndex - 1] = 0;
       res.action = 'L';
       res.zeroIndex = this.zeroIndex - 1;
@@ -40,24 +44,26 @@ class Tabuleiro{
   }
 
   public Tabuleiro Up() {
-    Tabuleiro res = this;
-    if(this.zeroIndex - res.side > 0){
-      res.board[this.zeroIndex] = res.board[this.zeroIndex - res.side];
-      res.board[this.zeroIndex - res.side] = 0;
+    Tabuleiro res = new Tabuleiro(this.side*this.side);
+    res.copyTab(this);
+    if(this.zeroIndex - this.side > 0){
+      res.board[this.zeroIndex] = this.board[this.zeroIndex - this.side];
+      res.board[this.zeroIndex - this.side] = 0;
       res.action = 'U';
-      res.zeroIndex = this.zeroIndex - res.side;
+      res.zeroIndex = this.zeroIndex - this.side;
       return res;
     }
     return null;
   }
 
   public Tabuleiro Down() {
-    Tabuleiro res = this;
-    if(this.zeroIndex + res.side <= res.side*res.side){
-      res.board[this.zeroIndex] = res.board[this.zeroIndex + res.side];
-      res.board[this.zeroIndex + res.side] = 0;
+    Tabuleiro res = new Tabuleiro(this.side*this.side);
+    res.copyTab(this);
+    if(this.zeroIndex + this.side <= this.side*this.side){
+      res.board[this.zeroIndex] = this.board[this.zeroIndex + this.side];
+      res.board[this.zeroIndex + this.side] = 0;
       res.action = 'D';
-      res.zeroIndex = this.zeroIndex + res.side;
+      res.zeroIndex = this.zeroIndex + this.side;
       return res;
     }
     return null;
@@ -84,11 +90,29 @@ class Tabuleiro{
       return true;
     }
     return false;
-    }
-
-  public void copyTab(Tabuleiro src){
-    this.zeroIndex=src.zeroIndex;
-    this.pai=src;
-    for (int i = 1; i <=src.side*src.side; i++) this.board[i] = src.board[i];
   }
+  
+  public Tabuleiro copyTab(Tabuleiro src){
+    this.zeroIndex=src.zeroIndex;
+    this.setPai(src);
+    for (int i = 1; i <=src.side*src.side; i++) this.board[i] = src.board[i];
+    return this;
+  }
+
+  public LinkedList<Tabuleiro> adjs_no() {
+    adjs.add(this.Up());
+    adjs.add(this.Right());
+    adjs.add(this.Left());
+    adjs.add(this.Down());
+    return adjs;
+  }
+
+  public boolean compareTo(Tabuleiro comp){
+    boolean flag = true;
+    for (int i = 1; i < this.side*this.side; i++) {
+      if(this.board[i]!=comp.board[i]) return flag=false;
+    }
+    return flag;
+  }
+      
 }
