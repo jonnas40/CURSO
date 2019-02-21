@@ -79,6 +79,38 @@ class Tabuleiro {
     return res;
   }
 
+  public String printPath(){
+    String res = "";
+    this.printPathR(res);
+    return res;
+  }
+
+  private String printPathR(String res){
+    if (this.pai!=null) {
+      printPathR(res);
+    }
+    return res + this.printTab() + this.actionPrint();
+  }
+
+  private String actionPrint(){
+    String res = "";
+    switch (this.action) {
+      case 'L': 
+        res += "0 moveu-se para a esquerda";
+        break;
+      case 'R': 
+        res += "0 moveu-se para a direita";
+        break;
+      case 'U': 
+        res += "0 moveu-se para cima";
+        break;
+      case 'D': 
+        res += "0 moveu-se para baixo";
+        break;
+    }
+    return res;
+  }
+
   public boolean solvability(){
     int inv = 0;
     for (int i = 1; i <= this.side*this.side; i++) {
