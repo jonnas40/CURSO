@@ -15,15 +15,6 @@ class Tabuleiro{
     this.pai = pai;
   }
 
-  /*public int findSpace(){
-    for (int i=1; i<=this.side*this.side; i++){
-      if(this.board[i]==0){
-        return i;
-      }
-    }
-    return 0;
-  }*/
-
   public Tabuleiro Right(){
     Tabuleiro res = this;
     if((this.zeroIndex % this.side) != 0){
@@ -95,4 +86,9 @@ class Tabuleiro{
     return false;
     }
 
+  public void copyTab(Tabuleiro src){
+    this.zeroIndex=src.zeroIndex;
+    this.pai=src;
+    for (int i = 1; i <=src.side*src.side; i++) this.board[i] = src.board[i];
   }
+}

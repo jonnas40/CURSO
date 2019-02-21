@@ -82,6 +82,7 @@ public class Quantas_depois{
     }while(!fila.isEmpty());
     return res;
   }
+  
   static void resolve(String s1, String s2,Grafo0 g){
     int size=Math.min(s1.length(),s2.length());
     for(int i=0; i<size;i++){
