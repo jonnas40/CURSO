@@ -26,6 +26,9 @@ class Puzzle{
       tabF.board[i] = stdin.nextInt();
       if (tabF.board[i]==0) tabF.zeroIndex=i;
     }
+    Tabuleiro tabDFS = new Tabuleiro(tabSide);
+    tabDFS = Algoritmos.BFS(tabI, tabF);
+    tabDFS.printPath();
     /*System.out.println();
     System.out.println(tabI.printTab());
     System.out.println(tabF.printTab());*/

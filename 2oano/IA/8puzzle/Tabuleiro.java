@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 
 class Tabuleiro {
   int[] board;
@@ -6,7 +5,7 @@ class Tabuleiro {
   Tabuleiro pai;
   char action;
   int zeroIndex;
-  LinkedList<Tabuleiro> adjs;
+  Tabuleiro[] adjs = new Tabuleiro[3];
 
   public Tabuleiro (int side){
     this.side = side;
@@ -131,11 +130,34 @@ class Tabuleiro {
     return this;
   }
 
-  public LinkedList<Tabuleiro> adjs_no() {
-    adjs.add(this.Up());
-    adjs.add(this.Right());
-    adjs.add(this.Left());
-    adjs.add(this.Down());
+  public Tabuleiro[] adjs_no() {
+    switch (this.action){
+      case 'U':
+        adjs[0]=this.Up();
+        adjs[1]=this.Right();
+        adjs[2]=this.Left();
+        break;
+      case 'L':
+        adjs[0]=this.Up();
+        adjs[1]=this.Left();
+        adjs[2]=this.Down();
+        break;
+      case 'R':
+        adjs[0]=this.Up();
+        adjs[1]=this.Right();
+        adjs[2]=this.Down();
+        break;
+      case ('D'): 
+        adjs[1]=this.Right();
+        adjs[2]=this.Left();
+        adjs[0]=this.Down();
+        break;
+      default:
+        adjs[0]=this.Up();
+        adjs[1]=this.Right();
+        adjs[2]=this.Down();
+        adjs[3]=this.Left();
+      }
     return adjs;
   }
 
