@@ -18,6 +18,7 @@ class Puzzle{
       for (int i=1; i<=(tabSide*tabSide); i++){
         tabI.board[i] = stdin.nextInt();
         if (tabI.board[i]==0) tabI.zeroIndex=i;
+        tabI.adjs_no();
       }
     }
     System.out.println("Tabuleiro final:");
@@ -25,6 +26,7 @@ class Puzzle{
     for (int i=1; i<=tabSide*tabSide; i++){
       tabF.board[i] = stdin.nextInt();
       if (tabF.board[i]==0) tabF.zeroIndex=i;
+      tabF.adjs_no();
     }
     Tabuleiro tabDFS = new Tabuleiro(tabSide);
     tabDFS = Algoritmos.BFS(tabI, tabF);

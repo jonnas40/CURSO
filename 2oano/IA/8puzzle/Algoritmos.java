@@ -10,9 +10,10 @@ class Algoritmos{
     fila.add(tabI);
     do{
       w.copyTab(fila.remove());
-      for(Tabuleiro y : w.adjs_no()) {
-        if(!y.compareTo(tabF)) fila.add(y);
-        else return y;
+      for(int i =0; w.adjs!=null; i++) {
+        //y.copyTab(w.adjs[i]);
+        if(w.adjs[i].compareTo(tabF)) return w.adjs[i];
+        fila.add(w.adjs[i]);
       }
     }while(!fila.isEmpty());
     return null;

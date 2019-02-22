@@ -5,7 +5,7 @@ class Tabuleiro {
   Tabuleiro pai;
   char action;
   int zeroIndex;
-  Tabuleiro[] adjs = new Tabuleiro[3];
+  Tabuleiro[] adjs = new Tabuleiro[4];
 
   public Tabuleiro (int side){
     this.side = side;
@@ -127,46 +127,45 @@ class Tabuleiro {
     this.zeroIndex=src.zeroIndex;
     this.setPai(src);
     for (int i = 1; i <=src.side*src.side; i++) this.board[i] = src.board[i];
+    this.adjs_no();
     return this;
   }
 
-  public Tabuleiro[] adjs_no() {
+  public void adjs_no() {
     switch (this.action){
       case 'U':
-        adjs[0]=this.Up();
-        adjs[1]=this.Right();
-        adjs[2]=this.Left();
+        this.adjs[0]=this.Up();
+        this.adjs[1]=this.Right();
+        this.adjs[2]=this.Left();
         break;
       case 'L':
-        adjs[0]=this.Up();
-        adjs[1]=this.Left();
-        adjs[2]=this.Down();
+        this.adjs[0]=this.Up();
+        this.adjs[1]=this.Left();
+        this.adjs[2]=this.Down();
         break;
       case 'R':
-        adjs[0]=this.Up();
-        adjs[1]=this.Right();
-        adjs[2]=this.Down();
+        this.adjs[0]=this.Up();
+        this.adjs[1]=this.Right();
+        this.adjs[2]=this.Down();
         break;
       case ('D'): 
-        adjs[1]=this.Right();
-        adjs[2]=this.Left();
-        adjs[0]=this.Down();
+        this.adjs[1]=this.Right();
+        this.adjs[2]=this.Left();
+        this.adjs[0]=this.Down();
         break;
-      default:
-        adjs[0]=this.Up();
-        adjs[1]=this.Right();
-        adjs[2]=this.Down();
-        adjs[3]=this.Left();
+      /*default:
+        this.adjs[0]=this.Up();
+        this.adjs[1]=this.Right();
+        this.adjs[2]=this.Down();
+        this.adjs[3]=this.Left();*/
       }
-    return adjs;
   }
 
   public boolean compareTo(Tabuleiro comp){
-    boolean flag = true;
-    for (int i = 1; i < this.side*this.side; i++) {
-      if(this.board[i]!=comp.board[i]) return flag=false;
+    for (int i = 1; i <= this.side*this.side; i++) {
+      if(this.board[i]!=comp.board[i]) return false;
     }
-    return flag;
+    return true;
   }
       
 }
