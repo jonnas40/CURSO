@@ -12,15 +12,6 @@ class Puzzle{
       tabI.board[i] = stdin.nextInt();
       if (tabI.board[i]==0) tabI.zeroIndex=i;
     }
-    while (!tabI.solvability()) {
-      System.out.println("Estado inicial sem solucao!");
-      System.out.println("Por favor volte a introduzir um estado inicial:");
-      for (int i=1; i<=(tabSide*tabSide); i++){
-        tabI.board[i] = stdin.nextInt();
-        if (tabI.board[i]==0) tabI.zeroIndex=i;
-        tabI.adjs_no();
-      }
-    }
     System.out.println("Tabuleiro final:");
     Tabuleiro tabF = new Tabuleiro(tabSide);
     for (int i=1; i<=tabSide*tabSide; i++){
@@ -28,8 +19,15 @@ class Puzzle{
       if (tabF.board[i]==0) tabF.zeroIndex=i;
       tabF.adjs_no();
     }
+    if (tabI.solvability() != tabF.solvability()){
+      System.out.println("tabi: " + tabI.solvability());
+      System.out.println("tabf: " + tabF.solvability());
+      System.exit(0);
+    }
     Tabuleiro tabDFS = new Tabuleiro(tabSide);
-    tabDFS = Algoritmos.BFS(tabI, tabF);
+    System.out.println("limao");
+    tabDFS = Algoritmos2.BFS(tabI, tabF);
+    System.out.println("lmoa");
     tabDFS.printPath();
     /*System.out.println();
     System.out.println(tabI.printTab());
