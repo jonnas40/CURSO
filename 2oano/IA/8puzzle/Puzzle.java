@@ -20,13 +20,12 @@ class Puzzle{
       tabF.adjs_no();
     }
     if (tabI.solvability() != tabF.solvability()){
-      System.out.println("tabi: " + tabI.solvability());
-      System.out.println("tabf: " + tabF.solvability());
+      System.out.println("Nao tem solucao");
       System.exit(0);
     }
     Tabuleiro tabBFS = new Tabuleiro(tabSide);
-    //System.out.println("limao");
     tabBFS = Algoritmos2.BFS(tabI, tabF);
+    //tabBFS = Algoritmos2.DFS(tabI, tabF);
     System.out.println("Resolucao passo a passo:");
     System.out.println("-------------");
     Tabuleiro.print_path(tabBFS);

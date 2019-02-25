@@ -24,9 +24,21 @@ class Algoritmos2{
   }
 
 
-  public static Tabuleiro DFS(Tabuleiro tabI, tabF){
+  public static Tabuleiro DFS(Tabuleiro tabI, Tabuleiro tabF){
     Tabuleiro w = new Tabuleiro(tabI.side);
-    Stack<Tabuleiro> s = new Stack<Tabuleiro>();
     LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
+    LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
+    LinkedList<Tabuleiro> fila = new LinkedList<Tabuleiro>();
+    fila.addLast(tabI);
+    do{
+      w = fila.removeFirst();
+      if(Arrays.equals(w.board,tabF.board)){
+        break;
+      }
+      aux = Tabuleiro.tabSons(w, tabF, visited);
+      visited.addAll(0, aux);
+      fila.addAll(0, aux);
+    }while(!fila.isEmpty());
+    return w;
   }
 }
