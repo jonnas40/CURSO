@@ -1,5 +1,7 @@
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 class Tabuleiro {
   int[] board;
@@ -12,6 +14,7 @@ class Tabuleiro {
   public Tabuleiro (int side){
     this.side = side;
     board = new int[(side*side)+1];
+    this.pai = null;
   }
 
   public void setPai(Tabuleiro pai){
@@ -187,61 +190,70 @@ class Tabuleiro {
 //------------------- Jon's testing functions ------------------------
 //-------------- UwU pwease dwon't rewove me UwU ---------------------
 
-  public Tabuleiro newDown(Tabuleiro src){
-    Tabuleiro res = new Tabuleiro(this.side);
-    if(this.zeroIndex + this.side <= this.side*this.side){
-      res.board[this.zeroIndex] = this.board[this.zeroIndex + this.side];
-      res.board[this.zeroIndex + this.side] = 0;
+
+  public static Tabuleiro newDown(Tabuleiro src){
+    Tabuleiro res = new Tabuleiro(src.side);
+    System.arraycopy(src.board, 0, res.board, 0, src.board.length);
+    if(src.zeroIndex + src.side <= src.side*src.side){
+      res.board[src.zeroIndex] = src.board[src.zeroIndex + src.side];
+      res.board[src.zeroIndex + src.side] = 0;
       res.pai = src;
-      res.zeroIndex = this.zeroIndex + this.side;
+      res.zeroIndex = src.zeroIndex + src.side;
       return res;
     }
     return src;
   }
 
-  public Tabuleiro newUp(Tabuleiro src){
-    Tabuleiro res = new Tabuleiro(this.side);
-    if(this.zeroIndex - this.side > 0){
-      res.board[this.zeroIndex] = this.board[this.zeroIndex - this.side];
-      res.board[this.zeroIndex - this.side] = 0;
+
+  public static Tabuleiro newUp(Tabuleiro src){
+    Tabuleiro res = new Tabuleiro(src.side);
+    System.arraycopy(src.board, 0, res.board, 0, src.board.length);
+    if(src.zeroIndex - src.side > 0){
+      res.board[src.zeroIndex] = src.board[src.zeroIndex - src.side];
+      res.board[src.zeroIndex - src.side] = 0;
       res.pai = src;
-      res.zeroIndex = this.zeroIndex - this.side;
+      res.zeroIndex = src.zeroIndex - src.side;
       return res;
     }
     return src;
   }
 
-  public Tabuleiro newRight(Tabuleiro src){
-    Tabuleiro res = new Tabuleiro(this.side);
-    if((this.zeroIndex % this.side) != 0){
-      res.board[this.zeroIndex] = this.board[this.zeroIndex + 1];
-      res.board[this.zeroIndex + 1] = 0;
+
+  public static Tabuleiro newRight(Tabuleiro src){
+    Tabuleiro res = new Tabuleiro(src.side);
+    System.arraycopy(src.board, 0, res.board, 0, src.board.length);
+    if((src.zeroIndex % src.side) != 0){
+      res.board[src.zeroIndex] = src.board[src.zeroIndex + 1];
+      res.board[src.zeroIndex + 1] = 0;
       res.pai = src;
-      res.zeroIndex = this.zeroIndex + 1;
+      res.zeroIndex = src.zeroIndex + 1;
       return res;
     }
     return src;
   }
 
-  public Tabuleiro newLeft(Tabuleiro src){
-    Tabuleiro res = new Tabuleiro(this.side);
-    if((this.zeroIndex % this.side) != 1){
-      res.board[this.zeroIndex] = this.board[this.zeroIndex - 1];
-      res.board[this.zeroIndex - 1] = 0;
+
+  public static Tabuleiro newLeft(Tabuleiro src){
+    Tabuleiro res = new Tabuleiro(src.side);
+    System.arraycopy(src.board, 0, res.board, 0, src.board.length);
+    if((src.zeroIndex % src.side) != 1){
+      res.board[src.zeroIndex] = src.board[src.zeroIndex - 1];
+      res.board[src.zeroIndex - 1] = 0;
       res.pai = src;
-      res.zeroIndex = this.zeroIndex - 1;
+      res.zeroIndex = src.zeroIndex - 1;
       return res;
     }
     return src;
   }
+
 
   public static LinkedList<Tabuleiro> tabSons(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
-    tabs[0].newUp(src);
-    tabs[1].newDown(src);
-    tabs[2].newLeft(src);
-    tabs[3].newRight(src);
+    tabs[0] = newUp(src);
+    tabs[1] = newDown(src);
+    tabs[2] = newLeft(src);
+    tabs[3] = newRight(src);
     for(int i=0; i<4; i++){
       if(tabs[i].testSon(visited)){
         visited.add(tabs[i]);
@@ -251,10 +263,11 @@ class Tabuleiro {
     return sons;
   }
 
+
   public boolean testSon(LinkedList<Tabuleiro> visited){
     boolean flag = true;
     for(Tabuleiro test : visited){
-      if(this.board == test.board){
+      if(Arrays.equals(this.board,test.board)){
         flag = false;
         break;
       }
@@ -262,4 +275,26 @@ class Tabuleiro {
     return flag;
   }
 
+
+  public static void print_path(Tabuleiro tab){
+    Stack<Tabuleiro> s = new Stack<Tabuleiro>();
+    while(tab.pai != null){
+      s.push(tab);
+      tab = tab.pai;
+    }
+    s.push(tab);
+    while(!s.isEmpty()){
+      tab = s.pop();
+      aux_print(tab);
+      System.out.println("-------------");
+    }
+  }
+
+
+  public static void aux_print(Tabuleiro tab){
+    for (int i=1; i<=tab.side*tab.side; i++){
+      System.out.print(tab.board[i] + " ");
+      if(i%tab.side == 0){ System.out.println();}
+    }
+  }
 }

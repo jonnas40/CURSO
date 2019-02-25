@@ -24,11 +24,12 @@ class Puzzle{
       System.out.println("tabf: " + tabF.solvability());
       System.exit(0);
     }
-    Tabuleiro tabDFS = new Tabuleiro(tabSide);
-    System.out.println("limao");
-    tabDFS = Algoritmos2.BFS(tabI, tabF);
-    System.out.println("lmoa");
-    tabDFS.printPath();
+    Tabuleiro tabBFS = new Tabuleiro(tabSide);
+    //System.out.println("limao");
+    tabBFS = Algoritmos2.BFS(tabI, tabF);
+    System.out.println("Resolucao passo a passo:");
+    System.out.println("-------------");
+    Tabuleiro.print_path(tabBFS);
     /*System.out.println();
     System.out.println(tabI.printTab());
     System.out.println(tabF.printTab());*/
