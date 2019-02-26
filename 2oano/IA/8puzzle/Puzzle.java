@@ -24,7 +24,7 @@ class Puzzle{
       System.exit(0);
     }
     Tabuleiro tabBFS = new Tabuleiro(tabSide);
-    tabBFS = Algoritmos2.BFS(tabI, tabF);
+    tabBFS = Algoritmos.BFS(tabI, tabF);
     //tabBFS = Algoritmos2.DFS(tabI, tabF);
     System.out.println("Resolucao passo a passo:");
     System.out.println("-------------");

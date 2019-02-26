@@ -3,7 +3,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-class Algoritmos2{
+class Algoritmos{
 
   public static Tabuleiro BFS(Tabuleiro tabI, Tabuleiro tabF){
     Tabuleiro w = new Tabuleiro(tabI.side);
