@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.PriorityQueue;
 
 class Algoritmos{
 
@@ -71,5 +72,10 @@ class Algoritmos{
       if (Arrays.equals(w.board, tabF.board)) return w;
     }
     return tabI;
+  }
+
+
+  public static Tabuleiro Greedy(Tabuleiro tabI, Tabuleiro tabF){
+    PriorityQueue q = new PriorityQueue<Tabuleiro>()
   }
 }
