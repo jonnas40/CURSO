@@ -41,4 +41,38 @@ class Algoritmos{
     }while(!fila.isEmpty());
     return w;
   }
+
+
+  public static Tabuleiro LDFS(Tabuleiro tabI, Tabuleiro tabF, int lim){
+    Tabuleiro w = new Tabuleiro(tabI.side);
+    LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
+    LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
+    LinkedList<Tabuleiro> fila = new LinkedList<Tabuleiro>();
+    fila.addLast(tabI);
+    fila.addLast(tabI);
+    do{
+      w = fila.removeFirst();
+      if(Arrays.equals(w.board,tabF.board)){
+        break;
+      }
+      if(w.depth<lim){
+        aux = Tabuleiro.tabSons(w, tabF, visited);
+        visited.addAll(0, aux);
+        fila.addAll(0, aux);
+      }
+    }while(!fila.isEmpty());
+    return w;
+  }
+
+
+  public static Tabuleiro IDFS(Tabuleiro tabI, Tabuleiro tabF){
+    Tabuleiro w = new Tabuleiro(tabI.side);
+    for (int i = 0; i < 20; i++) {
+      w=LDFS(tabI, tabF, i);
+      if (Arrays.equals(w.board, tabF.board)) {
+        return w;
+      }
+    }
+    return tabI;
+  }
 }

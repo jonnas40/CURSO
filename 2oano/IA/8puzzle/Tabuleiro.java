@@ -10,11 +10,13 @@ class Tabuleiro {
   char action;
   int zeroIndex;
   Tabuleiro[] adjs = new Tabuleiro[4];
+  int depth;
 
   public Tabuleiro (int side){
     this.side = side;
     board = new int[(side*side)+1];
     this.pai = null;
+    this.depth = 0;
   }
 
   public void setPai(Tabuleiro pai){
@@ -198,6 +200,7 @@ class Tabuleiro {
       res.board[src.zeroIndex] = src.board[src.zeroIndex + src.side];
       res.board[src.zeroIndex + src.side] = 0;
       res.pai = src;
+      res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + src.side;
       return res;
     }
@@ -212,6 +215,7 @@ class Tabuleiro {
       res.board[src.zeroIndex] = src.board[src.zeroIndex - src.side];
       res.board[src.zeroIndex - src.side] = 0;
       res.pai = src;
+      res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - src.side;
       return res;
     }
@@ -226,6 +230,7 @@ class Tabuleiro {
       res.board[src.zeroIndex] = src.board[src.zeroIndex + 1];
       res.board[src.zeroIndex + 1] = 0;
       res.pai = src;
+      res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + 1;
       return res;
     }
@@ -240,6 +245,7 @@ class Tabuleiro {
       res.board[src.zeroIndex] = src.board[src.zeroIndex - 1];
       res.board[src.zeroIndex - 1] = 0;
       res.pai = src;
+      res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - 1;
       return res;
     }
@@ -286,6 +292,7 @@ class Tabuleiro {
     while(!s.isEmpty()){
       tab = s.pop();
       aux_print(tab);
+      System.out.println("Depth: "+ tab.depth);
       System.out.println("-------------");
     }
   }

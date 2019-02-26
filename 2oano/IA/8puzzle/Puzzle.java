@@ -23,14 +23,36 @@ class Puzzle{
       System.out.println("Nao tem solucao");
       System.exit(0);
     }
+    System.out.println("----------");
     Tabuleiro tabBFS = new Tabuleiro(tabSide);
     tabBFS = Algoritmos.BFS(tabI, tabF);
-    //tabBFS = Algoritmos2.DFS(tabI, tabF);
-    System.out.println("Resolucao passo a passo:");
-    System.out.println("-------------");
     Tabuleiro.print_path(tabBFS);
-    /*System.out.println();
-    System.out.println(tabI.printTab());
-    System.out.println(tabF.printTab());*/
+    System.out.println("----------");
+
+    //int esc = stdin.nextInt();
+    Tabuleiro tabIFS = new Tabuleiro(tabSide);
+    tabIFS = Algoritmos.IDFS(tabI, tabF);
+    Tabuleiro.print_path(tabIFS);
+    /*printMenu();
+    switch (esc){
+      case '1':
+        Tabuleiro tabBFS = new Tabuleiro(tabSide);
+        tabBFS = Algoritmos.BFS(tabI, tabF);
+        System.out.println("Resolucao passo a passo:");
+        System.out.println("-------------");
+        Tabuleiro.print_path(tabBFS);
+      
+    }*/
   }
+/*
+  public static void menu(int esc, ){
+    
+  }
+
+  public static void printMenu(){
+    System.out.println("----- Escolha o algoritmo -----");
+    System.out.println("1) BFS");
+    System.out.println("2) DFS");
+    System.out.println("3) IDFS");
+  }*/
 }
