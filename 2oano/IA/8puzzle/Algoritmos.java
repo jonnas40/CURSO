@@ -49,13 +49,14 @@ class Algoritmos{
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     LinkedList<Tabuleiro> fila = new LinkedList<Tabuleiro>();
     fila.addLast(tabI);
-    fila.addLast(tabI);
+    //fila.addLast(tabI);
     do{
       w = fila.removeFirst();
+      //Tabuleiro.aux_print(w);
       if(Arrays.equals(w.board,tabF.board)){
         break;
       }
-      if(w.depth<lim){
+      if(w.depth<=lim){
         aux = Tabuleiro.tabSons(w, tabF, visited);
         visited.addAll(0, aux);
         fila.addAll(0, aux);
@@ -69,9 +70,7 @@ class Algoritmos{
     Tabuleiro w = new Tabuleiro(tabI.side);
     for (int i = 0; i < 20; i++) {
       w=LDFS(tabI, tabF, i);
-      if (Arrays.equals(w.board, tabF.board)) {
-        return w;
-      }
+      if (Arrays.equals(w.board, tabF.board)) return w;
     }
     return tabI;
   }

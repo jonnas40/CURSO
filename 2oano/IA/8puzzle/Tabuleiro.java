@@ -11,6 +11,7 @@ class Tabuleiro {
   int zeroIndex;
   Tabuleiro[] adjs = new Tabuleiro[4];
   int depth;
+  int score;
 
   public Tabuleiro (int side){
     this.side = side;
@@ -273,9 +274,9 @@ class Tabuleiro {
   public boolean testSon(LinkedList<Tabuleiro> visited){
     boolean flag = true;
     for(Tabuleiro test : visited){
-      if(Arrays.equals(this.board,test.board)){
+      if(Arrays.equals(this.board,test.board) && this.depth >= test.depth){
         flag = false;
-        break;
+        return flag;
       }
     }
     return flag;
@@ -301,7 +302,8 @@ class Tabuleiro {
   public static void aux_print(Tabuleiro tab){
     for (int i=1; i<=tab.side*tab.side; i++){
       System.out.print(tab.board[i] + " ");
-      if(i%tab.side == 0){ System.out.println();}
+      if(i%tab.side == 0) System.out.println();
     }
+    //System.out.println();
   }
 }
