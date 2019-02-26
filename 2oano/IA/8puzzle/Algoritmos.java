@@ -1,6 +1,9 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
+import java.util.TreeMap;
 import java.util.PriorityQueue;
 
 class Algoritmos{
@@ -76,6 +79,10 @@ class Algoritmos{
 
 
   public static Tabuleiro Greedy(Tabuleiro tabI, Tabuleiro tabF){
-    PriorityQueue q = new PriorityQueue<Tabuleiro>()
+    Map<Integer,Tabuleiro> m = new HashMap<Integer,Tabuleiro>();
+    TreeMap<Integer,Tabuleiro> t = new TreeMap<Integer,Tabuleiro>(m);
+    Tabuleiro w = new Tabuleiro(tabI.side);
+    w = 
+    //PriorityQueue q = new PriorityQueue<Tabuleiro>();
   }
 }
