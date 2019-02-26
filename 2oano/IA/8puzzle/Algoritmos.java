@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 class Algoritmos{
 
@@ -49,10 +48,9 @@ class Algoritmos{
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     LinkedList<Tabuleiro> fila = new LinkedList<Tabuleiro>();
     fila.addLast(tabI);
-    //fila.addLast(tabI);
+    fila.addLast(tabI);
     do{
       w = fila.removeFirst();
-      //Tabuleiro.aux_print(w);
       if(Arrays.equals(w.board,tabF.board)){
         break;
       }

@@ -82,9 +82,8 @@ def cauchy(cons, serie):
         Rn = math.pow(ter, j - 1) / 1 - ter
         acc = acc + 1
         total = total + f(j)
-        erro = math.pi - total
-        if erro < 0:
-            erro = -erro
+        erro = math.fabs(math.pi - total)
+
 
         if Rn < exp:
             n = j

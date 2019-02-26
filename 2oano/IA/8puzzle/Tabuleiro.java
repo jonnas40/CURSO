@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 class Tabuleiro {
@@ -11,7 +10,8 @@ class Tabuleiro {
   int zeroIndex;
   Tabuleiro[] adjs = new Tabuleiro[4];
   int depth;
-  int score;
+  int scoreO;
+  int scoreM;
 
   public Tabuleiro (int side){
     this.side = side;
@@ -20,10 +20,15 @@ class Tabuleiro {
     this.depth = 0;
   }
 
-  public void setPai(Tabuleiro pai){
-    this.pai = pai;
+  public static int setScoreO (Tabuleiro src, Tabuleiro dest){
+    int score = 0;
+    for (int i = 1; i <= src.side*src.side; i++) {
+      if (src.board[i]!=dest.board[i]) score++;  
+    }
+    return score;
   }
 
+/*
   public Tabuleiro Right(){
     Tabuleiro res = new Tabuleiro(this.side*this.side);
     res.copyTab(this);
@@ -108,15 +113,59 @@ class Tabuleiro {
       case 'R':
         res += "\n0 moveu-se para a direita";
         break;
-      case 'U':
+        case 'U':
         res += "\n0 moveu-se para cima";
         break;
-      case 'D':
+        case 'D':
         res += "\n0 moveu-se para baixo";
         break;
+      }
+      return res;
     }
-    return res;
-  }
+        public Tabuleiro copyTab(Tabuleiro src){
+          this.zeroIndex=src.zeroIndex;
+          this.setPai(src);
+          for (int i = 1; i <=src.side*src.side; i++) this.board[i] = src.board[i];
+          this.adjs_no();
+          return this;
+        }
+      
+        public void adjs_no(){
+          switch (this.action){
+            case 'U':
+              this.adjs[0]=this.Up();
+              this.adjs[1]=this.Right();
+              this.adjs[2]=this.Left();
+              break;
+            case 'L':
+              this.adjs[0]=this.Up();
+              this.adjs[1]=this.Left();
+              this.adjs[2]=this.Down();
+              break;
+            case 'R':
+              this.adjs[0]=this.Up();
+              this.adjs[1]=this.Right();
+              this.adjs[2]=this.Down();
+              break;
+            case ('D'):
+              this.adjs[1]=this.Right();
+              this.adjs[2]=this.Left();
+              this.adjs[0]=this.Down();
+              break;
+            default:
+              this.adjs[0]=this.Up();
+              this.adjs[1]=this.Right();
+              this.adjs[2]=this.Down();
+              this.adjs[3]=this.Left();
+            }
+        }
+      
+        public boolean compareTo(Tabuleiro comp){
+          for (int i = 1; i <= this.side*this.side; i++) {
+            if(this.board[i]!=comp.board[i]) return false;
+          }
+          return true;
+        }*/
 
   public boolean solvability(){
     int inv = 0;
@@ -145,56 +194,12 @@ class Tabuleiro {
     }
   }
 
-  public Tabuleiro copyTab(Tabuleiro src){
-    this.zeroIndex=src.zeroIndex;
-    this.setPai(src);
-    for (int i = 1; i <=src.side*src.side; i++) this.board[i] = src.board[i];
-    this.adjs_no();
-    return this;
-  }
-
-  public void adjs_no(){
-    switch (this.action){
-      case 'U':
-        this.adjs[0]=this.Up();
-        this.adjs[1]=this.Right();
-        this.adjs[2]=this.Left();
-        break;
-      case 'L':
-        this.adjs[0]=this.Up();
-        this.adjs[1]=this.Left();
-        this.adjs[2]=this.Down();
-        break;
-      case 'R':
-        this.adjs[0]=this.Up();
-        this.adjs[1]=this.Right();
-        this.adjs[2]=this.Down();
-        break;
-      case ('D'):
-        this.adjs[1]=this.Right();
-        this.adjs[2]=this.Left();
-        this.adjs[0]=this.Down();
-        break;
-      /*default:
-        this.adjs[0]=this.Up();
-        this.adjs[1]=this.Right();
-        this.adjs[2]=this.Down();
-        this.adjs[3]=this.Left();*/
-      }
-  }
-
-  public boolean compareTo(Tabuleiro comp){
-    for (int i = 1; i <= this.side*this.side; i++) {
-      if(this.board[i]!=comp.board[i]) return false;
-    }
-    return true;
-  }
 
 //------------------- Jon's testing functions ------------------------
 //-------------- UwU pwease dwon't rewove me UwU ---------------------
 
 
-  public static Tabuleiro newDown(Tabuleiro src){
+  public static Tabuleiro newDown(Tabuleiro src, Tabuleiro dest){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if(src.zeroIndex + src.side <= src.side*src.side){
@@ -203,13 +208,14 @@ class Tabuleiro {
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + src.side;
+      res.scoreO=setScoreO(res, dest);
       return res;
     }
     return src;
   }
 
 
-  public static Tabuleiro newUp(Tabuleiro src){
+  public static Tabuleiro newUp(Tabuleiro src, Tabuleiro dest){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if(src.zeroIndex - src.side > 0){
@@ -218,13 +224,14 @@ class Tabuleiro {
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - src.side;
+      res.scoreO=setScoreO(res, dest);
       return res;
     }
     return src;
   }
 
 
-  public static Tabuleiro newRight(Tabuleiro src){
+  public static Tabuleiro newRight(Tabuleiro src, Tabuleiro dest){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if((src.zeroIndex % src.side) != 0){
@@ -233,13 +240,14 @@ class Tabuleiro {
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + 1;
+      res.scoreO=setScoreO(res, dest);
       return res;
     }
     return src;
   }
 
 
-  public static Tabuleiro newLeft(Tabuleiro src){
+  public static Tabuleiro newLeft(Tabuleiro src, Tabuleiro dest){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if((src.zeroIndex % src.side) != 1){
@@ -248,6 +256,7 @@ class Tabuleiro {
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - 1;
+      res.scoreO=setScoreO(res, dest);
       return res;
     }
     return src;
@@ -257,10 +266,10 @@ class Tabuleiro {
   public static LinkedList<Tabuleiro> tabSons(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
-    tabs[0] = newUp(src);
-    tabs[1] = newDown(src);
-    tabs[2] = newLeft(src);
-    tabs[3] = newRight(src);
+    tabs[0] = newUp(src, dest);
+    tabs[1] = newDown(src, dest);
+    tabs[2] = newLeft(src, dest);
+    tabs[3] = newRight(src, dest);
     for(int i=0; i<4; i++){
       if(tabs[i].testSon(visited)){
         visited.add(tabs[i]);

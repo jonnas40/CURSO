@@ -17,12 +17,12 @@ class Puzzle{
     for (int i=1; i<=tabSide*tabSide; i++){
       tabF.board[i] = stdin.nextInt();
       if (tabF.board[i]==0) tabF.zeroIndex=i;
-      tabF.adjs_no();
     }
     if (tabI.solvability() != tabF.solvability()){
       System.out.println("Nao tem solucao");
       System.exit(0);
     }
+    tabI.scoreO = Tabuleiro.setScoreO(tabI, tabF);
     System.out.println("----------");
     Tabuleiro tabBFS = new Tabuleiro(tabSide);
     tabBFS = Algoritmos.BFS(tabI, tabF);
