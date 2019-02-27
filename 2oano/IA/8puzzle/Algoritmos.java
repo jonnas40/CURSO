@@ -79,10 +79,29 @@ class Algoritmos{
   }
 
 
-  public static Tabuleiro Greedy(Tabuleiro tabI, Tabuleiro tabF){
+  public static Tabuleiro GreedyO(Tabuleiro tabI, Tabuleiro tabF){
     //Map<Integer,Tabuleiro> m = new HashMap<Integer,Tabuleiro>();
     //TreeMap<Integer,Tabuleiro> t = new TreeMap<Integer,Tabuleiro>(m);
-    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new TabComparator());
+    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyOComparator());
+    LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
+    LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
+    Tabuleiro w = new Tabuleiro(tabI.side);
+    pq.add(tabI);
+    do{
+      w=pq.poll();
+      if(Arrays.equals(w.board,tabF.board)) break;
+      aux = Tabuleiro.tabSons(w, tabF, visited);
+      visited.addAll(0, aux);
+      pq.addAll(aux);
+    }while (!pq.isEmpty());
+    return w;
+  }
+
+
+  public static Tabuleiro GreedyM(Tabuleiro tabI, Tabuleiro tabF){
+    //Map<Integer,Tabuleiro> m = new HashMap<Integer,Tabuleiro>();
+    //TreeMap<Integer,Tabuleiro> t = new TreeMap<Integer,Tabuleiro>(m);
+    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyMComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
@@ -98,7 +117,18 @@ class Algoritmos{
   }
 }
 
-class TabComparator implements Comparator<Tabuleiro>{ 
+class greedyOComparator implements Comparator<Tabuleiro>{ 
+              
+  public int compare(Tabuleiro s1, Tabuleiro s2) { 
+      if (s1.scoreO < s2.scoreO) 
+          return -1; 
+      else if (s1.scoreO > s2.scoreO) 
+          return 1; 
+                      return 0; 
+      } 
+} 
+
+class greedyMComparator implements Comparator<Tabuleiro>{ 
               
   public int compare(Tabuleiro s1, Tabuleiro s2) { 
       if (s1.scoreO < s2.scoreO) 
