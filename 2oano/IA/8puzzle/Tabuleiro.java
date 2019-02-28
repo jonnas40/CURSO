@@ -209,6 +209,7 @@ class Tabuleiro {
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + src.side;
       res.scoreO=setScoreO(res, dest);
+      res.scoreM=setScoreM(res, dest);
       return res;
     }
     return src;
@@ -225,6 +226,7 @@ class Tabuleiro {
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - src.side;
       res.scoreO=setScoreO(res, dest);
+      res.scoreM=setScoreM(res, dest);
       return res;
     }
     return src;
@@ -241,6 +243,7 @@ class Tabuleiro {
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + 1;
       res.scoreO=setScoreO(res, dest);
+      res.scoreM=setScoreM(res, dest);
       return res;
     }
     return src;
@@ -257,6 +260,7 @@ class Tabuleiro {
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - 1;
       res.scoreO=setScoreO(res, dest);
+      res.scoreM=setScoreM(res, dest);
       return res;
     }
     return src;
@@ -316,12 +320,37 @@ class Tabuleiro {
     //System.out.println();
   }
 
-  public void setManhattan(Tabuleiro tabF){
-    Tabuleiro aux = new Tabuleiro(this.side);
-    int pos[] = new int[this.side*this.side];
-    for (int i = 1; i <= this.side*this.side; i++) pos[tabF.board[i]]=i;
-    for (int i = 1; i <= this.side*this.side; i++) {
-      if (this.board[i] == pos[i]) continue;
+  public static int setScoreM(Tabuleiro src, Tabuleiro tabF){
+    int pos[] = new int[src.side*src.side];
+    int pos_init[] = new int[src.side*src.side];
+    for (int i = 1; i <= src.side*src.side; i++) {
+      pos[tabF.board[i]]=i;
+      pos_init[src.board[i]]=i;
     }
+    int counter=0;
+    for (int i = 0; i < src.side*src.side; i++) {
+      int pos_a=pos_init[i];
+      while(pos_a / src.side != pos[i] / src.side){ //linhas
+        if ( (pos_a / src.side) > (pos[i] / src.side) ) { //up
+          pos_a -= src.side;
+          counter++;
+        }
+        else if ( (pos_a / src.side) < (pos[i] / src.side) ){ //down
+          pos_a += src.side;
+          counter++;
+        }
+      }
+      while(pos_a % src.side != pos[i] % src.side) { //colunas
+        if ( pos_a > pos[i] ){ //left
+          pos_a--;
+          counter++;
+        }
+        else if (pos_a < pos[i]){ //right
+          pos_a++;
+          counter++;
+        }
+      }
+    }
+    return counter;
   }
 }
