@@ -53,6 +53,7 @@ def dalambert(cons, serie):
                 break
 
 
+# Exercicio 3
 
 def cauchy(cons, serie):
     print("Critério de Cauchy")
@@ -65,7 +66,6 @@ def cauchy(cons, serie):
     for k in range(0, 10000):
         ser = f(k)
         totalf = totalf + ser
-        #print(math.fabs(ser))
         if math.fabs(ser) <= exp:
             total = cons * totalf
             erro = math.fabs(math.pi - total)
@@ -75,19 +75,6 @@ def cauchy(cons, serie):
             if exp < 1.e-15:
                 break
 
-
-""""
-    for j in range(100):
-        Rn = math.pow(ter, j - 1) / 1 - ter
-        acc = acc + 1
-        ser = f(j)
-        totalf = totalf + ser
-        total = cons * totalf
-        erro = math.fabs(math.pi - total)
-
-
-        if Rn < exp:
-            """
 
 
 cons = (9 / (2 * math.sqrt(3)))
