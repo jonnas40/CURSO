@@ -109,14 +109,15 @@ class Algoritmos{
     return w;
   }
 
-
+/*
   public static Tabuleiro AStar(Tabuleiro tabI, Tabuleiro tabF){
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
-    
+
   }
+  */
 }
 
 class greedyOComparator implements Comparator<Tabuleiro>{ 
