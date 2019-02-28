@@ -317,6 +317,11 @@ class Tabuleiro {
   }
 
   public void setManhattan(Tabuleiro tabF){
-    
+    Tabuleiro aux = new Tabuleiro(this.side);
+    int pos[] = new int[this.side*this.side];
+    for (int i = 1; i <= this.side*this.side; i++) pos[tabF.board[i]]=i;
+    for (int i = 1; i <= this.side*this.side; i++) {
+      if (this.board[i] == pos[i]) continue;
+    }
   }
 }
