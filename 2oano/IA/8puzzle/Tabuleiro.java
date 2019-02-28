@@ -315,4 +315,8 @@ class Tabuleiro {
     }
     //System.out.println();
   }
+
+  public void setManhattan(Tabuleiro tabF){
+    
+  }
 }

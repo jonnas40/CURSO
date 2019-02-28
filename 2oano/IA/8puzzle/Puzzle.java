@@ -31,7 +31,7 @@ class Puzzle{
 
     //int esc = stdin.nextInt();
     Tabuleiro tabIFS = new Tabuleiro(tabSide);
-    tabIFS = Algoritmos.Greedy(tabI, tabF);
+    tabIFS = Algoritmos.GreedyO(tabI, tabF);
     Tabuleiro.print_path(tabIFS);
     /*printMenu();
     switch (esc){
