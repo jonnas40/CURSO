@@ -30,9 +30,9 @@ class Puzzle{
     System.out.println("----------");
 
     //int esc = stdin.nextInt();
-    Tabuleiro tabIFS = new Tabuleiro(tabSide);
-    tabIFS = Algoritmos.GreedyO(tabI, tabF);
-    Tabuleiro.print_path(tabIFS);
+    //Tabuleiro tabIFS = new Tabuleiro(tabSide);
+    //tabIFS = Algoritmos.BFS(tabI, tabF);
+    //Tabuleiro.print_path(tabIFS);
     /*printMenu();
     switch (esc){
       case '1':
