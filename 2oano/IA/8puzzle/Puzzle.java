@@ -45,13 +45,13 @@ class Puzzle{
           System.out.println();
           break;
         case 2:
-          Tabuleiro tabDFS = new Tabuleiro(tabSide);
+          Tabuleiro tabLDFS = new Tabuleiro(tabSide);
           System.out.println("Resolucao passo a passo:");
           System.out.println("-------------");
           startTime = System.currentTimeMillis();
-          tabDFS = Algoritmos.DFS(tabI, tabF);
+          tabLDFS = Algoritmos.LDFS(tabI, tabF, 80);
           duration = System.currentTimeMillis() - startTime;
-          Tabuleiro.print_path(tabDFS);
+          Tabuleiro.print_path(tabLDFS);
           System.out.println();
           System.out.println("Tempo de Execução: " + duration + " ms");
           System.out.println();
