@@ -59,7 +59,7 @@ class Algoritmos{
         break;
       }
       if(w.depth<=lim){
-        aux = Tabuleiro.tabSons(w, tabF, visited);
+        aux = Tabuleiro.tabSonsLDFS(w, tabF, visited);
         visited.addAll(0, aux);
         fila.addAll(0, aux);
       }

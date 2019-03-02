@@ -130,7 +130,7 @@ class Puzzle{
   public static void printMenu(){
     System.out.println("----- Escolha o algoritmo -----");
     System.out.println("1) BFS");
-    System.out.println("2) DFS");
+    System.out.println("2) LDFS");
     System.out.println("3) IDFS");
     System.out.println("4) Greedy com Heuristica Out of Place");
     System.out.println("5) Greedy com Heuristica Manhattan");
