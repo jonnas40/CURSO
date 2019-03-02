@@ -197,7 +197,7 @@ class Tabuleiro{
 //-------------- UwU pwease dwon't rewove me UwU ---------------------
 
 
-  public static Tabuleiro newDown(Tabuleiro src, Tabuleiro dest){
+  public static Tabuleiro newDown(Tabuleiro src, Tabuleiro dest, boolean flag){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if(src.zeroIndex + src.side <= src.side*src.side){
@@ -206,15 +206,17 @@ class Tabuleiro{
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + src.side;
-      res.scoreO=setScoreO(res, dest);
-      res.scoreM=setScoreM(res, dest);
+      if(flag){
+        res.scoreO=setScoreO(res, dest);
+        res.scoreM=setScoreM(res, dest);
+      }
       return res;
     }
     return src;
   }
 
 
-  public static Tabuleiro newUp(Tabuleiro src, Tabuleiro dest){
+  public static Tabuleiro newUp(Tabuleiro src, Tabuleiro dest, boolean flag){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if(src.zeroIndex - src.side > 0){
@@ -223,15 +225,17 @@ class Tabuleiro{
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - src.side;
-      res.scoreO=setScoreO(res, dest);
-      res.scoreM=setScoreM(res, dest);
+      if(flag){
+        res.scoreO=setScoreO(res, dest);
+        res.scoreM=setScoreM(res, dest);
+      }
       return res;
     }
     return src;
   }
 
 
-  public static Tabuleiro newRight(Tabuleiro src, Tabuleiro dest){
+  public static Tabuleiro newRight(Tabuleiro src, Tabuleiro dest, boolean flag){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if((src.zeroIndex % src.side) != 0){
@@ -240,15 +244,17 @@ class Tabuleiro{
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex + 1;
-      res.scoreO=setScoreO(res, dest);
-      res.scoreM=setScoreM(res, dest);
+      if(flag){
+        res.scoreO=setScoreO(res, dest);
+        res.scoreM=setScoreM(res, dest);
+      }
       return res;
     }
     return src;
   }
 
 
-  public static Tabuleiro newLeft(Tabuleiro src, Tabuleiro dest){
+  public static Tabuleiro newLeft(Tabuleiro src, Tabuleiro dest, boolean flag){
     Tabuleiro res = new Tabuleiro(src.side);
     System.arraycopy(src.board, 0, res.board, 0, src.board.length);
     if((src.zeroIndex % src.side) != 1){
@@ -257,8 +263,10 @@ class Tabuleiro{
       res.pai = src;
       res.depth = src.depth+1;
       res.zeroIndex = src.zeroIndex - 1;
-      res.scoreO=setScoreO(res, dest);
-      res.scoreM=setScoreM(res, dest);
+      if(flag){
+        res.scoreO=setScoreO(res, dest);
+        res.scoreM=setScoreM(res, dest);
+      }
       return res;
     }
     return src;
@@ -268,10 +276,10 @@ class Tabuleiro{
   public static LinkedList<Tabuleiro> tabSonsGreedy(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
-    tabs[0] = newUp(src, dest);
-    tabs[1] = newDown(src, dest);
-    tabs[2] = newLeft(src, dest);
-    tabs[3] = newRight(src, dest);
+    tabs[0] = newUp(src, dest, true);
+    tabs[1] = newDown(src, dest, true);
+    tabs[2] = newLeft(src, dest, true);
+    tabs[3] = newRight(src, dest, true);
     for(int i=0; i<4; i++){
       if(tabs[i].testSonGreedy(visited)){
         visited.add(tabs[i]);
@@ -297,10 +305,10 @@ class Tabuleiro{
   public static LinkedList<Tabuleiro> tabSons(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
-    tabs[0] = newUp(src, dest);
-    tabs[1] = newDown(src, dest);
-    tabs[2] = newLeft(src, dest);
-    tabs[3] = newRight(src, dest);
+    tabs[0] = newUp(src, dest, false);
+    tabs[1] = newDown(src, dest, false);
+    tabs[2] = newLeft(src, dest, false);
+    tabs[3] = newRight(src, dest, false);
     for(int i=0; i<4; i++){
       if(tabs[i].testSon(visited)){
         visited.add(tabs[i]);
