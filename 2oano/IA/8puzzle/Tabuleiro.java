@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Stack;
 
 class Tabuleiro{
@@ -289,11 +290,41 @@ class Tabuleiro{
     return sons;
   }
 
-
+  
   public boolean testSonGreedy(LinkedList<Tabuleiro> visited){
     boolean flag = true;
     for(Tabuleiro test : visited){
       if(Arrays.equals(this.board,test.board)){
+        flag = false;
+        return flag;
+      }
+    }
+    return flag;
+  }
+
+
+  public static LinkedList<Tabuleiro> tabSonsA(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited){
+    LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
+    Tabuleiro tabs[] = new Tabuleiro[4];
+    tabs[0] = newUp(src, dest, true);
+    tabs[1] = newDown(src, dest, true);
+    tabs[2] = newLeft(src, dest, true);
+    tabs[3] = newRight(src, dest, true);
+    for(int i=0; i<4; i++){
+      if(tabs[i].testSonA(visited)){
+        visited.remove(tabs[i].board);  
+              visited.put(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
+        sons.add(tabs[i]);
+      }
+    }
+    return sons;
+  }
+
+
+  public boolean testSonA(Map<int[],Integer> visited){
+    boolean flag = true;
+    if(visited.containsKey(this.board)){
+      if (visited.get(this.board) < this.scoreM+this.depth) {
         flag = false;
         return flag;
       }
