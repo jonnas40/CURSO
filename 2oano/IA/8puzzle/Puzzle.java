@@ -24,9 +24,9 @@ class Puzzle{
     }
     tabI.scoreO = Tabuleiro.setScoreO(tabI, tabF);
     System.out.println("----------");
-    Tabuleiro tabBFS = new Tabuleiro(tabSide);
+    /*Tabuleiro tabBFS = new Tabuleiro(tabSide);
     tabBFS = Algoritmos.GreedyO(tabI, tabF);
-    Tabuleiro.print_path(tabBFS);
+    Tabuleiro.print_path(tabBFS);*/
     System.out.println("----------");
 
     //int esc = stdin.nextInt();
@@ -41,12 +41,12 @@ class Puzzle{
         System.out.println("Resolucao passo a passo:");
         System.out.println("-------------");
         Tabuleiro.print_path(tabBFS);
-      
+
     }*/
   }
 /*
   public static void menu(int esc, ){
-    
+
   }
 
   public static void printMenu(){

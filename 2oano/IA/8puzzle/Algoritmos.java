@@ -85,7 +85,7 @@ class Algoritmos{
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
-      aux = Tabuleiro.tabSons(w, tabF, visited);
+      aux = Tabuleiro.tabSonsGreedy(w, tabF, visited);
       visited.addAll(0, aux);
       pq.addAll(aux);
     }while (!pq.isEmpty());
@@ -120,24 +120,24 @@ class Algoritmos{
   */
 }
 
-class greedyOComparator implements Comparator<Tabuleiro>{ 
-              
-  public int compare(Tabuleiro s1, Tabuleiro s2) { 
-      if (s1.scoreO < s2.scoreO) 
-          return -1; 
-      else if (s1.scoreO > s2.scoreO) 
-          return 1; 
-                      return 0; 
-      } 
-} 
+class greedyOComparator implements Comparator<Tabuleiro>{
 
-class greedyMComparator implements Comparator<Tabuleiro>{ 
-              
-  public int compare(Tabuleiro s1, Tabuleiro s2) { 
-      if (s1.scoreM < s2.scoreM) 
-          return -1; 
-      else if (s1.scoreM > s2.scoreM) 
-          return 1; 
-                      return 0; 
-      } 
-} 
+  public int compare(Tabuleiro s1, Tabuleiro s2) {
+      if (s1.scoreO < s2.scoreO)
+          return -1;
+      else if (s1.scoreO > s2.scoreO)
+          return 1;
+                      return 0;
+      }
+}
+
+class greedyMComparator implements Comparator<Tabuleiro>{
+
+  public int compare(Tabuleiro s1, Tabuleiro s2) {
+      if (s1.scoreM < s2.scoreM)
+          return -1;
+      else if (s1.scoreM > s2.scoreM)
+          return 1;
+                      return 0;
+      }
+}

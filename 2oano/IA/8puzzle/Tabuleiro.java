@@ -2,13 +2,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Stack;
 
-class Tabuleiro {
+class Tabuleiro{
   int[] board;
   int side;
   Tabuleiro pai;
-  char action;
   int zeroIndex;
-  Tabuleiro[] adjs = new Tabuleiro[4];
   int depth;
   int scoreO;
   int scoreM;
@@ -23,7 +21,7 @@ class Tabuleiro {
   public static int setScoreO (Tabuleiro src, Tabuleiro dest){
     int score = 0;
     for (int i = 1; i <= src.side*src.side; i++) {
-      if (src.board[i]!=dest.board[i]) score++;  
+      if (src.board[i]!=dest.board[i]) score++;
     }
     return score;
   }
@@ -129,7 +127,7 @@ class Tabuleiro {
           this.adjs_no();
           return this;
         }
-      
+
         public void adjs_no(){
           switch (this.action){
             case 'U':
@@ -159,7 +157,7 @@ class Tabuleiro {
               this.adjs[3]=this.Left();
             }
         }
-      
+
         public boolean compareTo(Tabuleiro comp){
           for (int i = 1; i <= this.side*this.side; i++) {
             if(this.board[i]!=comp.board[i]) return false;
@@ -267,6 +265,35 @@ class Tabuleiro {
   }
 
 
+  public static LinkedList<Tabuleiro> tabSonsGreedy(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
+    LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
+    Tabuleiro tabs[] = new Tabuleiro[4];
+    tabs[0] = newUp(src, dest);
+    tabs[1] = newDown(src, dest);
+    tabs[2] = newLeft(src, dest);
+    tabs[3] = newRight(src, dest);
+    for(int i=0; i<4; i++){
+      if(tabs[i].testSonGreedy(visited)){
+        visited.add(tabs[i]);
+        sons.add(tabs[i]);
+      }
+    }
+    return sons;
+  }
+
+
+  public boolean testSonGreedy(LinkedList<Tabuleiro> visited){
+    boolean flag = true;
+    for(Tabuleiro test : visited){
+      if(Arrays.equals(this.board,test.board)){
+        flag = false;
+        return flag;
+      }
+    }
+    return flag;
+  }
+
+
   public static LinkedList<Tabuleiro> tabSons(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
@@ -324,9 +351,13 @@ class Tabuleiro {
     int pos[] = new int[src.side*src.side];
     int pos_init[] = new int[src.side*src.side];
     for (int i = 1; i <= src.side*src.side; i++) {
-      pos[tabF.board[i]]=i;
-      pos_init[src.board[i]]=i;
+      pos[tabF.board[i]]=i-1;
+      pos_init[src.board[i]]=i-1;
     }
+    /*for(int i=0;i<src.side*src.side ; i++){
+      System.out.println("pos[" + i + "]: " + pos[i]);
+      System.out.println("pos_init[" + i + "]: " + pos_init[i]);
+    }*/
     int counter=0;
     for (int i = 0; i < src.side*src.side; i++) {
       int pos_a=pos_init[i];
