@@ -112,7 +112,7 @@ class Algoritmos{
   }
 
 
-  public static Tabuleiro AStar(Tabuleiro tabI, Tabuleiro tabF){
+  public static Tabuleiro AStarO(Tabuleiro tabI, Tabuleiro tabF){
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     Map<int[],Integer> visited = new HashMap<int[],Integer>();
@@ -121,7 +121,23 @@ class Algoritmos{
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
-      aux = Tabuleiro.tabSonsA(w, tabF, visited);
+      aux = Tabuleiro.tabSonsAO(w, tabF, visited);
+      pq.addAll(aux);
+    }while(!pq.isEmpty());
+    return w;
+  }
+
+
+  public static Tabuleiro AStarM(Tabuleiro tabI, Tabuleiro tabF){
+    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AMComparator());
+    LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
+    Map<int[],Integer> visited = new HashMap<int[],Integer>();
+    Tabuleiro w = new Tabuleiro(tabI.side);
+    pq.add(tabI);
+    do{
+      w=pq.poll();
+      if(Arrays.equals(w.board,tabF.board)) break;
+      aux = Tabuleiro.tabSonsAM(w, tabF, visited);
       pq.addAll(aux);
     }while(!pq.isEmpty());
     return w;

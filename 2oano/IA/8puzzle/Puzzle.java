@@ -93,18 +93,30 @@ class Puzzle{
           System.out.println();
           break;
         case 6:
-          Tabuleiro tabA = new Tabuleiro(tabSide);
+          Tabuleiro tabAO = new Tabuleiro(tabSide);
           System.out.println("Resolucao passo a passo:");
           System.out.println("-------------");
           startTime = System.currentTimeMillis();
-          tabA = Algoritmos.AStar(tabI, tabF);
+          tabAO = Algoritmos.AStarO(tabI, tabF);
           duration = System.currentTimeMillis() - startTime;
-          Tabuleiro.print_path(tabA);
+          Tabuleiro.print_path(tabAO);
           System.out.println();
           System.out.println("Tempo de Execução: " + duration + " ms");
           System.out.println();
           break;
         case 7:
+          Tabuleiro tabAM = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabAM = Algoritmos.AStarM(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabAM);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 8:
           System.exit(0);
           break;
         default:
@@ -123,6 +135,7 @@ class Puzzle{
     System.out.println("4) Greedy com Heuristica Out of Place");
     System.out.println("5) Greedy com Heuristica Manhattan");
     System.out.println("6) A* com Heuristica Out of Place");
-    System.out.println("7) Sair");
+    System.out.println("7) A* com Heuristica Manhattan");
+    System.out.println("8) Sair");
   }
 }

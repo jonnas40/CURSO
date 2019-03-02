@@ -303,7 +303,7 @@ class Tabuleiro{
   }
 
 
-  public static LinkedList<Tabuleiro> tabSonsA(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited){
+  public static LinkedList<Tabuleiro> tabSonsAO(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
     tabs[0] = newUp(src, dest, true);
@@ -311,7 +311,7 @@ class Tabuleiro{
     tabs[2] = newLeft(src, dest, true);
     tabs[3] = newRight(src, dest, true);
     for(int i=0; i<4; i++){
-      if(tabs[i].testSonA(visited)){
+      if(tabs[i].testSonAO(visited)){
         visited.replace(tabs[i].board,tabs[i].scoreO+tabs[i].depth);
         sons.add(tabs[i]);
       }
@@ -320,10 +320,39 @@ class Tabuleiro{
   }
 
 
-  public boolean testSonA(Map<int[],Integer> visited){
+  public boolean testSonAO(Map<int[],Integer> visited){
     boolean flag = true;
     if(visited.containsKey(this.board)){
       if (visited.get(this.board) < (this.scoreO+this.depth)) {
+        flag = false;
+        return flag;
+      }
+    }
+    return flag;
+  }
+
+
+  public static LinkedList<Tabuleiro> tabSonsAM(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited){
+    LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
+    Tabuleiro tabs[] = new Tabuleiro[4];
+    tabs[0] = newUp(src, dest, true);
+    tabs[1] = newDown(src, dest, true);
+    tabs[2] = newLeft(src, dest, true);
+    tabs[3] = newRight(src, dest, true);
+    for(int i=0; i<4; i++){
+      if(tabs[i].testSonAM(visited)){
+        visited.replace(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
+        sons.add(tabs[i]);
+      }
+    }
+    return sons;
+  }
+
+
+  public boolean testSonAM(Map<int[],Integer> visited){
+    boolean flag = true;
+    if(visited.containsKey(this.board)){
+      if (visited.get(this.board) < (this.scoreM+this.depth)) {
         flag = false;
         return flag;
       }
