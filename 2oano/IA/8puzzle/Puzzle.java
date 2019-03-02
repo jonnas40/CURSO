@@ -24,36 +24,92 @@ class Puzzle{
     }
     tabI.scoreO = Tabuleiro.setScoreO(tabI, tabF);
     tabI.scoreM = Tabuleiro.setScoreM(tabI, tabF);
-    System.out.println("----------");
-    /*Tabuleiro tabBFS = new Tabuleiro(tabSide);
-    tabBFS = Algoritmos.GreedyO(tabI, tabF);
-    Tabuleiro.print_path(tabBFS);*/
-    System.out.println("----------");
 
-    //int esc = stdin.nextInt();
-    Tabuleiro tabIFS = new Tabuleiro(tabSide);
-    tabIFS = Algoritmos.AStar(tabI, tabF);
-    Tabuleiro.print_path(tabIFS);
-    /*printMenu();
-    switch (esc){
-      case '1':
-        Tabuleiro tabBFS = new Tabuleiro(tabSide);
-        tabBFS = Algoritmos.BFS(tabI, tabF);
-        System.out.println("Resolucao passo a passo:");
-        System.out.println("-------------");
-        Tabuleiro.print_path(tabBFS);
-
-    }*/
+    int esc = 0;
+    long startTime = 0;
+    long duration = 0;
+    while(esc <8){
+      printMenu();
+      esc = stdin.nextInt();
+      switch (esc){
+        case 1:
+          Tabuleiro tabBFS = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabBFS = Algoritmos.BFS(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabBFS);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 2:
+          Tabuleiro tabDFS = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabDFS = Algoritmos.DFS(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabDFS);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 3:
+          Tabuleiro tabIDFS = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabIDFS = Algoritmos.IDFS(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabIDFS);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 4:
+          Tabuleiro tabGreedyO = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabIDFS = Algoritmos.GreedyO(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabIDFS);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 5:
+          Tabuleiro tabGreedyM = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabIDFS = Algoritmos.GreedyM(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabIDFS);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 6:
+          System.exit(0);
+          break;
+        default:
+          System.out.println("Input errado");
+          break;
+      }
+    }
   }
-/*
-  public static void menu(int esc, ){
 
-  }
 
   public static void printMenu(){
     System.out.println("----- Escolha o algoritmo -----");
     System.out.println("1) BFS");
     System.out.println("2) DFS");
     System.out.println("3) IDFS");
-  }*/
+    System.out.println("4) Greedy com Heuristica Out of Place");
+    System.out.println("5) Greedy com Heuristica Manhattan");
+    System.out.println("6) Sair");
+  }
 }
