@@ -116,12 +116,13 @@ class Algoritmos{
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     Map<int[],Integer> visited = new HashMap<int[],Integer>();
+    LinkedList<Tabuleiro> fechado = new LinkedList<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
     pq.add(tabI);
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
-      aux = Tabuleiro.tabSonsAO(w, tabF, visited);
+      aux = Tabuleiro.tabSonsAO(w, tabF, visited, fechado);
       pq.addAll(aux);
     }while(!pq.isEmpty());
     return w;
@@ -132,12 +133,13 @@ class Algoritmos{
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AMComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     Map<int[],Integer> visited = new HashMap<int[],Integer>();
+    LinkedList<Tabuleiro> fechado = new LinkedList<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
     pq.add(tabI);
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
-      aux = Tabuleiro.tabSonsAM(w, tabF, visited);
+      aux = Tabuleiro.tabSonsAM(w, tabF, visited, fechado);
       pq.addAll(aux);
     }while(!pq.isEmpty());
     return w;

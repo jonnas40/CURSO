@@ -303,7 +303,7 @@ class Tabuleiro{
   }
 
 
-  public static LinkedList<Tabuleiro> tabSonsAO(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited){
+  public static LinkedList<Tabuleiro> tabSonsAO(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited, LinkedList<Tabuleiro> fechado){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
     tabs[0] = newUp(src, dest, true);
@@ -311,11 +311,15 @@ class Tabuleiro{
     tabs[2] = newLeft(src, dest, true);
     tabs[3] = newRight(src, dest, true);
     for(int i=0; i<4; i++){
-      if(tabs[i].testSonAO(visited)){
-        visited.replace(tabs[i].board,tabs[i].scoreO+tabs[i].depth);
-        sons.add(tabs[i]);
+      if (tabs[i].testSonGreedy(fechado)){
+        if(tabs[i].testSonAO(visited)){
+          visited.replace(tabs[i].board,tabs[i].scoreO+tabs[i].depth);
+          sons.add(tabs[i]);
+        }
       }
     }
+    fechado.add(src);
+    visited.remove(src.board);
     return sons;
   }
 
@@ -332,7 +336,7 @@ class Tabuleiro{
   }
 
 
-  public static LinkedList<Tabuleiro> tabSonsAM(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited){
+  public static LinkedList<Tabuleiro> tabSonsAM(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited, LinkedList<Tabuleiro> fechado){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
     tabs[0] = newUp(src, dest, true);
@@ -340,11 +344,15 @@ class Tabuleiro{
     tabs[2] = newLeft(src, dest, true);
     tabs[3] = newRight(src, dest, true);
     for(int i=0; i<4; i++){
-      if(tabs[i].testSonAM(visited)){
-        visited.replace(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
-        sons.add(tabs[i]);
+      if (tabs[i].testSonGreedy(fechado)){
+        if(tabs[i].testSonAM(visited)){
+          visited.replace(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
+          sons.add(tabs[i]);
+        }
       }
     }
+    fechado.add(src);
+    visited.remove(src.board);
     return sons;
   }
 
