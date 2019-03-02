@@ -23,6 +23,7 @@ class Puzzle{
       System.exit(0);
     }
     tabI.scoreO = Tabuleiro.setScoreO(tabI, tabF);
+    tabI.scoreM = Tabuleiro.setScoreM(tabI, tabF);
     System.out.println("----------");
     /*Tabuleiro tabBFS = new Tabuleiro(tabSide);
     tabBFS = Algoritmos.GreedyO(tabI, tabF);
@@ -31,7 +32,7 @@ class Puzzle{
 
     //int esc = stdin.nextInt();
     Tabuleiro tabIFS = new Tabuleiro(tabSide);
-    tabIFS = Algoritmos.GreedyM(tabI, tabF);
+    tabIFS = Algoritmos.AStar(tabI, tabF);
     Tabuleiro.print_path(tabIFS);
     /*printMenu();
     switch (esc){

@@ -313,7 +313,7 @@ class Tabuleiro{
     for(int i=0; i<4; i++){
       if(tabs[i].testSonA(visited)){
         visited.remove(tabs[i].board);  
-              visited.put(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
+        visited.put(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
         sons.add(tabs[i]);
       }
     }
@@ -324,7 +324,7 @@ class Tabuleiro{
   public boolean testSonA(Map<int[],Integer> visited){
     boolean flag = true;
     if(visited.containsKey(this.board)){
-      if (visited.get(this.board) < this.scoreM+this.depth) {
+      if (visited.get(this.board) < (this.scoreM+this.depth)) {
         flag = false;
         return flag;
       }

@@ -113,7 +113,7 @@ class Algoritmos{
 
 
   public static Tabuleiro AStar(Tabuleiro tabI, Tabuleiro tabF){
-    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new AOComparator());
+    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     Map<int[],Integer> visited = new HashMap<int[],Integer>();
     Tabuleiro w = new Tabuleiro(tabI.side);
