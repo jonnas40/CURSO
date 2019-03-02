@@ -104,7 +104,7 @@ class Algoritmos{
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
-      aux = Tabuleiro.tabSons(w, tabF, visited);
+      aux = Tabuleiro.tabSonsGreedy(w, tabF, visited);
       visited.addAll(0, aux);
       pq.addAll(aux);
     }while (!pq.isEmpty());
