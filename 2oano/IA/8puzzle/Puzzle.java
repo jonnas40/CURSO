@@ -73,9 +73,9 @@ class Puzzle{
           System.out.println("Resolucao passo a passo:");
           System.out.println("-------------");
           startTime = System.currentTimeMillis();
-          tabIDFS = Algoritmos.GreedyO(tabI, tabF);
+          tabGreedyO = Algoritmos.GreedyO(tabI, tabF);
           duration = System.currentTimeMillis() - startTime;
-          Tabuleiro.print_path(tabIDFS);
+          Tabuleiro.print_path(tabGreedyO);
           System.out.println();
           System.out.println("Tempo de Execução: " + duration + " ms");
           System.out.println();
@@ -85,14 +85,26 @@ class Puzzle{
           System.out.println("Resolucao passo a passo:");
           System.out.println("-------------");
           startTime = System.currentTimeMillis();
-          tabIDFS = Algoritmos.GreedyM(tabI, tabF);
+          tabGreedyM = Algoritmos.GreedyM(tabI, tabF);
           duration = System.currentTimeMillis() - startTime;
-          Tabuleiro.print_path(tabIDFS);
+          Tabuleiro.print_path(tabGreedyM);
           System.out.println();
           System.out.println("Tempo de Execução: " + duration + " ms");
           System.out.println();
           break;
         case 6:
+          Tabuleiro tabA = new Tabuleiro(tabSide);
+          System.out.println("Resolucao passo a passo:");
+          System.out.println("-------------");
+          startTime = System.currentTimeMillis();
+          tabA = Algoritmos.AStar(tabI, tabF);
+          duration = System.currentTimeMillis() - startTime;
+          Tabuleiro.print_path(tabA);
+          System.out.println();
+          System.out.println("Tempo de Execução: " + duration + " ms");
+          System.out.println();
+          break;
+        case 7:
           System.exit(0);
           break;
         default:
@@ -110,6 +122,7 @@ class Puzzle{
     System.out.println("3) IDFS");
     System.out.println("4) Greedy com Heuristica Out of Place");
     System.out.println("5) Greedy com Heuristica Manhattan");
-    System.out.println("6) Sair");
+    System.out.println("6) A* com Heuristica Out of Place");
+    System.out.println("7) Sair");
   }
 }
