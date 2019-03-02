@@ -290,7 +290,7 @@ class Tabuleiro{
     return sons;
   }
 
-  
+
   public boolean testSonGreedy(LinkedList<Tabuleiro> visited){
     boolean flag = true;
     for(Tabuleiro test : visited){
@@ -312,7 +312,7 @@ class Tabuleiro{
     tabs[3] = newRight(src, dest, true);
     for(int i=0; i<4; i++){
       if(tabs[i].testSonA(visited)){
-        visited.remove(tabs[i].board);  
+        visited.remove(tabs[i].board);
         visited.put(tabs[i].board,tabs[i].scoreM+tabs[i].depth);
         sons.add(tabs[i]);
       }

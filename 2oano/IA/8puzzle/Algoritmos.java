@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.PriorityQueue;
 
+//test
+
 class Algoritmos{
 
   public static Tabuleiro BFS(Tabuleiro tabI, Tabuleiro tabF){
@@ -126,7 +128,7 @@ class Algoritmos{
     }while(!pq.isEmpty());
     return w;
   }
-  
+
 }
 
 class greedyOComparator implements Comparator<Tabuleiro>{
