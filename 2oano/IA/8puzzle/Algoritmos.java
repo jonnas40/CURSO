@@ -77,7 +77,7 @@ class Algoritmos{
 
 
   public static Tabuleiro GreedyM(Tabuleiro tabI, Tabuleiro tabF){
-    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyMComparator());
+    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greeedyMComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
@@ -109,15 +109,18 @@ class Algoritmos{
     return w;
   }
 
-/*
+
   public static Tabuleiro AStar(Tabuleiro tabI, Tabuleiro tabF){
-    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyOComparator());
+    PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new AOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
-
+    pq.add(tabI);
+    do{
+      w=pq.poll();
+    }
   }
-  */
+  
 }
 
 class greedyOComparator implements Comparator<Tabuleiro>{
@@ -127,7 +130,7 @@ class greedyOComparator implements Comparator<Tabuleiro>{
           return -1;
       else if (s1.scoreO > s2.scoreO)
           return 1;
-                      return 0;
+      return 0;
       }
 }
 
@@ -138,6 +141,28 @@ class greedyMComparator implements Comparator<Tabuleiro>{
           return -1;
       else if (s1.scoreM > s2.scoreM)
           return 1;
-                      return 0;
+      return 0;
+      }
+}
+
+class AOComparator implements Comparator<Tabuleiro>{
+
+  public int compare(Tabuleiro s1, Tabuleiro s2) {
+      if ( (s1.depth + s1.scoreO) < (s2.depth + s2.scoreO) )
+          return -1;
+      else if ( (s1.depth + s1.scoreO) > (s2.depth + s2.scoreO) )
+          return 1;
+      return 0;
+      }
+}
+
+class AMComparator implements Comparator<Tabuleiro>{
+
+  public int compare(Tabuleiro s1, Tabuleiro s2) {
+      if ( (s1.depth + s1.scoreM) < (s2.depth + s2.scoreM) )
+          return -1;
+      else if ( (s1.depth + s1.scoreM) > (s2.depth + s2.scoreM) )
+          return 1;
+      return 0;
       }
 }
