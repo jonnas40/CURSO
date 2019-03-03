@@ -321,7 +321,7 @@ class Tabuleiro{
       System.out.println("pos_init[" + i + "]: " + pos_init[i]);
     }*/
     int counter=0;
-    for (int i = 0; i < src.side*src.side; i++) {
+    for (int i = 1; i < src.side*src.side; i++) {
       int pos_a=pos_init[i];
       while(pos_a / src.side != pos[i] / src.side){ //linhas
         if ( (pos_a / src.side) > (pos[i] / src.side) ) { //up
