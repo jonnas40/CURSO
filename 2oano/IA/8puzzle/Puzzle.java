@@ -49,7 +49,7 @@ class Puzzle{
           System.out.println("Resolucao passo a passo:");
           System.out.println("-------------");
           startTime = System.currentTimeMillis();
-          tabLDFS = Algoritmos.LDFS(tabI, tabF, 80);
+          tabLDFS = Algoritmos.LDFS(tabI, tabF, 20);
           duration = System.currentTimeMillis() - startTime;
           Tabuleiro.print_path(tabLDFS);
           System.out.println();

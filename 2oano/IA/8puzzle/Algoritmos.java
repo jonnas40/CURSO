@@ -140,7 +140,7 @@ class Algoritmos{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
       aux = Tabuleiro.tabSonsAM(w, tabF, visited, fechado);
-      pq.addAll(aux);
+      pq.addAll(aux); //retirar repetidos
     }while(!pq.isEmpty());
     return w;
   }

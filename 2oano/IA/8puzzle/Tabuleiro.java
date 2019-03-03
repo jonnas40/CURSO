@@ -22,7 +22,9 @@ class Tabuleiro{
   public static int setScoreO (Tabuleiro src, Tabuleiro dest){
     int score = 0;
     for (int i = 1; i <= src.side*src.side; i++) {
-      if (src.board[i]!=dest.board[i]) score++;
+      if (src.board[i]!=dest.board[i]) {
+        if (src.board[i]!=0) score++;
+      }
     }
     return score;
   }
