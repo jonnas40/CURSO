@@ -56,7 +56,7 @@ def dalambert(cons, serie):
 # Exercicio 3
 
 def cauchy(cons, serie):
-    print("Critério de Cauchy")
+    print("Critério de termos alternadamente positivos e negativos")
     f = lambda x: eval(serie)
     ter = 0
     acc = 0
