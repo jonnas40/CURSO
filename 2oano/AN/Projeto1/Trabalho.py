@@ -63,7 +63,7 @@ def cauchy(cons, serie):
     exp = 1.e-8
     totalf = 0
 
-    for k in range(0, 10000):
+    for k in range(0, 1000000000):
         ser = f(k)
         totalf = totalf + ser
         if math.fabs(ser) <= exp:

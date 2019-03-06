@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 class Tabuleiro{
@@ -134,7 +135,7 @@ class Tabuleiro{
   }
 
 
-  public static LinkedList<Tabuleiro> tabSonsGreedy(Tabuleiro src, Tabuleiro dest, LinkedList<Tabuleiro> visited){
+  public static LinkedList<Tabuleiro> tabSonsGreedy(Tabuleiro src, Tabuleiro dest, Set<Tabuleiro> visited){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
     tabs[0] = newUp(src, dest, true);
@@ -151,7 +152,7 @@ class Tabuleiro{
   }
 
 
-  public boolean testSonGreedy(LinkedList<Tabuleiro> visited){
+  public boolean testSonGreedy(Set<Tabuleiro> visited){
     boolean flag = true;
     for(Tabuleiro test : visited){
       if(Arrays.equals(this.board,test.board)){
@@ -163,7 +164,7 @@ class Tabuleiro{
   }
 
 
-  public static LinkedList<Tabuleiro> tabSonsAO(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited, LinkedList<Tabuleiro> fechado){
+  public static LinkedList<Tabuleiro> tabSonsAO(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited, Set<Tabuleiro> fechado){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
     tabs[0] = newUp(src, dest, true);
@@ -196,7 +197,7 @@ class Tabuleiro{
   }
 
 
-  public static LinkedList<Tabuleiro> tabSonsAM(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited, LinkedList<Tabuleiro> fechado){
+  public static LinkedList<Tabuleiro> tabSonsAM(Tabuleiro src, Tabuleiro dest, Map<int[],Integer> visited, Set<Tabuleiro> fechado){
     LinkedList<Tabuleiro> sons = new LinkedList<Tabuleiro>();
     Tabuleiro tabs[] = new Tabuleiro[4];
     tabs[0] = newUp(src, dest, true);

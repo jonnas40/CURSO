@@ -1,9 +1,11 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Set;
 import java.util.PriorityQueue;
 
 class Algoritmos{
@@ -81,14 +83,14 @@ class Algoritmos{
   public static Tabuleiro GreedyM(Tabuleiro tabI, Tabuleiro tabF){
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyMComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
-    LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
+    Set<Tabuleiro> visited = new HashSet<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
     pq.add(tabI);
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
       aux = Tabuleiro.tabSonsGreedy(w, tabF, visited);
-      visited.addAll(0, aux);
+      visited.addAll(aux);
       pq.addAll(aux);
     }while (!pq.isEmpty());
     return w;
@@ -98,14 +100,14 @@ class Algoritmos{
   public static Tabuleiro GreedyO(Tabuleiro tabI, Tabuleiro tabF){
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(10, new greedyOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
-    LinkedList<Tabuleiro> visited = new LinkedList<Tabuleiro>();
+    Set<Tabuleiro> visited = new HashSet<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
     pq.add(tabI);
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
       aux = Tabuleiro.tabSonsGreedy(w, tabF, visited);
-      visited.addAll(0, aux);
+      visited.addAll(aux);
       pq.addAll(aux);
     }while (!pq.isEmpty());
     return w;
@@ -116,7 +118,7 @@ class Algoritmos{
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AOComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     Map<int[],Integer> visited = new HashMap<int[],Integer>();
-    LinkedList<Tabuleiro> fechado = new LinkedList<Tabuleiro>();
+    Set<Tabuleiro> fechado = new HashSet<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
     pq.add(tabI);
     do{
@@ -133,14 +135,14 @@ class Algoritmos{
     PriorityQueue<Tabuleiro> pq = new PriorityQueue<Tabuleiro>(1000000, new AMComparator());
     LinkedList<Tabuleiro> aux = new LinkedList<Tabuleiro>();
     Map<int[],Integer> visited = new HashMap<int[],Integer>();
-    LinkedList<Tabuleiro> fechado = new LinkedList<Tabuleiro>();
+    Set<Tabuleiro> fechado = new HashSet<Tabuleiro>();
     Tabuleiro w = new Tabuleiro(tabI.side);
     pq.add(tabI);
     do{
       w=pq.poll();
       if(Arrays.equals(w.board,tabF.board)) break;
       aux = Tabuleiro.tabSonsAM(w, tabF, visited, fechado);
-      pq.addAll(aux); //retirar repetidos
+      pq.addAll(aux); //retirar
     }while(!pq.isEmpty());
     return w;
   }
