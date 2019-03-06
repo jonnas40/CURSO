@@ -22,7 +22,7 @@ class Algoritmos{
         break;
       }
       aux = Tabuleiro.tabSons(w, tabF, visited);
-      visited.addAll(aux);
+      visited.addAll(0, aux);
       fila.addAll(aux);
     }while(!fila.isEmpty());
     return w;
