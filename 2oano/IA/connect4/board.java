@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 
 class Board {
 
@@ -12,7 +12,11 @@ class Board {
         }
     }
 
-    public play(int n, char c){
+    public Board sons(Board pai){
+        
+    }
+
+    public void play(int n, char c){
         int i = 0;
         while (this.board[n][i] == '-') {
             i++;
