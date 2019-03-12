@@ -270,8 +270,8 @@ class Tabuleiro{
       if(tabs[i].testSonLDFS(visited)){
         visited.add(tabs[i]);
         sons.add(tabs[i]);
+      }
     }
-  }
     return sons;
   }
 

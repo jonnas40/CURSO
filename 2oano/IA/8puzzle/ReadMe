@@ -1,0 +1,4 @@
+ Para executar o programa, basta executar o comando "javac Puzzle.java" seguido do comando "java Puzzle"
+ Como input o programa necessita de um inteiro com o valor do lado do tabuleiro. 
+ Seguido de dois tabuleiros com (valor do lado)^2 peças 
+ Depois basta selecionar o algoritmo que deseja utilizar
