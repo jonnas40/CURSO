@@ -45,13 +45,13 @@ class Puzzle{
           System.out.println();
           break;
         case 2:
-          Tabuleiro tabLDFS = new Tabuleiro(tabSide);
+          Tabuleiro tabDFS = new Tabuleiro(tabSide);
           System.out.println("Resolucao passo a passo:");
           System.out.println("-------------");
           startTime = System.currentTimeMillis();
-          tabLDFS = Algoritmos.LDFS(tabI, tabF, 20);
+          tabDFS = Algoritmos.DFS(tabI, tabF);
           duration = System.currentTimeMillis() - startTime;
-          Tabuleiro.print_path(tabLDFS);
+          Tabuleiro.print_path(tabDFS);
           System.out.println();
           System.out.println("Tempo de Execução: " + duration + " ms");
           System.out.println();
@@ -130,7 +130,7 @@ class Puzzle{
   public static void printMenu(){
     System.out.println("----- Escolha o algoritmo -----");
     System.out.println("1) BFS");
-    System.out.println("2) LDFS");
+    System.out.println("2) DFS");
     System.out.println("3) IDFS");
     System.out.println("4) Greedy com Heuristica Out of Place");
     System.out.println("5) Greedy com Heuristica Manhattan");
