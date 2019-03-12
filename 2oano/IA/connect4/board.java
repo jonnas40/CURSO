@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.*;
 
 class Board {
 
@@ -31,6 +30,7 @@ class Board {
         for (int i = 0; i < 7; i++) {
             sons.add(play(i, pai.nextTurn));
         }
+        return sons;
     }
 
     public Board play(int n, char c){
@@ -40,6 +40,7 @@ class Board {
         while (ret.board[i][n] == '-') {
             i++;
         }
-        return ret.board[i-1][n] = c;
+        ret.board[i-1][n] = c;
+        return ret;
     }
 }
