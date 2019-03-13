@@ -132,33 +132,15 @@ class Board {
         if(s.charAt(i)==c){ numC++; }
         else if(s.charAt(i)!=' '){ numNC++; }
       }
-      if(numC == 1 && numNC == 0){
-        return 1;
-      }
-      else if(numC == 2 && numNC == 0){
-        return 10;
-      }
-      else if(numC == 3 && numNC == 0){
-        return 50;
-      }
-      else if(numC == 4 && numNC == 0){
-        return 512;
-      }
-      else if(numC == 0 && numNC == 1){
-        return -1;
-      }
-      else if(numC == 0 && numNC == 2){
-        return -10;
-      }
-      else if(numC == 0 && numNC == 3){
-        return -50;
-      }
-      else if(numC == 0 && numNC == 4){
-        return -512;
-      }
-      else {
-        return 0;
-      }
+      if(numC == 1 && numNC == 0){ return 1; }
+      else if(numC == 2 && numNC == 0){ return 10; }
+      else if(numC == 3 && numNC == 0){ return 50; }
+      else if(numC == 4 && numNC == 0){ return 512; }
+      else if(numC == 0 && numNC == 1){ return -1; }
+      else if(numC == 0 && numNC == 2){ return -10; }
+      else if(numC == 0 && numNC == 3){ return -50; }
+      else if(numC == 0 && numNC == 4){ return -512; }
+      else { return 0; }
     }
 
 
