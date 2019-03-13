@@ -99,7 +99,7 @@ class Board {
       for (int i=0; i<5; i++){
         if(maxh < 6 && maxh-3 >=0 && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY){
           for (int j = 0; j<4; j++) {
-            System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
+            //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
             s += this.board[this.lastPlayX][maxh-j];
           }
           total += checkScore(c,s);
@@ -107,7 +107,7 @@ class Board {
         }
         maxh--;
       }
-      System.out.println("Vertical: " + total);
+      //System.out.println("Vertical: " + total);
       return total;
     }
 
@@ -120,7 +120,7 @@ class Board {
       for (int i=0; i<5; i++){
         if(maxw < 7 && maxw-3 >=0 && maxw-3 <= this.lastPlayX && maxw >= this.lastPlayX){
           for (int j = 0; j<4; j++) {
-            System.out.println("H: [" + (maxw-j)+ "],[" + this.lastPlayY + "]" + j);
+            //System.out.println("H: [" + (maxw-j)+ "],[" + this.lastPlayY + "]" + j);
             s += this.board[maxw-j][this.lastPlayY];
           }
           total += checkScore(c,s);
@@ -128,7 +128,7 @@ class Board {
         }
         maxw--;
       }
-      System.out.println("Horizontal: " + total);
+      //System.out.println("Horizontal: " + total);
       return total;
     }
 
@@ -141,7 +141,7 @@ class Board {
       for(int i=0; i<5; i++){
         if (maxh<6 && maxw>=0 && maxw+3 >= this.lastPlayX && maxw <= this.lastPlayX && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY && maxw + 3 <7 && maxh - 3 >=0){
           for (int j = 0; j<4; j++) {
-            System.out.println("TL: [" + (maxw+j) + "],[" + (maxh-j) + "]" + j);
+            //System.out.println("TL: [" + (maxw+j) + "],[" + (maxh-j) + "]" + j);
             s += this.board[maxw+j][maxh-j];
           }
           total += checkScore(c,s);
@@ -150,7 +150,7 @@ class Board {
         maxh--;
         maxw++;
       }
-      System.out.println("DiagonalTL: " + total);
+      //System.out.println("DiagonalTL: " + total);
       return total;
     }
 
@@ -163,7 +163,7 @@ class Board {
       for (int i=0; i<5; i++){
         if (maxh<6 && maxw<7 && maxw-3 <= this.lastPlayX && maxw >= this.lastPlayX && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY && maxw - 3 >=0 && maxh - 3 >=0){
           for (int j = 0; j<4; j++) {
-            System.out.println("TR: [" + (maxw-j) + "],[" + (maxh-j) + "]" + j);
+            //System.out.println("TR: [" + (maxw-j) + "],[" + (maxh-j) + "]" + j);
             s += this.board[maxw-j][maxh-j];
           }
           total += checkScore(c,s);
@@ -172,7 +172,7 @@ class Board {
         maxh--;
         maxw--;
       }
-      System.out.println("DiagonalTR: " + total);
+      //System.out.println("DiagonalTR: " + total);
       return total;
     }
 
