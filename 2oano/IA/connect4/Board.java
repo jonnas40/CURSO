@@ -8,7 +8,7 @@ class Board {
     int lastPlayX = 0;
     int lastPlayY = 0;
 
-    
+
     public Board(){
         board = new char[6][7];
         for (int i = 0; i < 6; i++) {
@@ -47,7 +47,7 @@ class Board {
     public Set sons(Board pai){
         Set<Board> sons = new HashSet<Board>();
         for (int i = 0; i < 7; i++) {
-            sons.add(play(i));
+            sons.add(pai.play(i));
         }
         return sons;
     }
