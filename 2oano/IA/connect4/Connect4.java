@@ -10,7 +10,7 @@ class Connect4{
     while(win!=true){
         Board.printBoard(tab);
         tab = tab.play(stdin.nextInt());
-        //win = tab.checkWin();
+        win = tab.checkWin();
     }
     Board.printBoard(tab);
     System.out.println(tab.turn + " wins");
