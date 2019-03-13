@@ -84,6 +84,7 @@ class Board {
         int count=0;
         for(int i = 0; i < 6; i++){
             if (this.check(c, i, x)) count++;
+            else count=0;
         }
         return (count>3) ? true : false;
     }
