@@ -161,7 +161,7 @@ class Board {
       int total = 0;
       String s = "";
       for (int i=0; i<5; i++){
-        if (maxh<6 && maxw<7 && maxw-3 <= this.lastPlayX && maxh-3 <= this.lastPlayY && maxw - 3 >=0 && maxh - 3 >=0){
+        if (maxh<6 && maxw<7 && maxw-3 <= this.lastPlayX && maxw >= this.lastPlayX && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY && maxw - 3 >=0 && maxh - 3 >=0){
           for (int j = 0; j<4; j++) {
             System.out.println("TR: [" + (maxw-j) + "],[" + (maxh-j) + "]" + j);
             s += this.board[maxw-j][maxh-j];
@@ -174,6 +174,13 @@ class Board {
       }
       System.out.println("DiagonalTR: " + total);
       return total;
+    }
+
+
+    public int score(){
+      int score = 0;
+      score = this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn);
+      return score;
     }
 
 
