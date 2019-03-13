@@ -7,10 +7,17 @@ class Connect4{
     Scanner stdin = new Scanner(System.in);
     Board tab = new Board();
     Boolean win = false;
+    Boolean playerTurn = true;
     while(win!=true){
+      if (playerTurn) {
+        playerTurn = false;
         Board.printBoard(tab);
         tab = tab.play(stdin.nextInt());
         win = tab.checkWin();
+      }
+        tab = tab.play(Algoritmos.minimax(tab));
+        win = tab.checkWin();
+        playerTurn = true;
     }
     Board.printBoard(tab);
     System.out.println(tab.turn + " wins");
