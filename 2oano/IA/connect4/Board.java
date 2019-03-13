@@ -8,11 +8,11 @@ class Board {
     int lastPlayX = 0;
     int lastPlayY = 0;
 
-    
+
     public Board(){
-        board = new char[6][7];
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
+        board = new char[7][6];
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 6; j++) {
                 this.board[i][j] = ' ';
             }
         }
@@ -24,7 +24,7 @@ class Board {
     public static void printBoard(Board tab){
         System.out.println("+-------------+");
         for (int i=5; i>=0; i--){
-          System.out.print("|" + tab.board[i][0] + "|" + tab.board[i][1] + "|" + tab.board[i][2] + "|" + tab.board[i][3] + "|" + tab.board[i][4] + "|" + tab.board[i][5] + "|" + tab.board[i][6] + "|\n");
+          System.out.print("|" + tab.board[0][i] + "|" + tab.board[1][i] + "|" + tab.board[2][i] + "|" + tab.board[3][i] + "|" + tab.board[4][i] + "|" + tab.board[5][i] + "|" + tab.board[6][i] + "|\n");
         }
         System.out.println("+-------------+");
         System.out.println("|0|1|2|3|4|5|6|");
@@ -32,8 +32,8 @@ class Board {
 
 
     public static void copyBoard(Board src, Board target){
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 6; j++) {
                 target.board[i][j] = src.board[i][j];
             }
         }
@@ -57,14 +57,14 @@ class Board {
         int i = 0;
         Board ret = new Board();
         copyBoard(this, ret);
-        while (ret.board[i][n] != ' ' && i<6) {
+        while (ret.board[n][i] != ' ' && i<6) {
             i++;
-            if (ret.board[i][n] != ' ' && i==5) {
+            if (ret.board[n][i] != ' ' && i==5) {
                 System.out.println("Jogada invalida!");
                 return this;
             }
         }
-        ret.board[i][n] = this.nextTurn;
+        ret.board[n][i] = this.nextTurn;
         ret.turn = this.nextTurn;
         ret.nextTurn = this.turn;
         ret.lastPlayX = n;
@@ -93,13 +93,14 @@ class Board {
 
 
     public int checkVert(char c){
-      int maxh = this.lastPlayY + 4;
+      int maxh = this.lastPlayY + 3;
       int total = 0;
       String s = "";
       for (int i=0; i<5; i++){
-        if(maxh < 6 && maxh-3 <= this.lastPlayY && maxh-3 >=0){
+        if(maxh < 6 && maxh-3 >=0 && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY){
           for (int j = 0; j<4; j++) {
-            s += this.board[maxh-j][this.lastPlayX];
+            System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
+            s += this.board[this.lastPlayX][maxh-j];
           }
           total += checkScore(c,s);
           s = "";
@@ -112,13 +113,15 @@ class Board {
 
 
     public int checkHor(char c){
-      int maxw = this.lastPlayX + 4;
+      System.out.println(lastPlayX);
+      int maxw = this.lastPlayX + 3;
       int total = 0;
       String s = "";
       for (int i=0; i<5; i++){
-        if(maxw < 7 && maxw-3 <= this.lastPlayX && maxw-3 >=0){
+        if(maxw < 7 && maxw-3 >=0 && maxw-3 <= this.lastPlayX && maxw >= this.lastPlayX){
           for (int j = 0; j<4; j++) {
-            s += this.board[this.lastPlayY][maxw-j];
+            System.out.println("H: [" + (maxw-j)+ "],[" + this.lastPlayY + "]" + j);
+            s += this.board[maxw-j][this.lastPlayY];
           }
           total += checkScore(c,s);
           s = "";
@@ -130,8 +133,52 @@ class Board {
     }
 
 
+    public int checkDiagTL(char c){
+      int maxh = this.lastPlayY + 3;
+      int maxw = this.lastPlayX - 3;
+      int total = 0;
+      String s = "";
+      for(int i=0; i<5; i++){
+        if (maxh<6 && maxw>=0 && maxw+3 >= this.lastPlayX && maxw <= this.lastPlayX && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY && maxw + 3 <7 && maxh - 3 >=0){
+          for (int j = 0; j<4; j++) {
+            System.out.println("TL: [" + (maxw+j) + "],[" + (maxh-j) + "]" + j);
+            s += this.board[maxw+j][maxh-j];
+          }
+          total += checkScore(c,s);
+          s = "";
+        }
+        maxh--;
+        maxw++;
+      }
+      System.out.println("DiagonalTL: " + total);
+      return total;
+    }
+
+
+    public int checkDiagTR(char c){
+      int maxh = this.lastPlayY + 3;
+      int maxw = this.lastPlayX + 3;
+      int total = 0;
+      String s = "";
+      for (int i=0; i<5; i++){
+        if (maxh<6 && maxw<7 && maxw-3 <= this.lastPlayX && maxh-3 <= this.lastPlayY && maxw - 3 >=0 && maxh - 3 >=0){
+          for (int j = 0; j<4; j++) {
+            System.out.println("TR: [" + (maxw-j) + "],[" + (maxh-j) + "]" + j);
+            s += this.board[maxw-j][maxh-j];
+          }
+          total += checkScore(c,s);
+          s = "";
+        }
+        maxh--;
+        maxw--;
+      }
+      System.out.println("DiagonalTR: " + total);
+      return total;
+    }
+
+
     public Boolean checkWin(){
-        if ((this.checkHor(this.turn) + this.checkVert(this.turn)) > 512 /* + this.checkDiagonalLR(this.lastPlayX, this.lastPlayY, this.turn) + this.checkDiagonalRL(this.lastPlayX, this.lastPlayY, this.turn) > 512*/) return true;
+        if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return true;
         return false;
     }
 
