@@ -76,8 +76,9 @@ class Board {
         for(int i = 0; i < 7; i++){
             if (this.check(c, y, i)) count++;
             else count=0;
+            if (count==4) return true;
         }
-        return (count>3) ? true : false;
+        return false;
     }
 
     private boolean checkCollumn(int x, char c){
@@ -85,32 +86,37 @@ class Board {
         for(int i = 0; i < 6; i++){
             if (this.check(c, i, x)) count++;
             else count=0;
+            if (count==4) return true;
         }
-        return (count>3) ? true : false;
+        return false;
     }
 
     private boolean checkDiagonalLR(int x, int y, char c){
         int count=0;
-        int i = x - min(x,y);
-        int j = y - min(x,y);
+        int i = y - min(x,y);
+        int j = x - min(x,y);
         while( (i<6) && (j<7)){
             if (this.check(c, i, j)) count++;
+            else count=0;
+            if (count==4) return true;
             i++;
             j++;
         }
-        return (count>3) ? true : false;
+        return false;
     }
 
     private boolean checkDiagonalRL(int x, int y, char c){
         int count=0;
         int j = ((y + x)<7 ? y+x : 6);
-        int i = ((y - x)<7 ? y-x : 0);
-        while( (i>=0) && (j<7)){
+        int i = ((x - y)<6 ? x-y : 0);
+        while( (i<6) && (j>=0)){
             if (this.check(c, i, j)) count++;
-            i--;
-            j++;
+            else count=0;
+            if (count==4) return true;
+            i++;
+            j--;
         }
-        return (count>3) ? true : false;
+        return false;
     }
 
     public Boolean checkWin(){
