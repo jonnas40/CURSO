@@ -3,7 +3,7 @@ import java.util.*;
 class Algoritmos {
 
     public static int minimax(Board b){
-        int ac;
+        int ac=0;
         int v = maxValue(b, ac);
         return ac;
     }
@@ -13,7 +13,7 @@ class Algoritmos {
         int v = Integer.MIN_VALUE;
         if(b.checkWin())
             return b.score();
-        sons=sons(b);
+        sons=b.sons();
         for (Board son : sons) {
             int m=minValue(son, ac);
             if (v<m){
@@ -25,12 +25,12 @@ class Algoritmos {
     }
 
 
-    private static int maxValue(Board b, int ac){
+    private static int minValue(Board b, int ac){
         Set<Board> sons = new HashSet<Board>();
         int v = Integer.MAX_VALUE;
         if(b.checkWin())
             return b.score();
-        sons=sons(b);
+        sons=b.sons();
         for (Board son : sons) {
             int m=minValue(son, ac);
             if (v>m){
@@ -43,7 +43,7 @@ class Algoritmos {
 
 
     public static int alfabeta(Board b){
-        int ac;
+        int ac=0;
         int v = maxValue(b, ac, Integer.MAX_VALUE, Integer.MIN_VALUE);
         return ac;
     }
@@ -54,7 +54,7 @@ class Algoritmos {
         int v = Integer.MIN_VALUE;
         if(b.checkWin())
             return b.score();
-        sons=sons(b);
+        sons=b.sons();
         for (Board son : sons) {
             int m=minValue(son, ac, alfa, beta);
             if (v<m){
@@ -69,12 +69,12 @@ class Algoritmos {
     }
 
 
-    private static int maxValue(Board b, int ac, int alfa, int beta){
+    private static int minValue(Board b, int ac, int alfa, int beta){
         Set<Board> sons = new HashSet<Board>();
         int v = Integer.MAX_VALUE;
         if(b.checkWin())
             return b.score();
-        sons=sons(b);
+        sons=b.sons();
         for (Board son : sons) {
             int m=minValue(son, ac, alfa, beta);
             if (v>m){

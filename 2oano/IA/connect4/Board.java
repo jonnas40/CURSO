@@ -44,10 +44,10 @@ class Board {
     }
 
 
-    public Set sons(Board pai){
+    public Set sons(){
         Set<Board> sons = new HashSet<Board>();
         for (int i = 0; i < 7; i++) {
-            sons.add(play(i));
+            sons.add(this.play(i));
         }
         return sons;
     }
