@@ -5,6 +5,8 @@ class Board {
     char[][] board;
     char turn;
     char nextTurn;
+    int lastPlayX = null;
+    int lasPlayY = null;
 
     public Board(){
         board = new char[6][7];
@@ -34,6 +36,8 @@ class Board {
         }
         target.nextTurn = src.turn;
         target.turn = src.nextTurn;
+        target.lastPlayX = src.lastPlayX;
+        target.lastPlayY = src.lastPlayY;
     }
 
     public Set sons(Board pai){
@@ -58,6 +62,8 @@ class Board {
         ret.board[i][n] = this.nextTurn;
         ret.turn = this.nextTurn;
         ret.nextTurn = this.turn;
+        ret.lastPlayX = n;
+        ret.lastPlayY = i;
         return ret;
     }
 }
