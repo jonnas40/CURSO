@@ -21,7 +21,7 @@ class Board {
 
     public static void printBoard(Board tab){
         System.out.println("+-------------+");
-        for (int i=0; i<6; i++){
+        for (int i=5; i>=0; i--){
           System.out.print("|" + tab.board[i][0] + "|" + tab.board[i][1] + "|" + tab.board[i][2] + "|" + tab.board[i][3] + "|" + tab.board[i][4] + "|" + tab.board[i][5] + "|" + tab.board[i][6] + "|\n");
         }
         System.out.println("+-------------+");
@@ -49,12 +49,12 @@ class Board {
     }
 
     public Board play(int n){
-        int i = 5;
+        int i = 0;
         Board ret = new Board();
         copyBoard(this, ret);
-        while (ret.board[i][n] != ' ' && i>=0) {
-            i--;
-            if (ret.board[i][n] != ' ' && i==0) {
+        while (ret.board[i][n] != ' ' && i<6) {
+            i++;
+            if (ret.board[i][n] != ' ' && i==5) {
                 System.out.println("Jogada invalida!");
                 return this;
             }
@@ -66,7 +66,7 @@ class Board {
         ret.lastPlayY = i;
         return ret;
     }
-
+/*
     private Boolean check(char c, int x, int y){
         return (this.board[x][y]==c) ? true : false;
     }
@@ -123,7 +123,7 @@ class Board {
         if (this.checkLine(this.lastPlayY, this.turn) || this.checkCollumn(this.lastPlayX, this.turn) || this.checkDiagonalLR(this.lastPlayX, this.lastPlayY, this.turn) || this.checkDiagonalRL(this.lastPlayX, this.lastPlayY, this.turn)) return true;
         return false;
     }
-
+*/
     public int min(int a, int b){
         return (a>b) ? b : a;
     }
