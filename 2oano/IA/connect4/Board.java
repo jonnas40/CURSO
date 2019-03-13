@@ -158,7 +158,7 @@ class Board {
         }
         maxh--;
       }
-      System.out.println(c + ": " + total);
+      System.out.println("Vertical: " + total);
       return total;
     }
 
@@ -177,7 +177,7 @@ class Board {
         }
         maxw--;
       }
-      System.out.println(c + ": " + total);
+      System.out.println("Horizontal: " + total);
       return total;
     }
 
