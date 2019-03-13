@@ -75,6 +75,7 @@ class Board {
         int count=0;
         for(int i = 0; i < 7; i++){
             if (this.check(c, y, i)) count++;
+            else count=0;
         }
         return (count>3) ? true : false;
     }
