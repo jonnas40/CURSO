@@ -5,8 +5,8 @@ class Board {
     char[][] board;
     char turn;
     char nextTurn;
-    int lastPlayX = null;
-    int lasPlayY = null;
+    int lastPlayX = 0;
+    int lastPlayY = 0;
 
     public Board(){
         board = new char[6][7];
@@ -65,5 +65,58 @@ class Board {
         ret.lastPlayX = n;
         ret.lastPlayY = i;
         return ret;
+    }
+
+    private Boolean check(char c, int x, int y){
+        return (this.board[x][y]==c) ? true : false;
+    }
+
+    private boolean checkLine(int y, char c){
+        int count=0;
+        for(int i = 0; i < 7; i++){
+            if (this.check(c, y, i)) count++;
+        }
+        return (count>3) ? true : false;
+    }
+
+    private boolean checkCollumn(int x, char c){
+        int count=0;
+        for(int i = 0; i < 6; i++){
+            if (this.check(c, i, x)) count++;
+        }
+        return (count>3) ? true : false;
+    }
+
+    private boolean checkDiagonalLR(int x, int y, char c){
+        int count=0;
+        int i = x - min(x,y);
+        int j = y - min(x,y);
+        while( (i<6) && (j<7)){
+            if (this.check(c, i, j)) count++;
+            i++;
+            j++;
+        }
+        return (count>3) ? true : false;
+    }
+
+    private boolean checkDiagonalRL(int x, int y, char c){
+        int count=0;
+        int j = ((y + x)<7 ? y+x : 6);
+        int i = ((y - x)<7 ? y-x : 0);
+        while( (i>=0) && (j<7)){
+            if (this.check(c, i, j)) count++;
+            i--;
+            j++;
+        }
+        return (count>3) ? true : false;
+    }
+
+    public Boolean checkWin(){
+        if (this.checkLine(this.lastPlayY, this.turn) || this.checkCollumn(this.lastPlayX, this.turn) || this.checkDiagonalLR(this.lastPlayX, this.lastPlayY, this.turn) || this.checkDiagonalRL(this.lastPlayX, this.lastPlayY, this.turn)) return true;
+        return false;
+    }
+
+    public int min(int a, int b){
+        return (a>b) ? b : a;
     }
 }
