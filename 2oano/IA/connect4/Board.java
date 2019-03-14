@@ -113,7 +113,6 @@ class Board {
 
 
     public int checkHor(char c){
-      System.out.println(lastPlayX);
       int maxw = this.lastPlayX + 3;
       int total = 0;
       String s = "";

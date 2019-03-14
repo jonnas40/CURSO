@@ -4,18 +4,20 @@ class Algoritmos {
 
     public static int minimax(Board b){
         int ac=0;
-        int v = maxValue(b, ac);
+        int depth = 0;
+        int v = maxValue(b, ac, depth);
         return ac;
     }
 
-    private static int maxValue(Board b, int ac){
+    private static int maxValue(Board b, int ac, int depth){
         Set<Board> sons = new HashSet<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin())
+
+        if(b.checkWin() || depth==5)
             return b.score();
         sons=b.sons();
         for (Board son : sons) {
-            int m=minValue(son, ac);
+            int m=minValue(son, ac, depth+1);
             if (v<m){
                 v = m;
                 ac = son.lastPlayY;
@@ -25,14 +27,14 @@ class Algoritmos {
     }
 
 
-    private static int minValue(Board b, int ac){
+    private static int minValue(Board b, int ac, int depth){
         Set<Board> sons = new HashSet<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin())
+        if(b.checkWin() || depth==5)
             return b.score();
         sons=b.sons();
         for (Board son : sons) {
-            int m=minValue(son, ac);
+            int m=minValue(son, ac, depth+1);
             if (v>m){
                 v = m;
                 ac = son.lastPlayY;
@@ -44,19 +46,20 @@ class Algoritmos {
 
     public static int alfabeta(Board b){
         int ac=0;
-        int v = maxValue(b, ac, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        int depth = 0;
+        int v = maxValue(b, ac, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
         return ac;
     }
 
 
-    private static int maxValue(Board b, int ac, int alfa, int beta){
+    private static int maxValue(Board b, int ac, int alfa, int beta, int depth){
         Set<Board> sons = new HashSet<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin())
+        if(b.checkWin() || depth==5)
             return b.score();
         sons=b.sons();
         for (Board son : sons) {
-            int m=minValue(son, ac, alfa, beta);
+            int m=minValue(son, ac, alfa, beta, depth+1);
             if (v<m){
                 v = m;
                 ac = son.lastPlayY;
@@ -69,14 +72,14 @@ class Algoritmos {
     }
 
 
-    private static int minValue(Board b, int ac, int alfa, int beta){
+    private static int minValue(Board b, int ac, int alfa, int beta, int depth){
         Set<Board> sons = new HashSet<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin())
+        if(b.checkWin() || depth==5)
             return b.score();
         sons=b.sons();
         for (Board son : sons) {
-            int m=minValue(son, ac, alfa, beta);
+            int m=maxValue(son, ac, alfa, beta, depth+1);
             if (v>m){
                 v = m;
                 ac = son.lastPlayY;
