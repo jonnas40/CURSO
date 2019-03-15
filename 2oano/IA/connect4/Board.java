@@ -7,6 +7,7 @@ class Board {
     char nextTurn;
     int lastPlayX = 0;
     int lastPlayY = 0;
+    int score;
 
 
     public Board(){
@@ -40,7 +41,6 @@ class Board {
         target.nextTurn = src.turn;
         target.turn = src.nextTurn;
         target.lastPlayX = src.lastPlayX;
-        target.lastPlayY = src.lastPlayY;
     }
 
 
@@ -65,10 +65,11 @@ class Board {
             }
         }
         ret.board[n][i] = this.nextTurn;
-        //ret.turn = this.nextTurn;
-        //ret.nextTurn = this.turn;
+        ret.turn = this.nextTurn;
+        ret.nextTurn = this.turn;
         ret.lastPlayX = n;
         ret.lastPlayY = i;
+        ret.score = score(ret);
         return ret;
     }
 
@@ -107,7 +108,7 @@ class Board {
         }
         maxh--;
       }
-      System.out.println("Vertical: " + total);
+      //System.out.println("Vertical: " + total);
       return total;
     }
 
@@ -127,7 +128,7 @@ class Board {
         }
         maxw--;
       }
-      System.out.println("Horizontal: " + total);
+      //System.out.println("Horizontal: " + total);
       return total;
     }
 
@@ -149,7 +150,7 @@ class Board {
         maxh--;
         maxw++;
       }
-      System.out.println("DiagonalTL: " + total);
+      //System.out.println("DiagonalTL: " + total);
       return total;
     }
 
@@ -171,14 +172,15 @@ class Board {
         maxh--;
         maxw--;
       }
-      System.out.println("DiagonalTR: " + total);
+      //System.out.println("DiagonalTR: " + total);
       return total;
     }
 
 
-    public int score(){
+    public static int score(Board b){
       int score = 0;
-      score = this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn);
+      score = b.checkHor(b.turn) + b.checkVert(b.turn) + b.checkDiagTL(b.turn) + b.checkDiagTR(b.turn);
+      //System.out.println(score);
       return score;
     }
 
