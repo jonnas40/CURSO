@@ -44,10 +44,10 @@ class Board {
     }
 
 
-    public Set sons(){
-        Set<Board> sons = new HashSet<Board>();
+    public static LinkedList<Board> sons(Board b){
+        LinkedList<Board> sons = new LinkedList<Board>();
         for (int i = 0; i < 7; i++) {
-            sons.add(this.play(i));
+            sons.add(b.play(i));
         }
         return sons;
     }
@@ -65,8 +65,8 @@ class Board {
             }
         }
         ret.board[n][i] = this.nextTurn;
-        ret.turn = this.nextTurn;
-        ret.nextTurn = this.turn;
+        //ret.turn = this.nextTurn;
+        //ret.nextTurn = this.turn;
         ret.lastPlayX = n;
         ret.lastPlayY = i;
         return ret;
@@ -107,7 +107,7 @@ class Board {
         }
         maxh--;
       }
-      //System.out.println("Vertical: " + total);
+      System.out.println("Vertical: " + total);
       return total;
     }
 
@@ -127,7 +127,7 @@ class Board {
         }
         maxw--;
       }
-      //System.out.println("Horizontal: " + total);
+      System.out.println("Horizontal: " + total);
       return total;
     }
 
@@ -149,7 +149,7 @@ class Board {
         maxh--;
         maxw++;
       }
-      //System.out.println("DiagonalTL: " + total);
+      System.out.println("DiagonalTL: " + total);
       return total;
     }
 
@@ -171,7 +171,7 @@ class Board {
         maxh--;
         maxw--;
       }
-      //System.out.println("DiagonalTR: " + total);
+      System.out.println("DiagonalTR: " + total);
       return total;
     }
 

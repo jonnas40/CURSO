@@ -2,42 +2,45 @@ import java.util.*;
 
 class Algoritmos {
 
+    private static int ac;
+
     public static int minimax(Board b){
-        int ac=0;
         int depth = 0;
-        int v = maxValue(b, ac, depth);
+        int v = maxValue(b, depth);
         return ac;
     }
 
-    private static int maxValue(Board b, int ac, int depth){
-        Set<Board> sons = new HashSet<Board>();
+    private static int maxValue(Board b, int depth){
+        LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-
-        if(b.checkWin() || depth==5)
+        if(b.checkWin() || depth==2){
             return b.score();
-        sons=b.sons();
-        for (Board son : sons) {
-            int m=minValue(son, ac, depth+1);
+        }
+        filhos=Board.sons(b);
+        for (Board son : filhos) {
+            int m=minValue(son, depth+1);
             if (v<m){
                 v = m;
-                ac = son.lastPlayY;
+                ac = son.lastPlayX;
             }
+            //System.out.println(v);
         }
         return v;
     }
 
 
-    private static int minValue(Board b, int ac, int depth){
-        Set<Board> sons = new HashSet<Board>();
+    private static int minValue(Board b, int depth){
+        LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==5)
+        if(b.checkWin() || depth==2){
             return b.score();
-        sons=b.sons();
-        for (Board son : sons) {
-            int m=minValue(son, ac, depth+1);
+        }
+        filhos=Board.sons(b);
+        for (Board son : filhos) {
+            int m=minValue(son, depth+1);
             if (v>m){
                 v = m;
-                ac = son.lastPlayY;
+                ac = son.lastPlayX;
             }
         }
         return v;
@@ -45,24 +48,24 @@ class Algoritmos {
 
 
     public static int alfabeta(Board b){
-        int ac=0;
         int depth = 0;
-        int v = maxValue(b, ac, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
+        int v = maxValueAB(b, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
         return ac;
     }
 
 
-    private static int maxValue(Board b, int ac, int alfa, int beta, int depth){
-        Set<Board> sons = new HashSet<Board>();
+    private static int maxValueAB(Board b, int alfa, int beta, int depth){
+        LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==5)
+        if(b.checkWin() || depth==2){
             return b.score();
-        sons=b.sons();
-        for (Board son : sons) {
-            int m=minValue(son, ac, alfa, beta, depth+1);
+        }
+        filhos=Board.sons(b);
+        for (Board son : filhos) {
+            int m=minValueAB(son, alfa, beta, depth+1);
             if (v<m){
                 v = m;
-                ac = son.lastPlayY;
+                ac = son.lastPlayX;
             }
             if (v <= alfa)
                 return v;
@@ -72,17 +75,18 @@ class Algoritmos {
     }
 
 
-    private static int minValue(Board b, int ac, int alfa, int beta, int depth){
-        Set<Board> sons = new HashSet<Board>();
+    private static int minValueAB(Board b, int alfa, int beta, int depth){
+        LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==5)
+        if(b.checkWin() || depth==2){
             return b.score();
-        sons=b.sons();
-        for (Board son : sons) {
-            int m=maxValue(son, ac, alfa, beta, depth+1);
+        }
+        filhos=Board.sons(b);
+        for (Board son : filhos) {
+            int m=maxValueAB(son, alfa, beta, depth+1);
             if (v>m){
                 v = m;
-                ac = son.lastPlayY;
+                ac = son.lastPlayX;
             }
             if (v >= beta)
                 return v;

@@ -21,7 +21,8 @@ class Connect4{
         }
       }
       else {
-        tab = tab.play(Algoritmos.minimax(tab));
+        int ac = Algoritmos.minimax(tab);
+        tab = tab.play(ac);
         win = tab.checkWin();
         playerTurn = true;
       }
