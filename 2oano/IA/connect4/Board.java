@@ -41,6 +41,7 @@ class Board {
         target.nextTurn = src.turn;
         target.turn = src.nextTurn;
         target.lastPlayX = src.lastPlayX;
+        target.score = src.score;
     }
 
 
@@ -60,13 +61,12 @@ class Board {
         while (ret.board[n][i] != ' ' && i<6) {
             i++;
             if (ret.board[n][i] != ' ' && i==5) {
-                System.out.println("Jogada invalida!");
                 return this;
             }
         }
         ret.board[n][i] = this.nextTurn;
-        ret.turn = this.nextTurn;
-        ret.nextTurn = this.turn;
+        //ret.turn = this.nextTurn;
+        //ret.nextTurn = this.turn;
         ret.lastPlayX = n;
         ret.lastPlayY = i;
         ret.score = score(ret);

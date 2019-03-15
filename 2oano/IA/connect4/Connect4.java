@@ -12,6 +12,7 @@ class Connect4{
         Board.printBoard(tab);
         int i = stdin.nextInt();
         if (i<7 && i>=0){
+          int j = 0;
           playerTurn = false;
           tab = tab.play(i);
           win = tab.checkWin();

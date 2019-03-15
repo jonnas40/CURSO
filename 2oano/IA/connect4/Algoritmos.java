@@ -4,7 +4,8 @@ class Algoritmos {
 
     public static int minimax(Board b){
         int depth = 0;
-        Board v = maxValue(b, depth+1);
+        Board v = new Board();
+        v = maxValue(b, depth+1);
         System.out.println(v.score);
         return v.lastPlayX;
     }
@@ -13,7 +14,7 @@ class Algoritmos {
       Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==4){
+        if(b.checkWin() || depth==6){
             return b;
         }
         filhos=Board.sons(b);
@@ -33,7 +34,7 @@ class Algoritmos {
       Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==4){
+        if(b.checkWin() || depth==6){
             return b;
         }
         filhos=Board.sons(b);
