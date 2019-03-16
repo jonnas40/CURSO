@@ -2,12 +2,12 @@ import java.util.*;
 
 class Algoritmos {
 
-    private static int ac;
+    //private static int ac;
 
-    public static int minimax(Board b){
-        int depth = 0;
+    public static int minimax(Board b, int depth){
+      System.out.println("depth:" + depth);
         Board v = new Board();
-        v = maxValue(b, depth+1);
+        v = maxValue(b, depth-1);
         System.out.println(v.score);
         return v.lastPlayX;
     }
@@ -16,12 +16,12 @@ class Algoritmos {
       Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==3){
+        if(b.checkWin() || depth==0){
             return b;
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
-            int m=minValue(son, depth+1).score;
+            int m=minValue(son, depth-1).score;
             if (v<m){
                 v = m;
                 Board.copyBoard(son,ac);
@@ -36,12 +36,12 @@ class Algoritmos {
       Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==3){
+        if(b.checkWin() || depth==0){
             return b;
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
-            int m=maxValue(son, depth+1).score;
+            int m=maxValue(son, depth-1).score;
             if (v>m){
                 v = m;
                 Board.copyBoard(son,ac);
@@ -50,7 +50,7 @@ class Algoritmos {
         return ac;
     }
 
-
+/*
     public static int alfabeta(Board b){
         int depth = 0;
         int v = maxValueAB(b, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
@@ -98,7 +98,7 @@ class Algoritmos {
         }
         return v;
     }
-
+*/
 
     private static int max(int a, int b){
         return (a>b) ? a : b;

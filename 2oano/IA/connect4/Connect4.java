@@ -21,7 +21,12 @@ class Connect4{
   }
 
 
-  public static void play(int esc, int esc2){
+  public static void playC4(int esc, int esc2){
+    Scanner stdin = new Scanner(System.in);
+    System.out.println("esc: " + esc + " esc2: " + esc2);
+    Board tab = new Board();
+    Boolean win = false;
+    Boolean playerTurn = true;
     while(win!=true){
       if (playerTurn) {
         Board.printBoard(tab);
@@ -38,15 +43,15 @@ class Connect4{
       }
       else {
         int ac = 0;
-        switch (esc2){
+        switch (esc){
           case 1:
-            ac = Algoritmos.minimax(tab, esc);
+            ac = Algoritmos.minimax(tab, esc2);
             break;
           case 2:
-            //ac = Algoritmos.alfabeta(tab, esc);
+            //ac = Algoritmos.alfabeta(tab, esc2);
             break;
           case 3:
-            //ac = Algoritmos.montecarlo(tab, esc);
+            //ac = Algoritmos.montecarlo(tab, esc2);
             break;
         }
         tab = tab.play(ac);
@@ -61,9 +66,6 @@ class Connect4{
 
   public static void main(String[] args) {
     Scanner stdin = new Scanner(System.in);
-    Board tab = new Board();
-    Boolean win = false;
-    Boolean playerTurn = true;
     int esc = 0;
     int esc2 = 0;
     while(esc <5){
@@ -75,19 +77,21 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4 || esc<1){System.out.println("Input errado"); break;}
-          playminimax(esc2);
+          playC4(esc, esc2 * 2);
           break;
         case 2:
           print_menu();
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
+          playC4(esc, esc2);
           break;
         case 3:
           print_menu();
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
+          playC4(esc, esc2);
           break;
         case 4:
           System.exit(0);
