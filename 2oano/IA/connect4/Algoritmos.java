@@ -5,10 +5,9 @@ class Algoritmos {
     //private static int ac;
 
     public static int minimax(Board b, int depth){
-      System.out.println("depth:" + depth);
         Board v = new Board();
         v = maxValue(b, depth-1);
-        System.out.println(v.score);
+        //System.out.println(v.score);
         return v.lastPlayX;
     }
 

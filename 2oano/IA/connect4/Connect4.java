@@ -23,7 +23,6 @@ class Connect4{
 
   public static void playC4(int esc, int esc2){
     Scanner stdin = new Scanner(System.in);
-    System.out.println("esc: " + esc + " esc2: " + esc2);
     Board tab = new Board();
     Boolean win = false;
     Boolean playerTurn = true;
