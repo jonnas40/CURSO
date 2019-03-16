@@ -22,7 +22,7 @@ class Connect4{
         }
       }
       else {
-        int ac = Algoritmos.minimax(tab);
+        int ac = Algoritmos.alfabeta(tab);
         tab = tab.play(ac);
         win = tab.checkWin();
         playerTurn = true;

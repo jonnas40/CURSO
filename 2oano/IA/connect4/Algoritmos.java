@@ -2,6 +2,8 @@ import java.util.*;
 
 class Algoritmos {
 
+    private static int ac;
+
     public static int minimax(Board b){
         int depth = 0;
         Board v = new Board();
@@ -48,7 +50,7 @@ class Algoritmos {
         return ac;
     }
 
-/*
+
     public static int alfabeta(Board b){
         int depth = 0;
         int v = maxValueAB(b, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
@@ -59,8 +61,8 @@ class Algoritmos {
     private static int maxValueAB(Board b, int alfa, int beta, int depth){
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==2){
-            return b.score();
+        if(b.checkWin() || depth==6){
+            return b.score;
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
@@ -80,8 +82,8 @@ class Algoritmos {
     private static int minValueAB(Board b, int alfa, int beta, int depth){
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==2){
-            return b.score();
+        if(b.checkWin() || depth==6){
+            return b.score;
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
@@ -95,7 +97,7 @@ class Algoritmos {
             alfa = max(alfa, v);
         }
         return v;
-    }*/
+    }
 
 
     private static int max(int a, int b){
