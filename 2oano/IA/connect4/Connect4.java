@@ -37,6 +37,7 @@ class Connect4{
         }
       }
       else {
+<<<<<<< HEAD
         int ac = 0;
         switch (esc2){
           case 1:
@@ -49,6 +50,9 @@ class Connect4{
             //ac = Algoritmos.montecarlo(tab, esc);
             break;
         }
+=======
+        int ac = Algoritmos.alfabeta(tab);
+>>>>>>> c042216addf7f3065ce231e1c5b7a0b2c65a3962
         tab = tab.play(ac);
         win = tab.checkWin();
         playerTurn = true;
