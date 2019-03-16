@@ -74,21 +74,21 @@ class Board {
     }
 
 
-    public int checkScore(char c, String s){
-      int numC = 0;
-      int numNC = 0;
+    public int checkScore(String s){
+      int numX = 0;
+      int numO = 0;
       for (int i=0; i<s.length(); i++){
-        if(s.charAt(i)==c){ numC++; }
-        else if(s.charAt(i)!=' '){ numNC++; }
+        if(s.charAt(i)=='X'){ numX++; }
+        else if(s.charAt(i)=='O'){ numO++; }
       }
-      if(numC == 1 && numNC == 0){ return 1; }
-      else if(numC == 2 && numNC == 0){ return 10; }
-      else if(numC == 3 && numNC == 0){ return 50; }
-      else if(numC == 4 && numNC == 0){ return 512; }
-      else if(numC == 0 && numNC == 1){ return -1; }
-      else if(numC == 0 && numNC == 2){ return -10; }
-      else if(numC == 0 && numNC == 3){ return -50; }
-      else if(numC == 0 && numNC == 4){ return -512; }
+      if(numX == 1 && numO == 0){ return -1; }
+      else if(numX == 2 && numO == 0){ return -10; }
+      else if(numX == 3 && numO == 0){ return -50; }
+      else if(numX == 4 && numO == 0){ return -512; }
+      else if(numX == 0 && numO == 1){ return 1; }
+      else if(numX == 0 && numO == 2){ return 10; }
+      else if(numX == 0 && numO == 3){ return 50; }
+      else if(numX == 0 && numO == 4){ return 512; }
       else { return 0; }
     }
 
@@ -103,7 +103,7 @@ class Board {
             //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
             s += this.board[this.lastPlayX][maxh-j];
           }
-          total += checkScore(c,s);
+          total += checkScore(s);
           s = "";
         }
         maxh--;
@@ -123,7 +123,7 @@ class Board {
             //System.out.println("H: [" + (maxw-j)+ "],[" + this.lastPlayY + "]" + j);
             s += this.board[maxw-j][this.lastPlayY];
           }
-          total += checkScore(c,s);
+          total += checkScore(s);
           s = "";
         }
         maxw--;
@@ -144,7 +144,7 @@ class Board {
             //System.out.println("TL: [" + (maxw+j) + "],[" + (maxh-j) + "]" + j);
             s += this.board[maxw+j][maxh-j];
           }
-          total += checkScore(c,s);
+          total += checkScore(s);
           s = "";
         }
         maxh--;
@@ -166,7 +166,7 @@ class Board {
             //System.out.println("TR: [" + (maxw-j) + "],[" + (maxh-j) + "]" + j);
             s += this.board[maxw-j][maxh-j];
           }
-          total += checkScore(c,s);
+          total += checkScore(s);
           s = "";
         }
         maxh--;
@@ -187,6 +187,7 @@ class Board {
 
     public Boolean checkWin(){
         if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return true;
+        else if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) <= -512) return true;
         return false;
     }
 
