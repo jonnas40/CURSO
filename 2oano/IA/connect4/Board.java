@@ -180,6 +180,12 @@ class Board {
     public static int score(Board b){
       int score = 0;
       score = b.checkHor(b.turn) + b.checkVert(b.turn) + b.checkDiagTL(b.turn) + b.checkDiagTR(b.turn);
+      if(b.turn == 'X'){
+        score = score - 16;
+      }
+      else if (b.turn == 'O'){
+        score = score + 16;
+      }
       //System.out.println(score);
       return score;
     }
