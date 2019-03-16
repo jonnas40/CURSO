@@ -14,7 +14,7 @@ class Algoritmos {
       Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==6){
+        if(b.checkWin() || depth==3){
             return b;
         }
         filhos=Board.sons(b);
@@ -34,7 +34,7 @@ class Algoritmos {
       Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==6){
+        if(b.checkWin() || depth==3){
             return b;
         }
         filhos=Board.sons(b);

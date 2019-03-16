@@ -59,10 +59,10 @@ class Board {
         Board ret = new Board();
         copyBoard(this, ret);
         while (ret.board[n][i] != ' ' && i<6) {
-            i++;
-            if (ret.board[n][i] != ' ' && i==5) {
-                return this;
-            }
+          if (ret.board[n][i] != ' ' && i==5) {
+            return this;
+          }
+          i++;
         }
         ret.board[n][i] = this.nextTurn;
         //ret.turn = this.nextTurn;
