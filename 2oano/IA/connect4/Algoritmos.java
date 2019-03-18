@@ -2,17 +2,15 @@ import java.util.*;
 
 class Algoritmos {
 
-    //private static int ac;
 
     public static int minimax(Board b, int depth){
         Board v = new Board();
         v = maxValue(b, depth-1);
-        //System.out.println(v.score);
         return v.lastPlayX;
     }
 
     private static Board maxValue(Board b, int depth){
-      Board ac = new Board();
+        Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
         if(b.checkWin() || depth==0){
@@ -25,14 +23,13 @@ class Algoritmos {
                 v = m;
                 Board.copyBoard(son,ac);
             }
-            //System.out.println(v);
         }
         return ac;
     }
 
 
     private static Board minValue(Board b, int depth){
-      Board ac = new Board();
+        Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
         if(b.checkWin() || depth==0){

@@ -44,6 +44,17 @@ class Board {
         target.score = src.score;
     }
 
+    public static Boolean compareBoard(Board a, Board b){
+      for(int i=0; i<7; i++){
+        for(int j=0; j<6; j++){
+          if (a.board[i][j]!=b.board[i][j]) {
+            return false;
+          }
+        }
+      }
+      return true;
+    }
+
 
     public static LinkedList<Board> sons(Board b){
         LinkedList<Board> sons = new LinkedList<Board>();

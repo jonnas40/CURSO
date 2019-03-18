@@ -32,9 +32,15 @@ class Connect4{
         int i = stdin.nextInt();
         if (i<7 && i>=0){
           int j = 0;
-          playerTurn = false;
-          tab = tab.play(i);
+          if(!Board.compareBoard(tab, tab.play(i))){
+            tab = tab.play(i);
+          }
+          else{ 
+            System.out.println("Coluna cheia");
+            continue;
+          }
           win = tab.checkWin();
+          playerTurn = false;
         }
         else {
           System.out.println("Coluna não existente");
@@ -76,7 +82,7 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4 || esc<1){System.out.println("Input errado"); break;}
-          playC4(esc, esc2 * 2);
+          playC4(esc, (esc2 * 2 + 1));
           break;
         case 2:
           print_menu();
