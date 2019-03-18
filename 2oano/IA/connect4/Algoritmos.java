@@ -46,55 +46,57 @@ class Algoritmos {
         return ac;
     }
 
-/*
-    public static int alfabeta(Board b){
-        int depth = 0;
-        int v = maxValueAB(b, Integer.MAX_VALUE, Integer.MIN_VALUE, depth);
+
+    public static int alfabeta(Board b, int depth){
+        Board v = new Board();
+        v = maxValueAB(b, Integer.MIN_VALUE, Integer.MAX_VALUE, depth-1);
+        return v.lastPlayX;
+    }
+
+
+    private static Board maxValueAB(Board b, int alfa, int beta, int depth){
+        Board ac = new Board();
+        LinkedList<Board> filhos = new LinkedList<Board>();
+        int v = Integer.MIN_VALUE;
+        if(b.checkWin() || depth==0){
+            return b;
+        }
+        filhos=Board.sons(b);
+        for (Board son : filhos) {
+            int m=minValueAB(son, alfa, beta, depth-1).score;
+            if (v<m){
+                v = m;
+                Board.copyBoard(son,ac);
+            }
+            if (v >= beta)
+                return ac;
+            alfa = max(alfa, v);
+        }
         return ac;
     }
 
 
-    private static int maxValueAB(Board b, int alfa, int beta, int depth){
-        LinkedList<Board> filhos = new LinkedList<Board>();
-        int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==6){
-            return b.score;
-        }
-        filhos=Board.sons(b);
-        for (Board son : filhos) {
-            int m=minValueAB(son, alfa, beta, depth+1);
-            if (v<m){
-                v = m;
-                ac = son.lastPlayX;
-            }
-            if (v <= alfa)
-                return v;
-            beta = min(beta, v);
-        }
-        return v;
-    }
-
-
-    private static int minValueAB(Board b, int alfa, int beta, int depth){
+    private static Board minValueAB(Board b, int alfa, int beta, int depth){
+        Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==6){
-            return b.score;
+        if(b.checkWin() || depth==0){
+            return b;
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
-            int m=maxValueAB(son, alfa, beta, depth+1);
+            int m=maxValueAB(son, alfa, beta, depth-1).score;
             if (v>m){
                 v = m;
-                ac = son.lastPlayX;
+                Board.copyBoard(son,ac);
             }
-            if (v >= beta)
-                return v;
-            alfa = max(alfa, v);
+            if (v <= alfa)
+                return ac;
+            beta = min(beta, v);
         }
-        return v;
+        return ac;
     }
-*/
+
 
     private static int max(int a, int b){
         return (a>b) ? a : b;

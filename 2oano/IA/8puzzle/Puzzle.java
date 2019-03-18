@@ -124,6 +124,7 @@ class Puzzle{
           break;
       }
     }
+    stdin.close();
   }
 
 

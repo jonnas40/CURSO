@@ -53,7 +53,7 @@ class Connect4{
             ac = Algoritmos.minimax(tab, esc2);
             break;
           case 2:
-            //ac = Algoritmos.alfabeta(tab, esc2);
+            ac = Algoritmos.alfabeta(tab, esc2);
             break;
           case 3:
             //ac = Algoritmos.montecarlo(tab, esc2);
@@ -89,7 +89,7 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, esc2);
+          playC4(esc, (esc2 * 2 + 1));
           break;
         case 3:
           print_menu();
@@ -106,5 +106,6 @@ class Connect4{
           break;
       }
     }
+    stdin.close();
   }
 }
