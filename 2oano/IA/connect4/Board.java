@@ -59,7 +59,10 @@ class Board {
     public static LinkedList<Board> sons(Board b){
         LinkedList<Board> sons = new LinkedList<Board>();
         for (int i = 0; i < 7; i++) {
+          Board a = b.play(i);
+          if (!Board.compareBoard(a, b)) {
             sons.add(b.play(i));
+          }
         }
         return sons;
     }
