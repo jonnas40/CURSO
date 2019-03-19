@@ -98,13 +98,13 @@ class Algoritmos {
     }
 
 
-    
+
 
 
     private static int simulate(Board b){
         Board test = new Board();
         Board.copyBoard(b,test);
-        while (/* f-funçao m-magica do joao   u w u */){
+        while (test.magicheck()==0){
             int esc = (int)(Math.round(Math.random() * 7))/1;
             Board a = test.play(i);
             if (!Board.compareBoard(a, test)) {

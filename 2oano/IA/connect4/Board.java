@@ -213,6 +213,27 @@ class Board {
     }
 
 
+    public Boolean drawcheck(){ // verifica se há empate
+      if(this.score != 0){
+        return false;
+      }
+      for (int i=0; i<7; i++){
+        if(this.board[i][5] == ' '){
+          return false;
+        }
+      }
+      return true;
+    }
+
+
+    public int magicheck(){
+      if(this.drawcheck()) return 2; // 2 se for empate
+      if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return 1; // 1 se  pc ganhar
+      else if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) <= -512) return -1; // -1 se o gajo ganhar
+      return 0; // se nao houver nada retorna 0
+    }
+
+
     public int min(int a, int b){
         return (a>b) ? b : a;
     }
