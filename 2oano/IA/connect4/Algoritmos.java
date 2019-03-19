@@ -98,7 +98,17 @@ class Algoritmos {
     }
 
 
-
+    public static Board MCTS(Board b, int depth){
+        LinkedList<Board> filhos = new LinkedList<Board>();
+        Board ac = new Board();
+        filhos=Board.sons(b);
+        
+        if (test.magicheck()!=0) {
+            if (n == 0) {
+                v += rollout(test);
+            }
+        }
+    }
 
 
     private static int simulate(Board b){
@@ -106,12 +116,13 @@ class Algoritmos {
         Board.copyBoard(b,test);
         while (test.magicheck()==0){
             int esc = (int)(Math.round(Math.random() * 7))/1;
-            Board a = test.play(i);
+            Board a = test.play(esc);
             if (!Board.compareBoard(a, test)) {
                 test = test.play(esc);
             }
         }
-        return /* f-funçao m-magica do joao   u w u */;
+        if (test.magicheck()==1) return 1;
+        else return 0;
     }
 
     private static float UCB1(int v, int n, int j){

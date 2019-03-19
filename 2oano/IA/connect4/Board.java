@@ -8,6 +8,8 @@ class Board {
     int lastPlayX = 0;
     int lastPlayY = 0;
     int score;
+    int t;
+    int n;
 
 
     public Board(){
