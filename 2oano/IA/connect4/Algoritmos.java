@@ -98,6 +98,27 @@ class Algoritmos {
     }
 
 
+    
+
+
+    private static int simulate(Board b){
+        Board test = new Board();
+        Board.copyBoard(b,test);
+        while (/* f-funçao m-magica do joao   u w u */){
+            int esc = (int)(Math.round(Math.random() * 7))/1;
+            Board a = test.play(i);
+            if (!Board.compareBoard(a, test)) {
+                test = test.play(esc);
+            }
+        }
+        return /* f-funçao m-magica do joao   u w u */;
+    }
+
+    private static float UCB1(int v, int n, int j){
+        return (float)(v/n) + 7 * (Math.sqrt(Math.log(n)/j));
+    }
+
+
     private static int max(int a, int b){
         return (a>b) ? a : b;
     }

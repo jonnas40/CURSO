@@ -206,9 +206,10 @@ class Board {
 
 
     public Boolean checkWin(){
-        if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return true;
-        else if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) <= -512) return true;
-        return false;
+      //se as colunas estiverem todas cheias e o score nao for de vitoria dar empate
+      if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return true;
+      else if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) <= -512) return true;
+      return false;
     }
 
 
