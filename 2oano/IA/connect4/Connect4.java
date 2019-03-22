@@ -56,7 +56,7 @@ class Connect4{
             ac = Algoritmos.alfabeta(tab, esc2);
             break;
           case 3:
-            //ac = Algoritmos.MCTS(tab, esc2);
+            ac = Algoritmos.MCTS(tab, esc2);
             break;
         }
         tab = tab.play(ac);
@@ -96,7 +96,7 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, esc2);
+          playC4(esc, (20^esc2));
           break;
         case 4:
           System.exit(0);

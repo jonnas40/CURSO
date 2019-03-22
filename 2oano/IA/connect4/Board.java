@@ -24,6 +24,26 @@ class Board {
     }
 
 
+    public void setN(){
+      this.n++;
+    }
+
+
+    public void setT(int v){
+      this.t+=v;
+    }
+
+
+    public int getN(){
+      return this.n;
+    }
+
+
+    public int getT(){
+      return this.t;
+    }
+
+
     public static void printBoard(Board tab){
         System.out.println("+-------------+");
         for (int i=5; i>=0; i--){
@@ -75,7 +95,10 @@ class Board {
       for (int i = 0; i < 7; i++) {
         Board a = b.play(i);
         if (!Board.compareBoard(a, b)) {
-          sons.add(b.play(i));
+          a.t=0;
+          a.n=0;
+          Node<Board> played = new Node<>(a);
+          sons.add(played);
         }
       }
       return sons;
