@@ -102,16 +102,46 @@ class Algoritmos {
         LinkedList<Board> filhos = new LinkedList<Board>();
         Board ac = new Board();
         filhos=Board.sons(b);
-        
-        if (test.magicheck()!=0) {
-            if (n == 0) {
-                v += rollout(test);
+        Node<Board> root = new Node<>(b);
+        root.addChildren(b.sonsM());
+        Node<Board> pai = root;
+        int UCB = Integer.MIN_VALUE;
+        for (int i = 0; i < depth; i++) {
+            for (Node<Board> test : pai.getChildren) {
+                if(UCB < UCB1(test.data.t, i, test.data.n)){
+                    Node<Board> chosen = test;
+                    UCB = UCB1(test.data.t, i, test.data.n);
+                }
+            }
+            if (chosen.getChildren()==null) {
+                if (chosen.data.n == 0) {
+                    int v = rollout(chosen.data);
+                    chosen.data.t += v;
+                    chosen.data.n++;
+                    while (chosen.getParent()!=null) {
+                        Node<Board> dummy =chosen.getParent();
+                        dummy.data.t += v;
+                        dummy.data.n++;
+                    }
+                }
+                else{
+                    chosen.addChildren(chosen.data.sonsM());
+                }
+            }
+            /*if (chosen.data.magicheck()!=0) {  //vê se é nó folha
+                if (chosen.data.n == 0) {
+                    chosen.data.t += rollout(chosen.data);
+                    chosen.data.n++;
+                }
+            }*/
+            else{
+                pai=chosen; // ta mal, uma iteração termina com um rollout
             }
         }
     }
 
 
-    private static int simulate(Board b){
+    private static int rollout(Board b){
         Board test = new Board();
         Board.copyBoard(b,test);
         while (test.magicheck()==0){
@@ -126,6 +156,7 @@ class Algoritmos {
     }
 
     private static float UCB1(int v, int n, int j){
+        if(n==0) return Integer.MAX_VALUE;
         return (float)(v/n) + 7 * (Math.sqrt(Math.log(n)/j));
     }
 
@@ -138,3 +169,48 @@ class Algoritmos {
         return (a>b) ? b : a;
     }
 }
+
+public class Node<T> {
+ 
+    private T data = null;
+    
+    private List<Node<T>> children = new ArrayList<>();
+    
+    private Node<T> parent = null;
+    
+    public Node(T data) {
+        this.data = data;
+    }
+    
+    public Node<T> addChild(Node<T> child) {
+        child.setParent(this);
+        this.children.add(child);
+        return child;
+    }
+    
+    public void addChildren(List<Node<T>> children) {
+        children.forEach(each -> each.setParent(this));
+        this.children.addAll(children);
+    }
+    
+    public List<Node<T>> getChildren() {
+        return children;
+    }
+    
+    public T getData() {
+        return data;
+    }
+    
+    public void setData(T data) {
+        this.data = data;
+    }
+    
+    private void setParent(Node<T> parent) {
+        this.parent = parent;
+    }
+    
+    public Node<T> getParent() {
+        return parent;
+    }
+    
+   }

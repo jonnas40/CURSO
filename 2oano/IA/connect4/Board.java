@@ -8,8 +8,8 @@ class Board {
     int lastPlayX = 0;
     int lastPlayY = 0;
     int score;
-    int t;
-    int n;
+    int t=0;
+    int n=0;
 
 
     public Board(){
@@ -68,6 +68,18 @@ class Board {
         }
         return sons;
     }
+
+
+    public static List<Node<Board>> sonsM(Board b){
+      List <Node<Board>> sons = new ArrayList<>();
+      for (int i = 0; i < 7; i++) {
+        Board a = b.play(i);
+        if (!Board.compareBoard(a, b)) {
+          sons.add(b.play(i));
+        }
+      }
+      return sons;
+  }
 
 
     public Board play(int n){

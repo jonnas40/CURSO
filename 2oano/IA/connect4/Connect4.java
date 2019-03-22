@@ -56,7 +56,7 @@ class Connect4{
             ac = Algoritmos.alfabeta(tab, esc2);
             break;
           case 3:
-            //ac = Algoritmos.montecarlo(tab, esc2);
+            //ac = Algoritmos.MCTS(tab, esc2);
             break;
         }
         tab = tab.play(ac);
