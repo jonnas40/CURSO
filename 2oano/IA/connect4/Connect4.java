@@ -96,7 +96,7 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, (20^esc2));
+          playC4(esc, (esc2*1000));
           break;
         case 4:
           System.exit(0);

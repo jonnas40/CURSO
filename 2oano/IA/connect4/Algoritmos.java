@@ -180,15 +180,17 @@ class Algoritmos {
 
 
     private static int rollout(Board b){
+        int limit = 100;
         Board test = new Board();
         Board.copyBoard(b,test);
-        while (test.magicheck()==0){
+        while (test.magicheck()==0 && limit!=0){
             int esc = (int)(Math.round(Math.random() * 6))/1;
             //System.out.println(esc);
             Board a = test.play(esc);
             if (!Board.compareBoard(a, test)) {
                 test = test.play(esc);
             }
+            limit--;
         }
         if (test.magicheck()==1) return 1;
         else return 0;
