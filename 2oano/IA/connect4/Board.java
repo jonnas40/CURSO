@@ -144,19 +144,18 @@ class Board {
 
 
     public int checkVert(char c){
-      int maxh = this.lastPlayY + 3;
       int total = 0;
       String s = "";
-      for (int i=0; i<5; i++){
-        if(maxh < 6 && maxh-3 >=0 && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY){
-          for (int j = 0; j<4; j++) {
-            //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
-            s += this.board[this.lastPlayX][maxh-j];
-          }
+      for (int i=0; i<7; i++){
+        for(int j=0; j<3; j++){
+          //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
+          s += this.board[i][j];
+          s += this.board[i][j+1];
+          s += this.board[i][j+2];
+          s += this.board[i][j+3];
           total += checkScore(s);
           s = "";
         }
-        maxh--;
       }
       //System.out.println("Vertical: " + total);
       return total;
@@ -164,19 +163,18 @@ class Board {
 
 
     public int checkHor(char c){
-      int maxw = this.lastPlayX + 3;
       int total = 0;
       String s = "";
-      for (int i=0; i<5; i++){
-        if(maxw < 7 && maxw-3 >=0 && maxw-3 <= this.lastPlayX && maxw >= this.lastPlayX){
-          for (int j = 0; j<4; j++) {
-            //System.out.println("H: [" + (maxw-j)+ "],[" + this.lastPlayY + "]" + j);
-            s += this.board[maxw-j][this.lastPlayY];
-          }
+      for (int i=0; i<6; i++){
+        for(int j=0; j<4; j++){
+          //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
+          s += this.board[j][i];
+          s += this.board[j+1][i];
+          s += this.board[j+2][i];
+          s += this.board[j+3][i];
           total += checkScore(s);
           s = "";
         }
-        maxw--;
       }
       //System.out.println("Horizontal: " + total);
       return total;
@@ -184,21 +182,39 @@ class Board {
 
 
     public int checkDiagTL(char c){
-      int maxh = this.lastPlayY + 3;
-      int maxw = this.lastPlayX - 3;
       int total = 0;
+      int x = 0;
+      int y = 0;
+      int values[] = new int[] {1,2,3,3,2,1};
+      int auxx[] = new int[] {0,-1,-2,-2,-2,-2};
+      int auxy[] = new int[] {3,4,5,5,5,5};
       String s = "";
-      for(int i=0; i<5; i++){
-        if (maxh<6 && maxw>=0 && maxw+3 >= this.lastPlayX && maxw <= this.lastPlayX && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY && maxw + 3 <7 && maxh - 3 >=0){
-          for (int j = 0; j<4; j++) {
-            //System.out.println("TL: [" + (maxw+j) + "],[" + (maxh-j) + "]" + j);
-            s += this.board[maxw+j][maxh-j];
-          }
+      for(int i=0; i < 6; i++){
+        int jau = 0;
+        for (int j=0 ; j<values[i]; j++) {
+          /*System.out.println("--------------");
+          System.out.println(j);*/
+          s += this.board[i+auxx[i]+j][j+auxy[i]-jau];
+          /*x = i+auxx[i]+j;
+          y = j+auxy[i]-jau;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          s += this.board[i+auxx[i]+j+1][j+auxy[i]-jau-1];
+          /*x = i+auxx[i]+j+1;
+          y = j+auxy[i]-jau-1;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          s += this.board[i+auxx[i]+j+2][j+auxy[i]-jau-2];
+          /*x = i+auxx[i]+j+2;
+          y = j+auxy[i]-jau-2;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          s += this.board[i+auxx[i]+j+3][j+auxy[i]-jau-3];
+          /*x = i+auxx[i]+j+3;
+          y = j+auxy[i]-jau-3;
+          System.out.println("[" + x + "],[" + y + "]");*/
           total += checkScore(s);
           s = "";
+          jau += 2;
         }
-        maxh--;
-        maxw++;
+        //System.out.println("--------------");
       }
       //System.out.println("DiagonalTL: " + total);
       return total;
@@ -206,21 +222,39 @@ class Board {
 
 
     public int checkDiagTR(char c){
-      int maxh = this.lastPlayY + 3;
-      int maxw = this.lastPlayX + 3;
       int total = 0;
+      int x = 0;
+      int y = 0;
+      int values[] = new int[] {1,2,3,3,2,1};
+      int auxx[] = new int[] {0,-1,-2,-2,-2,-2};
+      int auxy[] = new int[] {2,1,0,0,0,0};
       String s = "";
-      for (int i=0; i<5; i++){
-        if (maxh<6 && maxw<7 && maxw-3 <= this.lastPlayX && maxw >= this.lastPlayX && maxh-3 <= this.lastPlayY && maxh >= this.lastPlayY && maxw - 3 >=0 && maxh - 3 >=0){
-          for (int j = 0; j<4; j++) {
-            //System.out.println("TR: [" + (maxw-j) + "],[" + (maxh-j) + "]" + j);
-            s += this.board[maxw-j][maxh-j];
-          }
-          total += checkScore(s);
+      for(int i=0; i < 6; i++){
+        int jau = 0;
+        for (int j=0 ; j<values[i]; j++) {
+          /*System.out.println("--------------");
+          System.out.println(j);*/
+          s += this.board[i+auxx[i]+j][j+auxy[i]+jau];
+          /*x = i+auxx[i]+j;
+          y = j+auxy[i]+jau;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          s += this.board[i+auxx[i]+j+1][j+auxy[i]+jau+1];
+          /*x = i+auxx[i]+j+1;
+          y = j+auxy[i]+jau+1;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          s += this.board[i+auxx[i]+j+2][j+auxy[i]+jau+2];
+          /*x = i+auxx[i]+j+2;
+          y = j+auxy[i]+jau+2;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          s += this.board[i+auxx[i]+j+3][j+auxy[i]+jau+3];
+          /*x = i+auxx[i]+j+3;
+          y = j+auxy[i]+jau+3;
+          System.out.println("[" + x + "],[" + y + "]");*/
+          //total += checkscore(s);
           s = "";
+          jau += 0;
         }
-        maxh--;
-        maxw--;
+        //System.out.println("--------------");
       }
       //System.out.println("DiagonalTR: " + total);
       return total;
