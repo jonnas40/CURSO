@@ -97,10 +97,10 @@ class Board {
     }
 
 
-    public static List<Node<Board>> sonsM(Board b){
+    public List<Node<Board>> sonsM(){
       List <Node<Board>> sons = new ArrayList<>();
-      for (int i : b.actions() ) {
-        Node<Board> played = new Node<>(b.play(i));
+      for (int i : this.actions() ) {
+        Node<Board> played = new Node<>(this.play(i));
         sons.add(played);
       }
       return sons;

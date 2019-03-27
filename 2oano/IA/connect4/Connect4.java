@@ -67,6 +67,7 @@ class Connect4{
       }
     }
     Board.printBoard(tab);
+    System.out.println("Jogou em: " + ac);
     if(win==2) System.out.println("Empate");
     else System.out.println(tab.turn + " wins");
   }
@@ -127,7 +128,7 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, (esc2*3000));
+          playC4(esc, (esc2*60000));
           break;
         case 4:
           System.exit(0);

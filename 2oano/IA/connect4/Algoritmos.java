@@ -100,97 +100,65 @@ class Algoritmos {
 
     public static int MCTS(Board b, int depth){
         Node<Board> root = new Node<>(b);
-        Node<Board> pai = root;
         Node<Board> node;
         double UCB = Double.MIN_VALUE;
         Node<Board> chosen = new Node<>(b);
-        Node<Board> chosenSon = new Node<>(b);
-        Node<Board> dummy = new Node<>(b);
-        Board dum = new Board();
-        Board cho = new Board();
-        Board choso = new Board();
-        root.addChildren(Board.sonsM(b));
+        
         for (int i = 0; i < depth; i++) {
 
             Set <Node<Board>> visitados = new HashSet <Node<Board>>();
 
             node = root;
+            visitados.add(node);
+            
             while(!node.isLeaf()){
                 for (Node<Board> test : node.getChildren()) {
-                    //Board.printBoard(test.getData());
                     if(UCB < UCB1(test.getData().getT(), test.getData().getN(), i)){
                         chosen = test;
                         UCB = UCB1(test.getData().getT(), test.getData().getN(), i);
                     }
                 }
-                //System.out.println("leaf");
                 UCB = Double.MIN_VALUE;
                 node = chosen;
-                if(node.isLeaf())
-                    break;
+                visitados.add(node);
             }
-            System.out.println("apos leaf");
-            /*while(!pai.isLeaf()){
-                UCB = Double.MIN_VALUE;
-                pai = chosen;
-            }*/
-
             UCB = Double.MIN_VALUE;
-            //System.out.println(UCB1(chosen.getData().getT(), chosen.getData().getN(), i));
-            //Board.printBoard(chosen.getData());
-            if (chosen.getData().getN() == 0) {
-                int v = rollout(chosen.getData());
-                cho = chosen.getData();
+
+            node.addChildren(node.getData().sonsM());
+
+            for (Node<Board> test : node.getChildren()) {
+                if(UCB < UCB1(test.getData().getT(), test.getData().getN(), i)){
+                    chosen = test;
+                    UCB = UCB1(test.getData().getT(), test.getData().getN(), i);
+                }
+            }
+            UCB = Double.MIN_VALUE;
+            //visitados.add(chosen);
+
+            int v = rollout(chosen.getData());
+            
+            Board cho = chosen.getData();
+            cho.setT(v);
+            cho.setN();
+            chosen.setData(cho);
+
+            for (Node<Board> pai : visitados) {
+                cho = pai.getData();
                 cho.setT(v);
                 cho.setN();
-                chosen.setData(cho);
-                dummy =chosen.getParent();
-                dum = dummy.getData();
-                dum.setT(v);
-                dum.setN();
-                dummy.setData(dum);
-                while (dummy.getParent()!=null) {
-                    dummy =dummy.getParent();
-                    dum = dummy.getData();
-                    dum.setT(v);
-                    dum.setN();
-                    dummy.setData(dum);
-                }
+                pai.setData(cho);
             }
-            else {
-                if (chosen.getChildren()!=null){
-                    chosen.addChildren(Board.sonsM(chosen.getData()));
-                }
-                for (Node<Board> test : chosen.getChildren()) {
-                    if(UCB < UCB1(test.getData().getT(), test.getData().getN(), i)){
-                        chosenSon = test;
-                        UCB = UCB1(test.getData().getT(), test.getData().getN(), i);
-                    }
-                }
-                int v = rollout(chosenSon.getData());
-                choso = chosenSon.getData();
-                choso.setT(v);
-                choso.setN();
-                chosenSon.setData(choso);
-                dummy=chosenSon.getParent();
-                dum = dummy.getData();
-                dum.setT(v);
-                dum.setN();
-                dummy.setData(dum);
-                while (dummy.getParent()!=null) {
-                    dummy =dummy.getParent();
-                    dum = dummy.getData();
-                    dum.setT(v);
-                    dum.setN();
-                    dummy.setData(dum);
-                } 
-            }
+            
         }
+
         int esc=0;
         Node<Board> ac = new Node<>(b);
         for (Node<Board> ans : root.getChildren()) {
-            if( ans.getData().getN() > esc){
-                esc = ans.getData().getN();
+            //System.out.println(esc);
+            if( ans.getData().getT() > esc){
+                //System.out.println(esc);
+                //System.out.println(ans.getData().getT());
+                esc = ans.getData().getT();
                 ac = ans;
             }
         }
@@ -199,19 +167,15 @@ class Algoritmos {
 
 
     private static int rollout(Board b){
-        int limit = 45;
-        Board test = new Board();
-        Board.copyBoard(b,test);
-        while (test.magicheck()==0 && limit!=0){
+        while (b.magicheck()==0){
             int esc = (int)(Math.round(Math.random() * 6))/1;
-            System.out.println(esc);
-            Board a = test.play(esc);
-            if (!Board.compareBoard(a, test)) {
-                test = test.play(esc);
-                limit--;
+            //System.out.println(esc);
+            if (b.actions().contains(esc)) {
+                b = b.play(esc);
+                //Board.printBoard(b);
             }
         }
-        if (test.magicheck()==1) return 1;
+        if (b.magicheck()==1) return 1;
         else return 0;
     }
 
