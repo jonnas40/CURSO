@@ -13,7 +13,7 @@ class Algoritmos {
         Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==0){
+        if(b.magicheck()!=0 || depth==0){
             return b;
         }
         filhos=Board.sons(b);
@@ -32,7 +32,7 @@ class Algoritmos {
         Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==0){
+        if(b.magicheck()!=0 || depth==0){
             return b;
         }
         filhos=Board.sons(b);
@@ -58,7 +58,7 @@ class Algoritmos {
         Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MIN_VALUE;
-        if(b.checkWin() || depth==0){
+        if(b.magicheck()!=0 || depth==0){
             return b;
         }
         filhos=Board.sons(b);
@@ -80,7 +80,7 @@ class Algoritmos {
         Board ac = new Board();
         LinkedList<Board> filhos = new LinkedList<Board>();
         int v = Integer.MAX_VALUE;
-        if(b.checkWin() || depth==0){
+        if(b.magicheck()!=0 || depth==0){
             return b;
         }
         filhos=Board.sons(b);

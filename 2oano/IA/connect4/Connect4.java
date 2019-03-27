@@ -24,9 +24,9 @@ class Connect4{
   public static void playC4(int esc, int esc2){
     Scanner stdin = new Scanner(System.in);
     Board tab = new Board();
-    Boolean win = false;
+    int win = 0;
     Boolean playerTurn = true;
-    while(win!=true){
+    while(win==0){
       if (playerTurn) {
         Board.printBoard(tab);
         int i = stdin.nextInt();
@@ -39,7 +39,7 @@ class Connect4{
             System.out.println("Coluna cheia");
             continue;
           }
-          win = tab.checkWin();
+          win = tab.magicheck();
           playerTurn = false;
         }
         else {
@@ -59,13 +59,15 @@ class Connect4{
             ac = Algoritmos.MCTS(tab, esc2);
             break;
         }
+        System.out.println("Jogou em: " + ac);
         tab = tab.play(ac);
-        win = tab.checkWin();
+        win = tab.magicheck();
         playerTurn = true;
       }
     }
     Board.printBoard(tab);
-    System.out.println(tab.turn + " wins");
+    if(win==2) System.out.println("Empate");
+    else System.out.println(tab.turn + " wins");
   }
 
   public static void testC4(){

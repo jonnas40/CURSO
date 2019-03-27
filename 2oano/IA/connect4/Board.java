@@ -284,10 +284,12 @@ class Board {
 
 
     public Boolean drawcheck(){ // verifica se há empate
-      System.out.println(this.score);
-      if(this.score != 16 || this.score !=-16){
-        return false;
+      //System.out.println(this.score);
+      if(this.score != 16){ 
+        if (this.score !=-16)
+          return false;
       }
+
       for (int i=0; i<7; i++){
         if(this.board[i][5] == ' '){
           return false;
