@@ -130,7 +130,7 @@ class Connect4{
           System.exit(0);
           break;
         case 5:
-          testc4();
+          testC4();
           break;
         default:
           System.out.println("Input errado");
