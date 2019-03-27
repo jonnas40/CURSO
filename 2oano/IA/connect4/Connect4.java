@@ -71,8 +71,8 @@ class Connect4{
   public static void testC4(){
     Scanner stdin = new Scanner(System.in);
     Board tab = new Board();
-    Boolean win = false;
-    while(win!=true){
+    int win = 0;
+    while(win==0){
       Board.printBoard(tab);
       int i = stdin.nextInt();
       if (i<7 && i>=0){
@@ -84,16 +84,16 @@ class Connect4{
           System.out.println("Coluna cheia");
           continue;
         }
-        win = tab.checkWin();
       }
       else {
         System.out.println("Coluna não existente");
       }
-      win = tab.checkWin();
-      System.out.println(Board.score(tab));
+      win = tab.magicheck();
+      //System.out.println(Board.score(tab));
     }
     Board.printBoard(tab);
-    System.out.println(tab.turn + " wins");
+    if(win==2) System.out.println("Empate");
+    else System.out.println(tab.turn + " wins");
   }
 
 

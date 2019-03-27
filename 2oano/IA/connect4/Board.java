@@ -134,11 +134,11 @@ class Board {
       if(numX == 1 && numO == 0){ return -1; }
       else if(numX == 2 && numO == 0){ return -10; }
       else if(numX == 3 && numO == 0){ return -50; }
-      else if(numX == 4 && numO == 0){ return -512; }
+      else if(numX == 4 && numO == 0){ return -9999; }
       else if(numX == 0 && numO == 1){ return 1; }
       else if(numX == 0 && numO == 2){ return 10; }
       else if(numX == 0 && numO == 3){ return 50; }
-      else if(numX == 0 && numO == 4){ return 512; }
+      else if(numX == 0 && numO == 4){ return 9999; }
       else { return 0; }
     }
 
@@ -250,7 +250,7 @@ class Board {
           /*x = i+auxx[i]+j+3;
           y = j+auxy[i]+jau+3;
           System.out.println("[" + x + "],[" + y + "]");*/
-          //total += checkscore(s);
+          total += checkScore(s);
           s = "";
           jau += 0;
         }
@@ -276,15 +276,16 @@ class Board {
 
 
     public Boolean checkWin(){
-      //se as colunas estiverem todas cheias e o score nao for de vitoria dar empate
-      if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return true;
-      else if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) <= -512) return true;
+      if(drawcheck())
+      if (this.checkHor(this.turn) >= 512 || this.checkVert(this.turn) >= 512 || this.checkDiagTL(this.turn) >= 512 || this.checkDiagTR(this.turn) >= 512) return true;
+      else if (this.checkHor(this.turn) <= -512 || this.checkVert(this.turn) <= -512 || this.checkDiagTL(this.turn) <= -512 || this.checkDiagTR(this.turn) <= -512) return true;
       return false;
     }
 
 
     public Boolean drawcheck(){ // verifica se há empate
-      if(this.score != 16 || this.score!=-16){
+      System.out.println(this.score);
+      if(this.score != 16 || this.score !=-16){
         return false;
       }
       for (int i=0; i<7; i++){
@@ -298,8 +299,8 @@ class Board {
 
     public int magicheck(){
       if(this.drawcheck()) return 2; // 2 se for empate
-      if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) >= 512) return 1; // 1 se  pc ganhar
-      else if ((this.checkHor(this.turn) + this.checkVert(this.turn) + this.checkDiagTL(this.turn) + this.checkDiagTR(this.turn)) <= -512) return -1; // -1 se o gajo ganhar
+      if (this.checkHor(this.turn) >= 512 || this.checkVert(this.turn) >= 512 || this.checkDiagTL(this.turn) >= 512 || this.checkDiagTR(this.turn) >= 512) return 1; // 1 se  pc ganhar
+      else if (this.checkHor(this.turn) <= -512 || this.checkVert(this.turn) <= -512 || this.checkDiagTL(this.turn) <= -512 || this.checkDiagTR(this.turn) <= -512) return -1; // -1 se o gajo ganhar
       return 0; // se nao houver nada retorna 0
     }
 
