@@ -133,7 +133,6 @@ class Algoritmos {
                 }
             }
             UCB = Double.MIN_VALUE;
-            //visitados.add(chosen);
 
             int v = rollout(chosen.getData());
             
@@ -154,10 +153,7 @@ class Algoritmos {
         int esc=0;
         Node<Board> ac = new Node<>(b);
         for (Node<Board> ans : root.getChildren()) {
-            //System.out.println(esc);
             if( ans.getData().getT() > esc){
-                //System.out.println(esc);
-                //System.out.println(ans.getData().getT());
                 esc = ans.getData().getT();
                 ac = ans;
             }
@@ -169,10 +165,8 @@ class Algoritmos {
     private static int rollout(Board b){
         while (b.magicheck()==0){
             int esc = (int)(Math.round(Math.random() * 6))/1;
-            //System.out.println(esc);
             if (b.actions().contains(esc)) {
                 b = b.play(esc);
-                //Board.printBoard(b);
             }
         }
         if (b.magicheck()==1) return 1;

@@ -148,7 +148,6 @@ class Board {
       String s = "";
       for (int i=0; i<7; i++){
         for(int j=0; j<3; j++){
-          //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
           s += this.board[i][j];
           s += this.board[i][j+1];
           s += this.board[i][j+2];
@@ -157,7 +156,6 @@ class Board {
           s = "";
         }
       }
-      //System.out.println("Vertical: " + total);
       return total;
     }
 
@@ -167,7 +165,6 @@ class Board {
       String s = "";
       for (int i=0; i<6; i++){
         for(int j=0; j<4; j++){
-          //System.out.println("V: [" + this.lastPlayX + "],[" + (maxh-j) + "]" + j);
           s += this.board[j][i];
           s += this.board[j+1][i];
           s += this.board[j+2][i];
@@ -176,15 +173,12 @@ class Board {
           s = "";
         }
       }
-      //System.out.println("Horizontal: " + total);
       return total;
     }
 
 
     public int checkDiagTL(char c){
       int total = 0;
-      int x = 0;
-      int y = 0;
       int values[] = new int[] {1,2,3,3,2,1};
       int auxx[] = new int[] {0,-1,-2,-2,-2,-2};
       int auxy[] = new int[] {3,4,5,5,5,5};
@@ -192,39 +186,21 @@ class Board {
       for(int i=0; i < 6; i++){
         int jau = 0;
         for (int j=0 ; j<values[i]; j++) {
-          /*System.out.println("--------------");
-          System.out.println(j);*/
           s += this.board[i+auxx[i]+j][j+auxy[i]-jau];
-          /*x = i+auxx[i]+j;
-          y = j+auxy[i]-jau;
-          System.out.println("[" + x + "],[" + y + "]");*/
           s += this.board[i+auxx[i]+j+1][j+auxy[i]-jau-1];
-          /*x = i+auxx[i]+j+1;
-          y = j+auxy[i]-jau-1;
-          System.out.println("[" + x + "],[" + y + "]");*/
           s += this.board[i+auxx[i]+j+2][j+auxy[i]-jau-2];
-          /*x = i+auxx[i]+j+2;
-          y = j+auxy[i]-jau-2;
-          System.out.println("[" + x + "],[" + y + "]");*/
           s += this.board[i+auxx[i]+j+3][j+auxy[i]-jau-3];
-          /*x = i+auxx[i]+j+3;
-          y = j+auxy[i]-jau-3;
-          System.out.println("[" + x + "],[" + y + "]");*/
           total += checkScore(s);
           s = "";
           jau += 2;
         }
-        //System.out.println("--------------");
       }
-      //System.out.println("DiagonalTL: " + total);
       return total;
     }
 
 
     public int checkDiagTR(char c){
       int total = 0;
-      int x = 0;
-      int y = 0;
       int values[] = new int[] {1,2,3,3,2,1};
       int auxx[] = new int[] {0,-1,-2,-2,-2,-2};
       int auxy[] = new int[] {2,1,0,0,0,0};
@@ -232,31 +208,14 @@ class Board {
       for(int i=0; i < 6; i++){
         int jau = 0;
         for (int j=0 ; j<values[i]; j++) {
-          /*System.out.println("--------------");
-          System.out.println(j);*/
           s += this.board[i+auxx[i]+j][j+auxy[i]+jau];
-          /*x = i+auxx[i]+j;
-          y = j+auxy[i]+jau;
-          System.out.println("[" + x + "],[" + y + "]");*/
           s += this.board[i+auxx[i]+j+1][j+auxy[i]+jau+1];
-          /*x = i+auxx[i]+j+1;
-          y = j+auxy[i]+jau+1;
-          System.out.println("[" + x + "],[" + y + "]");*/
           s += this.board[i+auxx[i]+j+2][j+auxy[i]+jau+2];
-          /*x = i+auxx[i]+j+2;
-          y = j+auxy[i]+jau+2;
-          System.out.println("[" + x + "],[" + y + "]");*/
           s += this.board[i+auxx[i]+j+3][j+auxy[i]+jau+3];
-          /*x = i+auxx[i]+j+3;
-          y = j+auxy[i]+jau+3;
-          System.out.println("[" + x + "],[" + y + "]");*/
           total += checkScore(s);
           s = "";
-          jau += 0;
         }
-        //System.out.println("--------------");
       }
-      //System.out.println("DiagonalTR: " + total);
       return total;
     }
 
@@ -270,7 +229,6 @@ class Board {
       else if (b.turn == 'O'){
         score = score + 16;
       }
-      //System.out.println(score);
       return score;
     }
 
@@ -284,7 +242,6 @@ class Board {
 
 
     public Boolean drawcheck(){ // verifica se há empate
-      //System.out.println(this.score);
       if(this.score != 16){ 
         if (this.score !=-16)
           return false;

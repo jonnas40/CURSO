@@ -93,7 +93,6 @@ class Connect4{
         System.out.println("Coluna não existente");
       }
       win = tab.magicheck();
-      //System.out.println(Board.score(tab));
     }
     Board.printBoard(tab);
     if(win==2) System.out.println("Empate");
