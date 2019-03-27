@@ -26,9 +26,11 @@ class Connect4{
     Board tab = new Board();
     int win = 0;
     Boolean playerTurn = true;
+    int ac = -1;
     while(win==0){
       if (playerTurn) {
         Board.printBoard(tab);
+        if(ac!=-1) System.out.println("Jogou em: " + ac);
         int i = stdin.nextInt();
         if (i<7 && i>=0){
           int j = 0;
@@ -47,7 +49,7 @@ class Connect4{
         }
       }
       else {
-        int ac = 0;
+        ac = 0;
         switch (esc){
           case 1:
             ac = Algoritmos.minimax(tab, esc2);
@@ -59,7 +61,6 @@ class Connect4{
             ac = Algoritmos.MCTS(tab, esc2);
             break;
         }
-        System.out.println("Jogou em: " + ac);
         tab = tab.play(ac);
         win = tab.magicheck();
         playerTurn = true;
