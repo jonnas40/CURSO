@@ -101,6 +101,7 @@ class Algoritmos {
     public static int MCTS(Board b, int depth){
         Node<Board> root = new Node<>(b);
         Node<Board> pai = root;
+        Node<Board> node;
         double UCB = Double.MIN_VALUE;
         Node<Board> chosen = new Node<>(b);
         Node<Board> chosenSon = new Node<>(b);
@@ -110,16 +111,34 @@ class Algoritmos {
         Board choso = new Board();
         root.addChildren(Board.sonsM(b));
         for (int i = 0; i < depth; i++) {
-            for (Node<Board> test : pai.getChildren()) {
-                if(UCB < UCB1(test.getData().getT(), test.getData().getN(), i)){
-                    chosen = test;
-                    UCB = UCB1(test.getData().getT(), test.getData().getN(), i);
+
+            Set <Node<Board>> visitados = new HashSet <Node<Board>>();
+
+            node = root;
+            while(!node.isLeaf()){
+                for (Node<Board> test : node.getChildren()) {
+                    //Board.printBoard(test.getData());
+                    if(UCB < UCB1(test.getData().getT(), test.getData().getN(), i)){
+                        chosen = test;
+                        UCB = UCB1(test.getData().getT(), test.getData().getN(), i);
+                    }
                 }
+                //System.out.println("leaf");
+                UCB = Double.MIN_VALUE;
+                node = chosen;
+                if(node.isLeaf())
+                    break;
             }
+            System.out.println("apos leaf");
+            /*while(!pai.isLeaf()){
+                UCB = Double.MIN_VALUE;
+                pai = chosen;
+            }*/
+
             UCB = Double.MIN_VALUE;
             //System.out.println(UCB1(chosen.getData().getT(), chosen.getData().getN(), i));
             //Board.printBoard(chosen.getData());
-            if (chosen.getData().getN() == 0 && chosen.getChildren()!=null) {
+            if (chosen.getData().getN() == 0) {
                 int v = rollout(chosen.getData());
                 cho = chosen.getData();
                 cho.setT(v);
@@ -170,8 +189,8 @@ class Algoritmos {
         int esc=0;
         Node<Board> ac = new Node<>(b);
         for (Node<Board> ans : root.getChildren()) {
-            if( (ans.getData().getT()/ans.getData().getN()) > esc){
-                esc = (ans.getData().getT()/ans.getData().getN());
+            if( ans.getData().getN() > esc){
+                esc = ans.getData().getN();
                 ac = ans;
             }
         }
@@ -180,17 +199,17 @@ class Algoritmos {
 
 
     private static int rollout(Board b){
-        int limit = 100;
+        int limit = 45;
         Board test = new Board();
         Board.copyBoard(b,test);
         while (test.magicheck()==0 && limit!=0){
             int esc = (int)(Math.round(Math.random() * 6))/1;
-            //System.out.println(esc);
+            System.out.println(esc);
             Board a = test.play(esc);
             if (!Board.compareBoard(a, test)) {
                 test = test.play(esc);
+                limit--;
             }
-            limit--;
         }
         if (test.magicheck()==1) return 1;
         else return 0;
@@ -198,7 +217,7 @@ class Algoritmos {
 
     private static double UCB1(int v, int n, int j){
         if(n==0) return Integer.MAX_VALUE;
-        return (double)(v/n) + 7 * (Math.sqrt(Math.log(n)/j));
+        return (double)(v/n) + 7 * (Math.sqrt(Math.log(j)/n));
     }
 
 

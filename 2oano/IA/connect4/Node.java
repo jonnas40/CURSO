@@ -19,8 +19,10 @@ public class Node<T> {
     }
     
     public void addChildren(List<Node<T>> children) {
-        children.forEach(each -> each.setParent(this));
-        this.children.addAll(children);
+        for (Node<T> child : children) {
+            child.setParent(this);
+            this.children.add(child);
+        }
     }
     
     public List<Node<T>> getChildren() {
@@ -41,6 +43,10 @@ public class Node<T> {
     
     public Node<T> getParent() {
         return parent;
+    }
+
+    public Boolean isLeaf() {
+        return this.getChildren().isEmpty();
     }
     
    }

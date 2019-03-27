@@ -10,6 +10,7 @@ class Board {
     int score;
     int t=0;
     int n=0;
+    LinkedList<Integer> actions = new LinkedList<Integer>();
 
 
     public Board(){
@@ -17,7 +18,7 @@ class Board {
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 6; j++) {
                 this.board[i][j] = ' ';
-            }
+              }
         }
         this.turn = 'O';
         this.nextTurn = 'X';
@@ -41,6 +42,15 @@ class Board {
 
     public int getT(){
       return this.t;
+    }
+
+
+    public LinkedList<Integer> actions(){
+      LinkedList<Integer> actions = new LinkedList<Integer>();
+      for (int i = 0; i < 7; i++) {
+        if (this.board[i][5] == ' ') actions.addLast(i);
+      }
+      return actions;
     }
 
 
@@ -80,11 +90,8 @@ class Board {
 
     public static LinkedList<Board> sons(Board b){
         LinkedList<Board> sons = new LinkedList<Board>();
-        for (int i = 0; i < 7; i++) {
-          Board a = b.play(i);
-          if (!Board.compareBoard(a, b)) {
-            sons.add(b.play(i));
-          }
+        for (int i : b.actions()) {
+          sons.add(b.play(i));
         }
         return sons;
     }
@@ -92,14 +99,9 @@ class Board {
 
     public static List<Node<Board>> sonsM(Board b){
       List <Node<Board>> sons = new ArrayList<>();
-      for (int i = 0; i < 7; i++) {
-        Board a = b.play(i);
-        if (!Board.compareBoard(a, b)) {
-          a.t=0;
-          a.n=0;
-          Node<Board> played = new Node<>(a);
-          sons.add(played);
-        }
+      for (int i : b.actions() ) {
+        Node<Board> played = new Node<>(b.play(i));
+        sons.add(played);
       }
       return sons;
   }
@@ -109,15 +111,12 @@ class Board {
         int i = 0;
         Board ret = new Board();
         copyBoard(this, ret);
-        while (ret.board[n][i] != ' ' && i<6) {
-          if (ret.board[n][i] != ' ' && i==5) {
-            return this;
-          }
+        while (ret.board[n][i] != ' ' && i!=5) {
           i++;
         }
         ret.board[n][i] = this.nextTurn;
-        //ret.turn = this.nextTurn;
-        //ret.nextTurn = this.turn;
+        ret.t=0;
+        ret.n=0;
         ret.lastPlayX = n;
         ret.lastPlayY = i;
         ret.score = score(ret);
@@ -251,7 +250,7 @@ class Board {
 
 
     public Boolean drawcheck(){ // verifica se há empate
-      if(this.score != 0){
+      if(this.score != 16 || this.score!=-16){
         return false;
       }
       for (int i=0; i<7; i++){

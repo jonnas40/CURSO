@@ -32,7 +32,7 @@ class Connect4{
         int i = stdin.nextInt();
         if (i<7 && i>=0){
           int j = 0;
-          if(!Board.compareBoard(tab, tab.play(i))){
+          if(tab.actions().contains(i)){
             tab = tab.play(i);
           }
           else{ 
@@ -82,21 +82,21 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4 || esc<1){System.out.println("Input errado"); break;}
-          playC4(esc, (esc2 * 2 + 1));
+          playC4(esc, (esc2 * 2 + 2));
           break;
         case 2:
           print_menu();
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, (esc2 * 2 + 1));
+          playC4(esc, (esc2 * 3));
           break;
         case 3:
           print_menu();
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, (esc2*1000));
+          playC4(esc, (esc2*3000));
           break;
         case 4:
           System.exit(0);
