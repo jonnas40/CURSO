@@ -32,7 +32,7 @@ class Connect4{
     while(win==0){
       if (playerTurn) {
         Board.printBoard(tab);
-        if(ac!=-1) System.out.println("Jogou em: " + ac);
+        if(ac!=-1) System.out.println("Computador jogou em: " + ac);
         int i = stdin.nextInt();
         if (i<7 && i>=0){
           int j = 0;
@@ -74,7 +74,7 @@ class Connect4{
       }
     }
     Board.printBoard(tab);
-    System.out.println("Jogou em: " + ac);
+    System.out.println("Computador jogou em: " + ac);
     if(win==2) System.out.println("Empate");
     else System.out.println(tab.turn + " wins");
   }
