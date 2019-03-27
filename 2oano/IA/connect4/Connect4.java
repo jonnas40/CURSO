@@ -68,6 +68,34 @@ class Connect4{
     System.out.println(tab.turn + " wins");
   }
 
+  public static void testC4(){
+    Scanner stdin = new Scanner(System.in);
+    Board tab = new Board();
+    Boolean win = false;
+    while(win!=true){
+      Board.printBoard(tab);
+      int i = stdin.nextInt();
+      if (i<7 && i>=0){
+        int j = 0;
+        if(tab.actions().contains(i)){
+          tab = tab.play(i);
+        }
+        else{ 
+          System.out.println("Coluna cheia");
+          continue;
+        }
+        win = tab.checkWin();
+      }
+      else {
+        System.out.println("Coluna não existente");
+      }
+      win = tab.checkWin();
+      System.out.println(Board.score(tab));
+    }
+    Board.printBoard(tab);
+    System.out.println(tab.turn + " wins");
+  }
+
 
   public static void main(String[] args) {
     Scanner stdin = new Scanner(System.in);
@@ -100,6 +128,9 @@ class Connect4{
           break;
         case 4:
           System.exit(0);
+          break;
+        case 5:
+          testc4();
           break;
         default:
           System.out.println("Input errado");
