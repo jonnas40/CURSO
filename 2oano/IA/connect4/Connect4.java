@@ -22,6 +22,8 @@ class Connect4{
 
 
   public static void playC4(int esc, int esc2){
+    long startTime = 0;
+    long duration = 0;
     Scanner stdin = new Scanner(System.in);
     Board tab = new Board();
     int win = 0;
@@ -37,7 +39,7 @@ class Connect4{
           if(tab.actions().contains(i)){
             tab = tab.play(i);
           }
-          else{ 
+          else{
             System.out.println("Coluna cheia");
             continue;
           }
@@ -52,15 +54,20 @@ class Connect4{
         ac = 0;
         switch (esc){
           case 1:
+            startTime = System.currentTimeMillis();
             ac = Algoritmos.minimax(tab, esc2);
             break;
           case 2:
+            startTime = System.currentTimeMillis();
             ac = Algoritmos.alfabeta(tab, esc2);
             break;
           case 3:
+            startTime = System.currentTimeMillis();
             ac = Algoritmos.MCTS(tab, esc2);
             break;
         }
+        duration = System.currentTimeMillis() - startTime;
+        System.out.println("Tempo de Execução: " + duration + " ms");
         tab = tab.play(ac);
         win = tab.magicheck();
         playerTurn = true;
@@ -84,7 +91,7 @@ class Connect4{
         if(tab.actions().contains(i)){
           tab = tab.play(i);
         }
-        else{ 
+        else{
           System.out.println("Coluna cheia");
           continue;
         }
