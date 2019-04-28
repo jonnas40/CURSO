@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="953ef4f1-60cd-4c3e-b41b-f3029af89314" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Projeto2/TrabPra2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Projeto2/TrabPra2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../IA/connect4/Algoritmos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../IA/connect4/Algoritmos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IA/connect4/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/../IA/connect4/Board.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../IA/connect4/Connect4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../IA/connect4/Connect4.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../IA/connect4/Connect4.java" beforeDir="false" afterPath="$PROJECT_DIR$/../IA/connect4/Connect4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../IA/connect4/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/../IA/connect4/Node.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +23,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Projeto2/TrabPra2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="41" column="42" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+            <state relative-caret-position="15">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
             </state>
           </provider>
         </entry>
@@ -203,11 +201,12 @@
       <workItem from="1553186793201" duration="47000" />
       <workItem from="1553429180866" duration="5991000" />
       <workItem from="1553444297340" duration="268000" />
+      <workItem from="1555416824691" duration="60000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36961000" />
+    <option name="totallyTimeSpent" value="37021000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="6" />
@@ -260,8 +259,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Projeto2/TrabPra2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="41" column="42" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+        <state relative-caret-position="15">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>

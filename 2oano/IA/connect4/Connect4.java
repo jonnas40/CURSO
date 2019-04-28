@@ -7,7 +7,7 @@ class Connect4{
     System.out.println("----- Escolha o algoritmo -----");
     System.out.println("1) Minimax");
     System.out.println("2) Minimax com Alfa-Beta");
-    System.out.println("3) Monte Carlo Tree Climbing");
+    System.out.println("3) Monte Carlo Tree Search");
     System.out.println("4) Sair");
   }
 
@@ -127,7 +127,7 @@ class Connect4{
           esc2 = stdin.nextInt();
           if(esc2 == 4){break;}
           else if (esc2 > 4){System.out.println("Input errado"); break;}
-          playC4(esc, (esc2 * 3));
+          playC4(esc, (esc2 * 2 + 2));
           break;
         case 3:
           print_menu();
