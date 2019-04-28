@@ -2,10 +2,17 @@ import java.util.*;
 
 class Algoritmos {
 
+    //public static int nnos = 1;
+
+///////////////////////////////////////////////////////////////////////////////
+////                            Minimax                                    ////
+///////////////////////////////////////////////////////////////////////////////
 
     public static int minimax(Board b, int depth){
         Board v = new Board();
         v = maxValue(b, depth-1);
+        //System.out.println("Numero de Nós: "+ nnos);
+        //nnos = 1;
         return v.lastPlayX;
     }
 
@@ -18,6 +25,7 @@ class Algoritmos {
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
+          //nnos++;
             int m=minValue(son, depth-1).score;
             if (v<m){
                 v = m;
@@ -37,6 +45,7 @@ class Algoritmos {
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
+          //nnos++;
             int m=maxValue(son, depth-1).score;
             if (v>m){
                 v = m;
@@ -46,10 +55,15 @@ class Algoritmos {
         return ac;
     }
 
+///////////////////////////////////////////////////////////////////////////////
+////                         Alpha-Beta                                    ////
+///////////////////////////////////////////////////////////////////////////////
 
     public static int alfabeta(Board b, int depth){
         Board v = new Board();
         v = maxValueAB(b, Integer.MIN_VALUE, Integer.MAX_VALUE, depth-1);
+        //System.out.println("Numero de Nós: "+ nnos);
+        //nnos = 1;
         return v.lastPlayX;
     }
 
@@ -63,6 +77,7 @@ class Algoritmos {
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
+          //nnos++;
             int m=minValueAB(son, alfa, beta, depth-1).score;
             if (v<m){
                 v = m;
@@ -85,6 +100,7 @@ class Algoritmos {
         }
         filhos=Board.sons(b);
         for (Board son : filhos) {
+          //nnos++;
             int m=maxValueAB(son, alfa, beta, depth-1).score;
             if (v>m){
                 v = m;
@@ -97,22 +113,27 @@ class Algoritmos {
         return ac;
     }
 
+///////////////////////////////////////////////////////////////////////////////
+////                         Monte-Carlo                                   ////
+///////////////////////////////////////////////////////////////////////////////
 
     public static int MCTS(Board b, int depth){
+      //nnos = 1;
         Node<Board> root = new Node<>(b);
         Node<Board> node;
         double UCB = Double.MIN_VALUE;
         Node<Board> chosen = new Node<>(b);
-        
+
         for (int i = 0; i < depth; i++) {
 
             Set <Node<Board>> visitados = new HashSet <Node<Board>>();
 
             node = root;
             visitados.add(node);
-            
+
             while(!node.isLeaf()){
                 for (Node<Board> test : node.getChildren()) {
+                  //nnos++;
                     if(UCB < UCB1(test.getData().getT(), test.getData().getN(), i)){
                         chosen = test;
                         UCB = UCB1(test.getData().getT(), test.getData().getN(), i);
@@ -135,7 +156,7 @@ class Algoritmos {
             UCB = Double.MIN_VALUE;
 
             int v = rollout(chosen.getData());
-            
+
             Board cho = chosen.getData();
             cho.setT(v);
             cho.setN();
@@ -147,7 +168,7 @@ class Algoritmos {
                 cho.setN();
                 pai.setData(cho);
             }
-            
+
         }
 
         int esc=0;
@@ -158,6 +179,7 @@ class Algoritmos {
                 ac = ans;
             }
         }
+        //System.out.println("Numero de nós: " + nnos);
         return ac.getData().lastPlayX;
     }
 
@@ -187,4 +209,3 @@ class Algoritmos {
         return (a>b) ? b : a;
     }
 }
-
