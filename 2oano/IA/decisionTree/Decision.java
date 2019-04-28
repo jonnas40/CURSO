@@ -30,58 +30,47 @@ class Decision{
         } catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        
-        for (String[] s : values) {
-            for (int i = 0; i < s.length; i++) {
-                System.out.print(s[i] + " ");
-                //System.out.println(atributes[i] + " ");
-            }
-            System.out.println();
-        }
-        
-        /*
-        for (Atribute var : atributos) {
-            System.out.println(var.getName());
-            for (String opt : var.getValues()) {
-                System.out.println(opt);
-            }
-            System.out.println();
-        }*/
 
-        //System.out.println(pluralityValue(values));
+        //classe.printAtr();
+
         List<String[]> examples = new ArrayList<String[]>();
-        ID3(values, atributos, examples);
+        DFS(ID3(values, atributos, examples), "");
+
+        
     }
 
     //ALGORITMO
 
-    public static void ID3(List<String[]> values, LinkedList<Atribute> atributos, List<String[]> examples){
-        List<String[]> exs = new ArrayList<String[]>();
-        /*if (values.size()==0)
-            return pluralityValue(examples);
-        else if (allSame(values))
-            return values.get(0)[classe.getIndex()];
+    public static Node ID3(List<String[]> examples, LinkedList<Atribute> atributos, List<String[]> parent_examples){
+        if (examples.size()==0)
+        return pluralityValue(parent_examples);
+        else if (allSame(examples)){
+            String s = examples.get(0)[classe.getIndex()];
+            Node n = new Node(s, examples.size());
+            return n;
+        }
         else if (atributos.isEmpty())
-            return pluralityValue(values);
-        else{*/
+        return pluralityValue(examples);
+        else{
             //Atribute chosen;
-            /*double argmax=Double.MAX_VALUE;
-            for (Atribute a : atributos) {
-                double max=entropy(a, values);
-                if(max<argmax){
-                    argmax=max;
-                }
-            }*/
-            Atribute chosen=chosenOne(values, atributos);
-            //adiciona à arvore
+            Atribute chosen=chosenOne(examples, atributos);
+            Node tree = new Node(chosen);
+            int i = 0;
             for (String value : chosen.getValues()) {
+                List<String[]> exs = new ArrayList<String[]>();
                 for (String[] var : examples) {
                     if(var[chosen.getIndex()].equals(value))
                         exs.add(var);
                 }
+                atributos.remove(chosen);
+                Node subtree = ID3(exs, atributos, examples);
+                tree.addChild(subtree, i);
+                i++;
+                //Node a = new Node(value);
             }
-        //}
-        chosen.printAtr();
+            return tree;
+            //chosen.printAtr();
+        }
     }
 
     //função para escolher o melhor atributo
@@ -91,15 +80,14 @@ class Decision{
         double argmax=Double.MAX_VALUE;
         for (Atribute a : atributos) {
             double max=entropy(a, values);
-            System.out.println(max);
-            a.printAtr();
+            //System.out.println(max);
+            //a.printAtr();
             if(max<argmax){
                 argmax=max;
                 chosen=a;
             }
         }
         return chosen;
-
     }
 
     //função entropia e importancia
@@ -136,11 +124,11 @@ class Decision{
     
     //função plurality value
     
-    public static String pluralityValue(List<String[]> values){
+    public static Node pluralityValue(List<String[]> values){
         int[] counter = new int[classe.noVal()];
         for (String[] var : values) {
-            int i = 0;
             for (String cl : classe.getValues()) {
+                int i = 0;
                 if (cl.equals(var[classe.getIndex()])) {
                     counter[i]++;
                 }
@@ -149,20 +137,27 @@ class Decision{
         }
         int max=0;
         int maxj=0;
+        int count = 0;
         for(int j = 0; j<counter.length; j++) {
             if(counter[j]>max) {
                 max=counter[j];
                 maxj=j;
             }
+            count += counter[j];
         }
-        return classe.getValues().get(maxj);
+        Node ret = new Node(classe.getValues().get(maxj), count);
+        return ret;
     }
 
     //função auxiliar
     
     public static Boolean allSame(List<String[]> values){
         String[] aux = values.get(0);
+        /*for (String a : aux) {
+            System.out.print(a + " ");
+        }*/
         String au = aux[classe.getIndex()];
+        //System.out.println(au);
         for (String[] var : values) {
             if (!var[classe.getIndex()].equals(au)) return false;
         }
@@ -179,6 +174,14 @@ class Decision{
         return logb(a,2);
     }
 
-    
+    //DFS
+
+    public static void DFS(Node n, String space){
+        System.out.println(space+n);
+        if (n.isLeaf()) return;
+        for (Node son : n.getChildren()) {
+            DFS(son, space + "\t");
+        }
+    }
     
 }

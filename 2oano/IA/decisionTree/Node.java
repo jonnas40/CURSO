@@ -4,15 +4,13 @@ public class Node {
  
     private String data = null;
 
-    private int counter = null;
+    private int counter;
     
-    private List<Node> children = new ArrayList<>();
-    
-    private Node parent = null;
-    
+    private Node[] children;
+        
     public Node(Atribute data) {
         this.data = data.getName();
-
+        this.children = new Node[data.getValues().size()];
     }
 
     public Node(String name, int counter){
@@ -20,20 +18,11 @@ public class Node {
         this.counter = counter;
     }
     
-    public Node addChild(Node child) {
-        child.setParent(this);
-        this.children.add(child);
-        return child;
+    public void addChild(Node child, int index) {
+        this.children[index] = child;
     }
     
-    public void addChildren(List<Node> children) {
-        for (Node child : children) {
-            child.setParent(this);
-            this.children.add(child);
-        }
-    }
-    
-    public List<Node> getChildren() {
+    public Node[] getChildren() {
         return children;
     }
     
@@ -45,16 +34,16 @@ public class Node {
         this.data = data;
     }
     
-    private void setParent(Node parent) {
-        this.parent = parent;
-    }
-    
-    public Node getParent() {
-        return parent;
+    public Boolean isLeaf() {
+        return this.children==null;
     }
 
-    public Boolean isLeaf() {
-        return this.getChildren().isEmpty();
+    public String toString(){
+        if(this.isLeaf()){
+            return data + " " + counter;
+        }
+        else
+            return data;
     }
     
    }
