@@ -1,0 +1,9 @@
+ Este Trabalho foi realizado por João Nogueira e João Silva
+ 
+ Este Trabalho foi realizado num sistema operativo Ubuntu 18.04 e todos os teste feitos nos relatório foram testados num sistema com um processador Itel Core i-7 6700K e 16 GiB de RAM.
+ 
+ Para compilar o programa basta executar o comando "javac Connect4.java"
+
+ Para executar o programa execute o comando "java Connect4"
+ Dentro do programa selecione o algoritmo que deseja utilizar, a dificuldade e o primeiro a jogar, depois, basta selecionar o numero da coluna em que deseja por a sua peça. Jogador é representado por X e o computador por O.
+ 

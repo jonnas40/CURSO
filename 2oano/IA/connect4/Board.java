@@ -134,11 +134,11 @@ class Board {
       if(numX == 1 && numO == 0){ return -1; }
       else if(numX == 2 && numO == 0){ return -10; }
       else if(numX == 3 && numO == 0){ return -50; }
-      else if(numX == 4 && numO == 0){ return -9999; }
+      else if(numX == 4 && numO == 0){ return -528; }
       else if(numX == 0 && numO == 1){ return 1; }
       else if(numX == 0 && numO == 2){ return 10; }
       else if(numX == 0 && numO == 3){ return 50; }
-      else if(numX == 0 && numO == 4){ return 9999; }
+      else if(numX == 0 && numO == 4){ return 528; }
       else { return 0; }
     }
 
@@ -233,16 +233,8 @@ class Board {
     }
 
 
-    public Boolean checkWin(){
-      if(drawcheck())
-      if (this.checkHor(this.turn) >= 512 || this.checkVert(this.turn) >= 512 || this.checkDiagTL(this.turn) >= 512 || this.checkDiagTR(this.turn) >= 512) return true;
-      else if (this.checkHor(this.turn) <= -512 || this.checkVert(this.turn) <= -512 || this.checkDiagTL(this.turn) <= -512 || this.checkDiagTR(this.turn) <= -512) return true;
-      return false;
-    }
-
-
     public Boolean drawcheck(){ // verifica se há empate
-      if(this.score != 16){ 
+      if(this.score != 16){
         if (this.score !=-16)
           return false;
       }
