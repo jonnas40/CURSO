@@ -32,7 +32,7 @@ class Decision{
             e.printStackTrace();
         }
 
-        String exampleFile = args[1];
+        /*String exampleFile = args[1];
         File exmp = new File(exampleFile);
         List<String[]> exa = new ArrayList<String[]>();
         try {
@@ -46,23 +46,34 @@ class Decision{
             input.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
-
-        /*for (String[] var : values) {
+        
+        
+        
+        /*for (String[] var : exa) {
             for (String ex : var) {
                 System.out.print(ex + " ");
             }
             System.out.println();
         }*/
-
+        
         //classe.printAtr();
-
+        
         
         List<String[]> examples = new ArrayList<String[]>();
         Node tree = ID3(values, atributos, examples);
         DFS(tree, "");
-        //DFS(ID3(values, atributos, examples), "");
+        
+        Scanner sc = new Scanner(System.in);
+        List<String[]> exa = new ArrayList<String[]>();
+        String in = sc.next();
+        while (!in.equals("done")) {
+            String[] buf = in.split(",");
+            exa.add(buf);
+            in = sc.next();
+        }
+        exa = discrete(exa);
 
         for (String[] ex : exa) {
             System.out.println(classify(tree, ex, atributos));
@@ -222,13 +233,15 @@ class Decision{
         
         String atr = tree.getData();
         int index = 0;
+        //System.out.println(atr);
         for (Atribute a : atributos) {
             if (atr.equals(a.getName()))
                 index = a.getIndex();
         }
-
         for (Node son : tree.getChildren()) {
-            if (son.getParent().equals(example[index])) 
+            //System.out.println(son.getParent());
+            //System.out.println(example[index+1]);
+            if (son.getParent().equals(example[index+1])) 
                 classify(son, example, atributos);
         }
         return "Not found";
