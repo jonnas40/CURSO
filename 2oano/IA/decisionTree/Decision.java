@@ -12,6 +12,7 @@ class Decision{
         File file = new File(fileName);
         List<String[]> values = new ArrayList<String[]>();
         LinkedList<Atribute> atributos = new LinkedList<Atribute>();
+        LinkedList<Atribute> atributos2 = new LinkedList<Atribute>();
         try{
             Scanner inputStream = new Scanner(file);
             String data = inputStream.next();
@@ -25,6 +26,7 @@ class Decision{
             for (int i = 1; i<atributes.length-1; i++) {
                 Atribute a = new Atribute(atributes[i], i, values);
                 atributos.add(a);
+                atributos2.add(a);
             }
             classe = new Atribute(atributes[atributes.length-1], atributes.length-1, values);
             inputStream.close();
@@ -64,7 +66,7 @@ class Decision{
         List<String[]> examples = new ArrayList<String[]>();
         Node tree = ID3(values, atributos, examples);
         DFS(tree, "");
-        
+
         Scanner sc = new Scanner(System.in);
         List<String[]> exa = new ArrayList<String[]>();
         String in = sc.next();
@@ -74,9 +76,10 @@ class Decision{
             in = sc.next();
         }
         exa = discrete(exa);
-
+        int i = 1;
         for (String[] ex : exa) {
-            System.out.println(classify(tree, ex, atributos));
+            System.out.println("Exemplo " + i + ":" + classify(tree, ex, atributos2));
+            i++;
         }
     }
 
@@ -235,14 +238,18 @@ class Decision{
         int index = 0;
         //System.out.println(atr);
         for (Atribute a : atributos) {
-            if (atr.equals(a.getName()))
+            //System.out.println(a.getName());
+            if (atr.equals(a.getName())){
                 index = a.getIndex();
+            }
         }
         for (Node son : tree.getChildren()) {
             //System.out.println(son.getParent());
-            //System.out.println(example[index+1]);
-            if (son.getParent().equals(example[index+1])) 
-                classify(son, example, atributos);
+            //System.out.println(example[index]);
+            if (example[index].equals(son.getParent())){
+                //System.out.println(son.getData());
+                return classify(son, example, atributos);
+            } 
         }
         return "Not found";
     }
