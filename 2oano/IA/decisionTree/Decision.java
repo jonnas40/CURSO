@@ -21,6 +21,7 @@ class Decision{
                 String[] aux = data.split(",");
                 values.add(aux);
             }
+            values=discrete(values);
             for (int i = 1; i<atributes.length-1; i++) {
                 Atribute a = new Atribute(atributes[i], i, values);
                 atributos.add(a);
@@ -31,12 +32,41 @@ class Decision{
             e.printStackTrace();
         }
 
+        String exampleFile = args[1];
+        File exmp = new File(exampleFile);
+        List<String[]> exa = new ArrayList<String[]>();
+        try {
+            Scanner input = new Scanner(file);
+            while(input.hasNext()){
+                String dat = input.next();
+                String[] au = dat.split(",");
+                exa.add(au);
+            }
+            exa = discrete(exa);
+            input.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        /*for (String[] var : values) {
+            for (String ex : var) {
+                System.out.print(ex + " ");
+            }
+            System.out.println();
+        }*/
+
         //classe.printAtr();
 
-        List<String[]> examples = new ArrayList<String[]>();
-        DFS(ID3(values, atributos, examples), "");
-
         
+        List<String[]> examples = new ArrayList<String[]>();
+        Node tree = ID3(values, atributos, examples);
+        DFS(tree, "");
+        //DFS(ID3(values, atributos, examples), "");
+
+        for (String[] ex : exa) {
+            System.out.println(classify(tree, ex, atributos));
+        }
     }
 
     //ALGORITMO
@@ -64,7 +94,7 @@ class Decision{
                 }
                 atributos.remove(chosen);
                 Node subtree = ID3(exs, atributos, examples);
-                tree.addChild(subtree, i);
+                tree.addChild(subtree, i, value);
                 i++;
                 //Node a = new Node(value);
             }
@@ -169,13 +199,13 @@ class Decision{
     public static double logb( double a, double b ){
         return Math.log(a) / Math.log(b);
     }
-
+    
     public static double log2( double a ){
         return logb(a,2);
     }
-
+    
     //DFS
-
+    
     public static void DFS(Node n, String space){
         System.out.println(space+n);
         if (n.isLeaf()) return;
@@ -184,4 +214,65 @@ class Decision{
         }
     }
     
+    //classificação de exemplos dados
+
+    public static String classify(Node tree, String[] example, LinkedList<Atribute> atributos){
+        if (tree.isLeaf())
+            return tree.getData();
+        
+        String atr = tree.getData();
+        int index = 0;
+        for (Atribute a : atributos) {
+            if (atr.equals(a.getName()))
+                index = a.getIndex();
+        }
+
+        for (Node son : tree.getChildren()) {
+            if (son.getParent().equals(example[index])) 
+                classify(son, example, atributos);
+        }
+        return "Not found";
+    }
+        
+
+    //torna os dados continuos em discretos
+
+
+    public static List<String[]> discrete(List<String[]> values){
+        String[] ex = values.get(0);
+        for (int i = 1; i < ex.length; i++) {
+            try{
+                double aux = Double.parseDouble(ex[i]);
+                double m = media(values, i);
+                values = troca(values, i, m);
+            }
+            catch(NumberFormatException e){}
+        }
+        return values;
+    }
+
+    public static double media(List<String[]> values, int index){
+        double acca = 0;
+        int i = 0;
+        for (i = 0; i < values.size(); i++) {
+            acca += Double.parseDouble(values.get(i)[index]);
+        }
+        return acca/i;
+    }
+
+    public static List<String[]> troca(List<String[]> values, int index, double media){
+        double aux = 0;
+        String med = String.format("%.2f", media);
+        //System.out.println(med);
+        for (String[] ex : values) {
+            aux = Double.parseDouble(ex[index]);
+            if (aux<media) {
+                ex[index] = "<" + med;
+            }
+            else{
+                ex[index] = ">" + med;
+            }
+        }
+        return values;
+    }
 }

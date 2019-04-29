@@ -7,6 +7,8 @@ public class Node {
     private int counter;
     
     private Node[] children;
+
+    private String parentName = null;
         
     public Node(Atribute data) {
         this.data = data.getName();
@@ -18,12 +20,17 @@ public class Node {
         this.counter = counter;
     }
     
-    public void addChild(Node child, int index) {
+    public void addChild(Node child, int index, String parentName) {
         this.children[index] = child;
+        this.children[index].parentName = parentName;
     }
     
     public Node[] getChildren() {
         return children;
+    }
+
+    public String getParent(){
+        return parentName;
     }
     
     public String getData() {
@@ -40,10 +47,14 @@ public class Node {
 
     public String toString(){
         if(this.isLeaf()){
-            return data + " " + counter;
+            return parentName + ": " + data + " " + counter;
         }
-        else
-            return data;
+        else{
+            if(this.parentName == null)
+                return data;
+            else 
+                return parentName + ": " + data;
+        }
     }
     
    }
