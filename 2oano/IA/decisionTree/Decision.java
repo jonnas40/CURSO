@@ -87,14 +87,14 @@ class Decision{
 
     public static Node ID3(List<String[]> examples, LinkedList<Atribute> atributos, List<String[]> parent_examples){
         if (examples.size()==0)
-        return pluralityValue(parent_examples);
+            return pluralityValue(parent_examples);
         else if (allSame(examples)){
             String s = examples.get(0)[classe.getIndex()];
             Node n = new Node(s, examples.size());
             return n;
         }
         else if (atributos.isEmpty())
-        return pluralityValue(examples);
+            return pluralityValue(examples);
         else{
             //Atribute chosen;
             Atribute chosen=chosenOne(examples, atributos);

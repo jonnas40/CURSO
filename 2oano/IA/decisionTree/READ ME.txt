@@ -1,0 +1,20 @@
+Este trabalho foi realizado por João Nogueira e João Silva.
+
+Para compilar o programa basta usar o comando básico javac, passando como argumento "Decision.java".
+
+    $ javac Decision.java
+
+Para executar o programa terá de usar o comando java, usar como argumento "Decision" e o ficheiro de exemplos, o qual deve estar na mesma pasta que os restantes ficheiros do programa.
+
+    Por exemplo:
+    $ java Decision weather.csv
+
+O programa irá apresentar a árvore resultante dos exemplos. 
+Para receber as classificações de novos exemplos deve inserir manualmente os exemplos com o mesmo formato presente no ficheiro de exemplos a testar e terminar o input com "done".
+
+    Por exemplo:
+    8,sunny,72,95,FALSE
+    9,sunny,69,70,FALSE
+    10,rainy,75,80,FALSE
+    11,sunny,75,70,TRUE
+    done
